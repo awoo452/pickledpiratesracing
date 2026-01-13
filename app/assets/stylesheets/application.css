@@ -1,28 +1,182 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* Layout */
 
- body {
-    text-align: center;
-    background-color: gray;
- }
+.layout {
+  background-color: #e5e5e5;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
 
- img {
-    max-width: 100%;
- }
- 
- .nav-img {
-    max-height: 50px;
-    width: auto;
- }
+/* Nav */
 
- .nav-hr {
-    border: 1px solid black;
- }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.nav img.nav-img {
+  max-height: 50px;
+  width: auto;
+}
+
+.nav-hr {
+  border: 1px solid #000;
+  margin: 0 0 20px 0;
+}
+
+/* Landing */
+
+.landing {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.main-landing-container h1 {
+  margin-bottom: 12px;
+}
+
+.landing-background img {
+  border-radius: 6px;
+  max-width: 100%;
+}
+
+/* Products */
+
+.main-landing-products {
+  margin-top: 40px;
+}
+
+.products {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.product {
+  width: 220px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.product img {
+  max-height: 140px;
+  object-fit: contain;
+}
+
+/* Products index */
+
+.products-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.product-card {
+  width: 220px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.product-image {
+  max-height: 140px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.product-title a {
+  text-decoration: none;
+  color: #000;
+}
+
+.product-price {
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+/* Product show */
+
+.product-show {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.product-show-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 24px;
+  text-align: center;
+}
+
+.product-show-image {
+  max-height: 280px;
+  margin: 20px 0;
+}
+
+.product-description {
+  margin: 16px 0;
+}
+
+.paypal-container {
+  margin: 24px 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+/* Videos */
+
+.main-landing-videos {
+  margin-top: 40px;
+}
+
+.videos {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.video {
+  width: 300px;
+}
+
+.videos-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.videos-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.video-card {
+  width: 320px;
+  text-align: center;
+}

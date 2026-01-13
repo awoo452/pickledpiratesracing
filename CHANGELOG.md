@@ -1,3 +1,27 @@
+## [0.1.1] - 2026-01-13
+
+### Added
+- VideosController with index action
+- Videos index page displaying all videos using existing YouTube embed helper
+- Videos link added to main navigation
+- Landing page hero section with background image (landing.jpg)
+- Styled product cards and product show layout with scoped CSS
+- Styled videos grid layout with scoped CSS
+- Component-scoped CSS for:
+  - Navigation
+  - Landing page
+  - Products index
+  - Product show
+  - Videos index
+
+### Changed
+- Refactored global CSS to component-scoped classes to avoid global element styling
+- Products index view restructured for grid-based layout
+- Product show view restructured for card-based layout and PayPal isolation
+- PayPal rendering logic updated to guard against double-render caused by Turbo lifecycle
+- PayPal container explicitly marked turbo-disabled
+- Product navigation links hardened to prevent Turbo interference
+
 ## [0.1.0] - 2026-01-13
 
 ### Added

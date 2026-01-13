@@ -1,8 +1,7 @@
-<nav>
-  <%= image_tag "logo.png", class: "nav-img", alt: "Pickled Pirates Racing" %>
-
+<nav class="nav">
+  <%= image_tag "logodark.png", class: "nav-img" %>
   <%= link_to "Home", root_path %> |
-  <%= link_to "Products", products_path, data: { turbo: false } %>
+  <%= link_to "Products", products_path, data: { turbo: false } %> |
+  <%= link_to "Videos", videos_path %>
 </nav>
-
 <hr class="nav-hr">

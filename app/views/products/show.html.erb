@@ -1,22 +1,47 @@
-<h1><%= @product.name %></h1>
+<section class="product-show">
 
-<%= image_tag @product.image if @product.image.present? %>
+  <div class="product-show-card">
 
-<p><%= @product.description %></p>
-<p>$<%= number_with_precision(@product.price, precision: 2) %></p>
+    <h1><%= @product.name %></h1>
 
-<div id="paypal-button-container"></div>
+    <% if @product.image.present? %>
+      <%= image_tag @product.image, alt: @product.name, class: "product-show-image" %>
+    <% end %>
+
+    <p class="product-description"><%= @product.description %></p>
+
+    <p class="product-price">
+      $<%= number_with_precision(@product.price, precision: 2) %>
+    </p>
+
+    <div class="paypal-container" data-turbo="false">
+      <div id="paypal-button-container"></div>
+    </div>
+
+    <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
+
+  </div>
+
+</section>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    if (typeof paypal === "undefined") return;
+  let paypalRendered = false;
+
+  function renderPaypalButton() {
+    if (paypalRendered) return;
+
+    if (!window.paypal) {
+      setTimeout(renderPaypalButton, 300);
+      return;
+    }
+
+    paypalRendered = true;
 
     paypal.Buttons({
       createOrder: function(data, actions) {
         return actions.order.create({
           purchase_units: [{
-            amount: {
-              value: "<%= @product.price %>"
-            }
+            amount: { value: "<%= @product.price %>" }
           }]
         });
       },
@@ -27,8 +52,8 @@
         });
       }
     }).render("#paypal-button-container");
-  });
+  }
+
+  document.addEventListener("DOMContentLoaded", renderPaypalButton);
+  document.addEventListener("turbo:load", renderPaypalButton);
 </script>
-
-
-<%= link_to "Back", products_path %>

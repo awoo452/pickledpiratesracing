@@ -1,0 +1,23 @@
+<section class="videos-page">
+
+  <h1>Videos</h1>
+
+  <div class="videos-grid">
+    <% @videos.each do |video| %>
+      <div class="video-card">
+
+        <iframe
+          width="300"
+          height="170"
+          src="<%= youtube_embed(video) %>"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+
+        <h4><%= video.title %></h4>
+
+      </div>
+    <% end %>
+  </div>
+
+</section>
