@@ -1,0 +1,15 @@
+<h1>Products</h1>
+
+<% @products.each do |product| %>
+  <div>
+    <% if product.image.present? %>
+      <%= image_tag product.image, alt: product.name %>
+    <% end %>
+
+    <h3>
+      <%= link_to product.name, product_path(product), class: "featured-product-link", data: { turbo: false } %>
+    </h3>
+
+    <p>$<%= number_with_precision(product.price, precision: 2) %></p>
+  </div>
+<% end %>
