@@ -1,12 +1,35 @@
 <section class="landing">
 
   <div class="main-landing-container">
-    <h1>Pickled Pirates Racing</h1>
     <div class="landing-background">
-        <%= image_tag "landing.jpg", alt: "Pickled Pirates Racing" %>
+        <%= image_tag "landing.png", alt: "Pickled Pirates Racing" %>
     </div>
   </div>
 
+  <div class="main-landing-videos">
+
+  <% if @featured_videos.any? %>
+    <h2>Latest Videos</h2>
+
+    <div class="videos">
+      <% @featured_videos.each do |video| %>
+        
+        <div class="video">
+          <h5><%= video.title %></h5>
+          <iframe
+            width="300"
+            height="170"
+            src="<%= youtube_embed(video) %>"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        </div>
+        
+      <% end %>
+    </div>
+  <% end %>
+  </div>
+    
   <div class="main-landing-products">
     <% if @featured_products.any? %>
         <h2>Featured Products</h2>
@@ -28,30 +51,6 @@
         </div>
     <% end %>
 
-  </div>
-
-<div class="main-landing-videos">
-
-  <% if @featured_videos.any? %>
-    <h2>Featured Videos</h2>
-
-    <div class="videos">
-      <% @featured_videos.each do |video| %>
-        
-        <div class="video">
-          <iframe
-            width="300"
-            height="170"
-            src="<%= youtube_embed(video) %>"
-            frameborder="0"
-            allowfullscreen>
-          </iframe>
-          <h5><%= video.title %></h5>
-        </div>
-        
-      <% end %>
-    </div>
-  <% end %>
   </div>
 
 </section>
