@@ -1,17 +1,34 @@
-<h1>Order #<%= @order.id %></h1>
+<div class="admin-page">
+  <h1>Order #<%= @order.id %></h1>
 
-<p><strong>User:</strong> <%= @order.user.email %></p>
-<p><strong>Status:</strong> <%= @order.status %></p>
-<p><strong>Total:</strong> $<%= @order.total %></p>
+  <div class="admin-card">
+    <p><strong>User:</strong> <%= @order.user.email %></p>
+    <p><strong>Status:</strong> <%= @order.status.capitalize %></p>
+    <p><strong>Total:</strong> $<%= number_with_precision(@order.total, precision: 2) %></p>
+  </div>
 
-<h2>Items</h2>
+  <h2>Items</h2>
 
-<ul>
-  <% @order.order_items.each do |item| %>
-    <li>
-      <%= item.product_variant.product.name %> –
-      <%= item.product_variant.name %> –
-      Qty: <%= item.quantity %>
-    </li>
-  <% end %>
-</ul>
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Variant</th>
+        <th>Qty</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= item.product_variant.product.name %></td>
+          <td><%= item.product_variant.name %></td>
+          <td><%= item.quantity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="admin-back">
+    <%= link_to "← Back to orders", admin_orders_path %>
+  </div>
+</div>

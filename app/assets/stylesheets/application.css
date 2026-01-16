@@ -196,3 +196,81 @@
   width: 320px;
   text-align: center;
 }
+
+/* Admin */
+
+.admin-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: left;
+}
+
+.admin-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-bottom: 24px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+}
+
+.admin-table th {
+  background: #f3f3f3;
+  text-align: left;
+}
+
+.admin-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.admin-table a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+/* Status badges */
+
+.status {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-paid {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-shipped {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.admin-back a {
+  text-decoration: none;
+  color: #0066cc;
+}

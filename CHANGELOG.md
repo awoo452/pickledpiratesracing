@@ -1,3 +1,13 @@
+## [0.1.6] - 2026-01-16
+
+### Changed
+- Admin orders index redesigned with structured table layout
+- Admin order show page redesigned using card-based layout
+- Added status badge styling for order states (pending, paid, shipped, cancelled)
+- Improved admin UI spacing, typography, and table readability
+- Standardized currency formatting for order totals
+- Added navigation link back to orders index from order show page
+
 ## [0.1.5] - 2026-01-16
 
 ### Added
