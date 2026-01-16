@@ -5,6 +5,9 @@
   <%= link_to "Videos", videos_path %> |
   <% if user_signed_in? %>
     <%= link_to "Account", "/account" %> |
+    <% if user_signed_in? && current_user.admin? %>
+      <%= link_to "Admin", admin_orders_path %> |
+    <% end %>
     <%= button_to "Logout",
               destroy_user_session_path,
               method: :delete,
@@ -14,5 +17,6 @@
     <%= link_to "Login", new_user_session_path %> |
     <%= link_to "Sign up", new_user_registration_path %>
   <% end %>
+
 </nav>
 <hr class="nav-hr">

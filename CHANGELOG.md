@@ -1,4 +1,43 @@
-## [0.1.4] - 2026-01-15
+## [0.1.4] - 2026-01-16
+
+### Added
+- Product variants system
+  - ProductVariant model with name, stock, price_override, active flag
+  - Associations between products and variants
+  - Seed data for shirt size/color variants and sticker color variants
+- Orders system
+  - Order model with user association, status, and total
+  - OrderItem model for variant-level line items
+  - Order → User and Order → OrderItems relationships
+- Admin namespace foundation
+  - Admin::BaseController
+  - Admin::OrdersController (index + show)
+  - Admin routes scaffolded
+- Admin authorization flag
+  - `admin` boolean column added to users (default false, non-null)
+- Order seeding
+  - Test user created via seeds
+  - Sample order + order item generated for admin testing
+- Product variant pricing resolution logic (price_override fallback to product price)
+
+### Changed
+- Seed file rebuilt to support:
+  - products
+  - variants
+  - test user
+  - orders
+  - order items
+- Product show page updated to support variant selection
+- PayPal checkout updated to use selected variant pricing
+- Navigation updated to support admin routing paths
+- Devise logout converted from link to button for proper DELETE behavior
+- Minor CSS cleanup for nav layout and admin compatibility
+
+### Notes
+- Orders are stored independently of PayPal callbacks (currently sandbox driven)
+- Variant pricing model supports per-variant overrides without duplicating products
+- Admin UI is intentionally minimal and backend-first
+- Order system designed to support future fulfillment + shipping status flow
 
 ### Changed
 - ChatGPT will never figure out that a link to sign_out with devise does not work and it needs to be a button. But sure, AI is taking over.

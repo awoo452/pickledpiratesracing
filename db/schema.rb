@@ -10,9 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_16_025205) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_16_065847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_variant_id", null: false
+    t.integer "quantity"
+    t.decimal "price_at_purchase"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_variant_id"], name: "index_order_items_on_product_variant_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.decimal "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "product_variants", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "name", null: false
+    t.decimal "price_override", precision: 8, scale: 2
+    t.integer "stock", default: 0
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_variants_on_product_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -41,6 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_16_025205) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -54,5 +86,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_16_025205) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "product_variants"
+  add_foreign_key "orders", "users"
+  add_foreign_key "product_variants", "products"
   add_foreign_key "rewards", "users"
 end
