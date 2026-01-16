@@ -8,9 +8,12 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-ProductVariant.delete_all
-Product.delete_all
-Video.delete_all
+# About
+
+About.create!(
+  title: "Pickled Pirates",
+  body: "World champion beer drinkers"
+)
 
 # Products
 

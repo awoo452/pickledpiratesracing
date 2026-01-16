@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
   devise_for :users
+
   get "home/index"
+
+  get "/about", to: "about#show"
   get "/account", to: "account#show"
 
   namespace :admin do
     resources :orders, only: [:index, :show]
   end
-  
+
   resources :videos, only: [:index]
   resources :products, only: [:index, :show]
 

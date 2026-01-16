@@ -1,6 +1,7 @@
 <nav class="nav">
   <%= image_tag "logodark.png", class: "nav-img" %>
   <%= link_to "Home", root_path %> |
+  <%= link_to "About", about_path %> |
   <%= link_to "Products", products_path, data: { turbo: false } %> |
   <%= link_to "Videos", videos_path %> |
   <% if user_signed_in? %>

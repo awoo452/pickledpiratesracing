@@ -1,3 +1,14 @@
+## [0.1.5] - 2026-01-16
+
+### Added
+- `/about` page route (`www.pickledpiratesracing.com/about`)
+- About model and database table (`about`)
+- Admin-editable About content stored in database
+- About page view rendering database content
+
+### Changed
+- Renamed default Rails `abouts` table to singular `about` to match human logic
+
 ## [0.1.4] - 2026-01-16
 
 ### Added
