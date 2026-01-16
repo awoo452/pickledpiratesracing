@@ -1,15 +1,28 @@
-<h1>Your Account</h1>
+<section class="account-page">
 
-<p>Email: <%= current_user.email %></p>
+  <div class="account-card">
 
-<h2>Your Rewards</h2>
+    <h1>Your Account</h1>
 
-<% if @rewards.any? %>
-  <ul>
-    <% @rewards.each do |reward| %>
-      <li><strong><%= reward.name %></strong> – <%= reward.description %></li>
+    <div class="account-info">
+      <p><strong>Email:</strong> <%= current_user.email %></p>
+    </div>
+
+    <h2>Your Rewards</h2>
+
+    <% if @rewards.any? %>
+      <ul class="rewards-list">
+        <% @rewards.each do |reward| %>
+          <li class="reward-item">
+            <strong><%= reward.name %></strong>
+            <span><%= reward.description %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="no-rewards">No rewards yet.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>No rewards yet.</p>
-<% end %>
+
+  </div>
+
+</section>

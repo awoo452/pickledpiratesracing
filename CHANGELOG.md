@@ -1,3 +1,9 @@
+## [0.1.8] - 2026-01-16
+
+### Changed
+- Some updates to product styling on landing page and products/index so they match lol
+- Also updated account show and related CSS
+
 ## [0.1.7] - 2026-01-16
 
 ### Changed

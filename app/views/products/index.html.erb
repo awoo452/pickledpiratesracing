@@ -4,21 +4,17 @@
 
   <div class="products-grid">
     <% @products.each do |product| %>
-      <div class="product-card">
+      <%= link_to product_path(product), class: "product-link", data: { turbo: false } do %>
+                <div class="product">
+                <% if product.image.present? %>
+                    <%= image_tag product.image, alt: product.name %>
+                <% end %>
 
-        <% if product.image.present? %>
-          <%= image_tag product.image, alt: product.name, class: "product-image" %>
-        <% end %>
-
-        <h3 class="product-title">
-          <%= link_to product.name, product_path(product), data: { turbo: false } %>
-        </h3>
-
-        <p class="product-price">
-          $<%= number_with_precision(product.price, precision: 2) %>
-        </p>
-
-      </div>
+                <h3><%= product.name %></h3>
+                <p><%= product.description %></p>
+                <p>$<%= number_with_precision(product.price, precision: 2) %></p>
+                </div>
+            <% end %>
     <% end %>
   </div>
 

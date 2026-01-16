@@ -5,7 +5,6 @@
   min-height: 100vh;
   padding: 0;
   margin: 0;
-  text-align: center;
   font-family: Verdana;
 }
 
@@ -39,6 +38,12 @@
 
 .landing {
   margin: 0 auto;
+  text-align: center;
+}
+
+.landing a, h3, p {
+   text-decoration: none;
+   color: black;
 }
 
 .main-landing-container {
@@ -86,44 +91,23 @@
   object-fit: contain;
 }
 
-/* Products index */
+/* Products index page */
 
 .products-page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 30px 20px;
+  margin-top: 40px;
+  text-align: center;
 }
 
 .products-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
+  gap: 20px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-.product-card {
-  width: 220px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 12px;
-  text-align: center;
-}
-
-.product-image {
-  max-height: 140px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.product-title a {
+.product-link {
   text-decoration: none;
-  color: #000;
-}
-
-.product-price {
-  font-weight: bold;
-  margin-top: 6px;
+  color: black;
 }
 
 /* Product show */
@@ -279,4 +263,52 @@
 
 .about img {
   max-width: 100%;
+}
+
+/* Account */
+
+.account-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.account-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 24px;
+  text-align: center;
+}
+
+.account-info {
+  margin-bottom: 24px;
+}
+
+.rewards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reward-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.reward-item:last-child {
+  border-bottom: none;
+}
+
+.reward-item span {
+  display: block;
+  color: #555;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.no-rewards {
+  color: #777;
+  font-style: italic;
+  margin-top: 12px;
 }
