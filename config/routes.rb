@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "home/index"
+  get "/account", to: "account#show"
+
 
   resources :videos, only: [:index]
   resources :products, only: [:index, :show]

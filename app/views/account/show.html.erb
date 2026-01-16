@@ -1,0 +1,15 @@
+<h1>Your Account</h1>
+
+<p>Email: <%= current_user.email %></p>
+
+<h2>Your Rewards</h2>
+
+<% if @rewards.any? %>
+  <ul>
+    <% @rewards.each do |reward| %>
+      <li><strong><%= reward.name %></strong> – <%= reward.description %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No rewards yet.</p>
+<% end %>

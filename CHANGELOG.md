@@ -1,3 +1,19 @@
+## [0.1.3] - 2026-01-15
+
+### Added
+- Devise authentication system for user accounts (registration, login, logout)
+- User model and authentication routes
+- Generated Devise views for account management
+- Rewards model and migration
+- “Founding Member / First Hundred” reward will be granted on user signup
+- AccountController with authenticated show page
+- Account page displaying user rewards
+- Nav updated to include basic account info
+
+### Notes
+- Rewards are user-scoped and intended for future physical fulfillment
+- Initial reward system is intentionally minimal and non-gamified
+
 ## [0.1.2] - 2026-01-13
 
 ### Added

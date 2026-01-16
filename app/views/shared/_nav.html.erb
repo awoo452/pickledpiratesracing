@@ -2,6 +2,13 @@
   <%= image_tag "logodark.png", class: "nav-img" %>
   <%= link_to "Home", root_path %> |
   <%= link_to "Products", products_path, data: { turbo: false } %> |
-  <%= link_to "Videos", videos_path %>
+  <%= link_to "Videos", videos_path %> |
+  <% if user_signed_in? %>
+    <%= link_to "Account", "/account" %> |
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Login", new_user_session_path %> |
+    <%= link_to "Sign up", new_user_registration_path %>
+  <% end %>
 </nav>
 <hr class="nav-hr">
