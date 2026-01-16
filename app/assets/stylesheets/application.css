@@ -274,3 +274,9 @@
   text-decoration: none;
   color: #0066cc;
 }
+
+/* About */
+
+.about img {
+  max-width: 100%;
+}
