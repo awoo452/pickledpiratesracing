@@ -1,3 +1,8 @@
+## [0.1.4] - 2026-01-15
+
+### Changed
+- ChatGPT will never figure out that a link to sign_out with devise does not work and it needs to be a button. But sure, AI is taking over.
+
 ## [0.1.3] - 2026-01-15
 
 ### Added
