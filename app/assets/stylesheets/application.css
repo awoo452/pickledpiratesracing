@@ -270,6 +270,10 @@
 
 /* About */
 
+.about {
+  text-align: center;
+}
+
 .about img {
   max-width: 100%;
 }

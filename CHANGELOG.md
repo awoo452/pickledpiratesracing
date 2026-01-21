@@ -1,4 +1,9 @@
-## [0.1.11] - 2026-01-22
+## [0.1.12] - 2026-01-20
+
+### Changed
+- CSS for about page to center the crap
+
+## [0.1.11] - 2026-01-20
 
 ### Added
 - Admin navigation link for creating product variants
@@ -10,7 +15,7 @@
 ### Security
 - Restricted product variant management to authenticated users with admin = true
 
-## [0.1.10] - 2026-01-21
+## [0.1.10] - 2026-01-20
 
 ### Added
 - Product variant selector to product show page
