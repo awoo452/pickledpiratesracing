@@ -1,3 +1,8 @@
+## [0.1.14] - 2026-01-20
+
+### Changed
+- `models/user.rb` another reward added, for creating account before Estranged Drags 2026
+
 ## [0.1.13] - 2026-01-20
 
 ### Changed

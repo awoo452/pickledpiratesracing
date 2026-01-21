@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :rewards
   has_many :orders
   
-  after_create :grant_founding_reward
+  after_create :grant_founding_reward, :grant_early_access_reward
 
   def grant_founding_reward
     # I don't love the way this is built but there's bigger fish to fry
@@ -14,6 +14,18 @@ class User < ApplicationRecord
       name: "Founding Member",
       description: "First 100 Pickled Pirates Racing members"
     )
+  end
+
+  def grant_early_access_reward
+    cutoff = Date.new(2026, 8, 15)
+
+    return if created_at.to_date >= cutoff
+
+    rewards.find_or_create_by!(
+      name: "Early Member"
+    ) do |r|
+      r.description = "Account created before Estranged Drags 2026"
+    end
   end
 
   devise :database_authenticatable, :registerable,
