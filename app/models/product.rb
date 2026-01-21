@@ -7,4 +7,11 @@ class Product < ApplicationRecord
     def set_slug
         self.slug ||= name.parameterize if name.present?
     end
+
+    def image_url
+        return nil if image_key.blank?
+        S3Service.new.presigned_url(image_key)
+    end
+
+
 end

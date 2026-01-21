@@ -1,3 +1,24 @@
+## [0.1.17] - 2026-01-21
+
+### Added
+- Admin product image uploads to private S3 using presigned URLs
+- Slug field on products for stable S3 object paths (`products/:slug/main.png`)
+
+### Changed
+- Product images now load from S3 when `image_key` is present
+- Fallback to legacy `/assets/images/*` when no S3 image exists
+- Frontend product views updated to support both S3 and legacy images
+- Image uploads must be performed via the Heroku app URL (not the CloudFront domain)
+
+### Fixed
+- Admin product edit/update routing under `/admin/products`
+- S3 upload failures caused by missing region and bucket configuration
+- Product image rendering returning 404 when bucket is private
+
+### Notes
+- Existing products without slugs will fail S3 uploads until a slug is set
+- Legacy `image` column remains for backward compatibility
+
 ## [0.1.16] - 2026-01-21
 - I hate chatGPT. That's all you get here.
 

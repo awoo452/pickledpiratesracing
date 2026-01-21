@@ -4,8 +4,10 @@
 
     <h1><%= @product.name %></h1>
 
-    <% if @product.image.present? %>
-      <%= image_tag @product.image, alt: @product.name, class: "product-show-image" %>
+    <% if @product.image_key.present? %>
+      <%= image_tag @product.image_url, class: "product-show-image" %>
+    <% else %>
+      <%= image_tag @product.image, alt: @product.name, class: "product-show-image" if @product.image.present? %>
     <% end %>
 
     <p class="product-description"><%= @product.description %></p>
@@ -37,7 +39,13 @@
     </div>
 
     <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
-    <%= link_to "Edit", edit_admin_product_path(@product) if current_user&.admin? %>
+    
+    <% if current_user&.admin? %>
+      <%= link_to "Edit product",
+          "https://pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com/admin/products/#{@product.id}/edit",
+          target: "_blank",
+          rel: "noopener" %>
+    <% end %>
 
   </div>
 

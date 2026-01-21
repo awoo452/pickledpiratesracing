@@ -21,4 +21,15 @@ class S3Service
 
     key
   end
+
+  def presigned_url(key, expires_in: 3600)
+    signer = Aws::S3::Presigner.new(client: @client)
+    signer.presigned_url(
+      :get_object,
+      bucket: @bucket,
+      key: key,
+      expires_in: expires_in
+    )
+  end
+
 end
