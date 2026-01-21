@@ -10,6 +10,24 @@
 
     <p class="product-description"><%= @product.description %></p>
 
+    <% if @variants.any? %>
+      <div class="variant-selector">
+        <label for="variant_id">Choose option</label>
+
+        <select id="variant_id">
+          <% @variants.each do |variant| %>
+            <option
+              value="<%= variant.id %>"
+              data-price="<%= variant.price_override || @product.price %>">
+              <%= variant.name %>
+              <% if variant.stock.present? %>(<%= variant.stock %> left)<% end %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+    <% end %>
+
+
     <p class="product-price">
       $<%= number_with_precision(@product.price, precision: 2) %>
     </p>
@@ -27,27 +45,41 @@
 <script>
   let paypalRendered = false;
 
+  function selectedVariant() {
+    const el = document.getElementById("variant_id");
+    if (!el) return null;
+
+    const opt = el.options[el.selectedIndex];
+    return {
+      id: opt.value,
+      price: opt.dataset.price
+    };
+  }
+
   function renderPaypalButton() {
     if (paypalRendered) return;
-
-    if (!window.paypal) {
-      setTimeout(renderPaypalButton, 300);
-      return;
-    }
+    if (!window.paypal) return setTimeout(renderPaypalButton, 300);
 
     paypalRendered = true;
 
     paypal.Buttons({
       createOrder: function(data, actions) {
+        const variant = selectedVariant();
+
         return actions.order.create({
           purchase_units: [{
-            amount: { value: "<%= @product.price %>" }
+            amount: {
+              value: variant ? variant.price : "<%= @product.price %>"
+            }
           }]
         });
       },
 
       onApprove: function(data, actions) {
+        const variant = selectedVariant();
+
         return actions.order.capture().then(function(details) {
+          console.log("variant_id:", variant?.id);
           alert("Payment completed by " + details.payer.name.given_name);
         });
       }
@@ -56,4 +88,5 @@
 
   document.addEventListener("DOMContentLoaded", renderPaypalButton);
   document.addEventListener("turbo:load", renderPaypalButton);
+
 </script>

@@ -1,3 +1,31 @@
+## [0.1.9] - 2026-01-20
+
+### Added
+- Product variants support on product show page
+  - Variant selection UI (size/color/etc)
+  - Dynamic price resolution using variant price_override or base product price
+- PayPal checkout integration updated to support variant pricing
+- Frontend variant selection passed into PayPal purchase_units amount
+- Variant-aware order architecture finalized:
+  - Orders contain variant-level OrderItems
+  - Each OrderItem references ProductVariant
+- Stock tracking groundwork for variants
+- Footer added, basically borrowed from closeenoughfabrication.com #shameless plug
+
+### Changed
+- Product show page updated to render variant options instead of static pricing
+- PayPal button logic updated to wait for SDK availability and Turbo navigation
+- Pricing logic standardized:
+  - Variant price_override takes precedence
+  - Falls back to product.price when null
+- Admin order views display variant names instead of base product only
+- Seed data expanded to include variant inventory and pricing
+
+### Notes
+- PayPal sandbox used for testing checkout flow
+- Order persistence and webhook processing deferred until PayPal Business account setup
+- Current implementation supports full UI and pricing validation without live payments
+
 ## [0.1.8] - 2026-01-16
 
 ### Changed

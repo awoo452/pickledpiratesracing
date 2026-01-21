@@ -135,6 +135,15 @@
   margin: 16px 0;
 }
 
+.variant-selector {
+  margin: 16px 0;
+}
+
+.variant-selector select {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
 .paypal-container {
   margin: 24px 0;
 }
@@ -311,4 +320,27 @@
   color: #777;
   font-style: italic;
   margin-top: 12px;
+}
+
+/* Footer */
+
+.footer {
+    box-sizing: border-box;
+    text-align: center;
+    color: black;
+    padding: 1em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.footer #author {
+    margin-left: 2px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: black;
 }
