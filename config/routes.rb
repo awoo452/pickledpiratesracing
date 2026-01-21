@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :videos, only: [:index]
   resources :products, only: [:index, :show]
+  resources :product_variants, only: [:new, :create]
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

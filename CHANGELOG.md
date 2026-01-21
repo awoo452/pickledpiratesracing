@@ -1,3 +1,18 @@
+## [0.1.10] - 2026-01-21
+
+### Added
+- Product variant selector to product show page
+- Dynamic PayPal pricing based on selected variant price_override
+- Live price updates when switching variants on frontend
+
+### Fixed
+- Correct handling of null vs zero price_override values
+- Variant dropdown rendering (option labels restored)
+- Prevented duplicate PayPal button rendering on Turbo navigation
+
+### Changed
+- Product purchase flow now resolves pricing at variant level instead of product level
+
 ## [0.1.9] - 2026-01-20
 
 ### Added

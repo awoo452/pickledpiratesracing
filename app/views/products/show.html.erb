@@ -18,9 +18,9 @@
           <% @variants.each do |variant| %>
             <option
               value="<%= variant.id %>"
-              data-price="<%= variant.price_override || @product.price %>">
+              data-price="<%= variant.price_override.nil? ? @product.price : variant.price_override %>">
               <%= variant.name %>
-              <% if variant.stock.present? %>(<%= variant.stock %> left)<% end %>
+              <% if variant.stock.present? %> (<%= variant.stock %> left)<% end %>
             </option>
           <% end %>
         </select>
@@ -29,7 +29,7 @@
 
 
     <p class="product-price">
-      $<%= number_with_precision(@product.price, precision: 2) %>
+      $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
     </p>
 
     <div class="paypal-container" data-turbo="false">
@@ -54,6 +54,16 @@
       id: opt.value,
       price: opt.dataset.price
     };
+  }
+
+  function updateDisplayedPrice() {
+    const variant = selectedVariant();
+    if (!variant) return;
+
+    const priceEl = document.getElementById("display-price");
+    if (!priceEl) return;
+
+    priceEl.textContent = parseFloat(variant.price).toFixed(2);
   }
 
   function renderPaypalButton() {
@@ -86,7 +96,17 @@
     }).render("#paypal-button-container");
   }
 
-  document.addEventListener("DOMContentLoaded", renderPaypalButton);
-  document.addEventListener("turbo:load", renderPaypalButton);
+  document.addEventListener("change", function(e) {
+    if (e.target && e.target.id === "variant_id") {
+      updateDisplayedPrice();
+    }
+  });
 
+  function initProductPage() {
+    renderPaypalButton();
+    updateDisplayedPrice();
+  }
+
+  document.addEventListener("DOMContentLoaded", initProductPage);
+  document.addEventListener("turbo:load", initProductPage);
 </script>

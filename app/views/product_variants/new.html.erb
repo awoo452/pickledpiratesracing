@@ -1,0 +1,38 @@
+<!-- app/views/product_variants/new.html.erb -->
+
+<h1>Create Product Variant</h1>
+
+<%= form_with model: @variant, local: true do |f| %>
+
+  <div>
+    <%= f.label :product_id %><br>
+    <%= f.select :product_id,
+          options_from_collection_for_select(@products, :id, :name),
+          prompt: "Select product" %>
+  </div>
+
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :price_override %><br>
+    <%= f.number_field :price_override, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= f.label :stock %><br>
+    <%= f.number_field :stock, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>
+
+  <br>
+
+  <%= f.submit "Create Variant" %>
+
+<% end %>
