@@ -1,3 +1,25 @@
+## [0.1.15] - 2026-01-21
+
+### Added
+- Admin product image upload system using direct S3 storage
+- `image_key` column on products for S3 object path tracking
+- Admin product edit page for uploading product images
+- S3 upload service using AWS SDK (`S3Service`)
+- Slug-based product image paths (`products/:slug/main.png`)
+
+### Changed
+- Product images are now stored in S3 instead of local assets
+- Admin product editing moved under `/admin/products/:id/edit`
+- Product model now enforces unique slugs for stable image paths
+
+### Infrastructure
+- AWS S3 integration for product media storage
+- CloudFront-compatible object structure for CDN delivery
+
+### Notes
+- Existing products retain `image_key = NULL` until an image is uploaded
+- Requires environment variables: `AWS_REGION`, `AWS_BUCKET`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
+
 ## [0.1.14] - 2026-01-20
 
 ### Changed

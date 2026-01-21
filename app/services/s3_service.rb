@@ -1,0 +1,24 @@
+class S3Service
+  def initialize
+    @client = Aws::S3::Client.new(
+      region: ENV["AWS_REGION"],
+      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
+    )
+
+    @bucket = ENV["AWS_BUCKET"]
+  end
+
+  def upload(uploaded_file, key)
+    File.open(uploaded_file.tempfile.path, "rb") do |file|
+      @client.put_object(
+        bucket: @bucket,
+        key: key,
+        body: file,
+        content_type: uploaded_file.content_type
+      )
+    end
+
+    key
+  end
+end

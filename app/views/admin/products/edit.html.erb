@@ -1,0 +1,6 @@
+<h1>Edit Product Image</h1>
+
+<%= form_with model: @product, url: admin_product_path(@product), html: { multipart: true } do |f| %>
+  <%= f.file_field :image %>
+  <%= f.submit "Upload" %>
+<% end %>

@@ -37,6 +37,7 @@
     </div>
 
     <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
+    <%= link_to "Edit", edit_admin_product_path(@product) if current_user&.admin? %>
 
   </div>
 
