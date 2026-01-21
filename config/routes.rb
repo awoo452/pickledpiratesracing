@@ -10,10 +10,12 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
 
   namespace :admin do
+    root to: "dashboard#index"
     resources :orders, only: [:index, :show]
     resources :product_variants, only: [:new, :create]
     resources :products, only: [:edit, :update]
   end
+
 
 
 

@@ -1,3 +1,16 @@
+## [0.1.18] - 2026-01-21
+
+### Added
+- Admin dashboard root at `/admin` with quick links for common actions
+
+### Changed
+- Removed product edit shortcut dropdown from admin dashboard (direct product access only)
+- Admin navigation now links to dashboard root instead of individual admin pages
+
+### Notes
+- Product editing remains available per-product via `/admin/products/:id/edit`
+- Dashboard intentionally minimal (variants + orders only)
+
 ## [0.1.17] - 2026-01-21
 
 ### Added
