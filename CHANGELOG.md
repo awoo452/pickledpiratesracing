@@ -1,3 +1,6 @@
+## [0.1.16] - 2026-01-21
+- I hate chatGPT. That's all you get here.
+
 ## [0.1.15] - 2026-01-21
 
 ### Added
