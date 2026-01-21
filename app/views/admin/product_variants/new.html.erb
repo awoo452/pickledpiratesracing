@@ -2,7 +2,7 @@
 
 <h1>Create Product Variant</h1>
 
-<%= form_with model: @variant, local: true do |f| %>
+<%= form_with url: admin_product_variants_path, model: @variant, local: true do |f| %>
 
   <div>
     <%= f.label :product_id %><br>

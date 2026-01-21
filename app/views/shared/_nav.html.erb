@@ -8,6 +8,7 @@
     <%= link_to "Account", "/account" %> |
     <% if user_signed_in? && current_user.admin? %>
       <%= link_to "Admin", admin_orders_path %> |
+      <%= link_to "New Product Variant", new_admin_product_variant_path %> |
     <% end %>
     <%= button_to "Logout",
               destroy_user_session_path,

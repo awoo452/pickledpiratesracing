@@ -1,3 +1,15 @@
+## [0.1.11] - 2026-01-22
+
+### Added
+- Admin navigation link for creating product variants
+
+### Changed
+- Product variant routes moved under admin namespace
+- Product variant form updated to use admin-scoped routing helpers
+
+### Security
+- Restricted product variant management to authenticated users with admin = true
+
 ## [0.1.10] - 2026-01-21
 
 ### Added
