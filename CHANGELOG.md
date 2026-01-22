@@ -1,3 +1,8 @@
+## [0.1.19] - 2026-01-21
+
+### Added
+- pickledpiratesracing.com domain added to AWS SES, config for that
+
 ## [0.1.18] - 2026-01-21
 
 ### Added
