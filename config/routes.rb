@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "contact/new"
+  get "contact/create"
   devise_for :users
 
   get "home/index"

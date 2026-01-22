@@ -369,3 +369,10 @@
     text-decoration: none;
     color: black;
 }
+
+/* Contact */
+
+.contact {
+  display: flex;
+  text-align: center;
+}
