@@ -1,0 +1,2 @@
+class EnhancementRequest < ApplicationRecord
+end

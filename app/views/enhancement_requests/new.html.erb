@@ -1,0 +1,17 @@
+<section class="enhancement-requests">
+  <h2>Enhancement Requests</h2>
+
+  <%= form_with url: enhancement_requests_path, method: :post, local: true do |f| %>
+    <div>
+      <%= f.label :email, "Email" %><br>
+      <%= f.email_field :email %>
+    </div>
+
+    <div>
+      <%= f.label :message, "Request" %><br>
+      <%= f.text_area :message, rows: 4, required: true %>
+    </div>
+
+    <%= f.submit "Submit" %>
+  <% end %>
+</section>
