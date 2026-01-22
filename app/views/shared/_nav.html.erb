@@ -6,6 +6,7 @@
   <%= link_to "Videos", videos_path %> |
   <% if user_signed_in? %>
     <%= link_to "Account", "/account" %> |
+    <%= link_to "Contact", contact_path %> |
     <% if user_signed_in? && current_user.admin? %>
         <%= link_to "Admin", admin_root_path %> |
       <%= link_to "New Product Variant", new_admin_product_variant_path %> |

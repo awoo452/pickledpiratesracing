@@ -1,3 +1,8 @@
+## [0.1.21] - 2026-01-21
+
+### Added
+- Basic contact me page (Turns out you can't tell chatGPT to add a contact page to your rails app and push it to production without testing. It doesn't work. Hell this one probably won't either. Clankers man.)
+
 ## [0.1.20] - 2026-01-21
 
 ### Added

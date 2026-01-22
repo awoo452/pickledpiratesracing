@@ -1,19 +1,19 @@
-<!-- app/views/contact/new.html.erb -->
 <section class="contact">
-<h1>Contact</h1>
+  <div class="contact-card">
+    <h1>Contact</h1>
 
-<%= form_with url: contact_path, method: :post do %>
-  <div>
-    <%= label_tag :email %><br>
-    <%= email_field_tag :email, nil, required: true %>
+    <%= form_with url: contact_path, method: :post, html: { class: "contact-form" } do %>
+      <div class="contact-field">
+        <%= label_tag :email %>
+        <%= email_field_tag :email, nil, required: true %>
+      </div>
+
+      <div class="contact-field">
+        <%= label_tag :message %>
+        <%= text_area_tag :message, nil, required: true %>
+      </div>
+
+      <%= submit_tag "Send", class: "contact-submit" %>
+    <% end %>
   </div>
-
-  <div>
-    <%= label_tag :message %><br>
-    <%= text_area_tag :message, nil, required: true %>
-  </div>
-
-  <br>
-  <%= submit_tag "Send" %>
-<% end %>
 </section>

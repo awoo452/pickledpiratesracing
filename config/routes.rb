@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get "contact/new"
-  get "contact/create"
+  get  "/contact", to: "contact#new", as: :contact
+  post "/contact", to: "contact#create"
+
   devise_for :users
 
   get "home/index"
