@@ -1,3 +1,9 @@
+## [0.1.22] - 2026-01-21
+
+### Added
+
+- Videos was not text-align center and it was really pissing me off
+
 ## [0.1.21] - 2026-01-21
 
 ### Added
