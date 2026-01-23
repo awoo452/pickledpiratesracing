@@ -2,10 +2,15 @@
               url: admin_product_path(@product),
               method: :patch,
               local: true,
-              html: {
-                multipart: true,
-                data: { turbo: false }
-              } do |f| %>
+              html: { multipart: true, data: { turbo: false } } do |f| %>
+
+  <div>
+    <label>Image type</label>
+    <select name="image_type">
+      <option value="main">Main</option>
+      <option value="alt">Alt</option>
+    </select>
+  </div>
 
   <%= f.file_field :image %>
   <%= f.submit "Upload" %>

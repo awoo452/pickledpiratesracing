@@ -5,7 +5,17 @@
     <h1><%= @product.name %></h1>
 
     <% if @product.image_key.present? %>
-      <%= image_tag @product.image_url, class: "product-show-image" %>
+      <div class="product-gallery">
+        <img id="main-product-image"
+            src="<%= @product.image_urls.first %>"
+            class="product-main-image">
+
+        <div class="product-thumbs">
+          <% @product.image_urls.each do |url| %>
+            <%= image_tag url, class: "product-thumb" %>
+          <% end %>
+        </div>
+      </div>
     <% else %>
       <%= image_tag @product.image, alt: @product.name, class: "product-show-image" if @product.image.present? %>
     <% end %>
@@ -41,7 +51,7 @@
     <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
     
     <% if current_user&.admin? %>
-      <%= link_to "Edit product",
+      <%= link_to "Edit Product Images (Production)",
           "https://pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com/admin/products/#{@product.id}/edit",
           target: "_blank",
           rel: "noopener" %>
@@ -109,6 +119,13 @@
     if (e.target && e.target.id === "variant_id") {
       updateDisplayedPrice();
     }
+  });
+
+  document.addEventListener("click", function(e) {
+    if (!e.target.classList.contains("product-thumb")) return;
+
+    const main = document.getElementById("main-product-image");
+    main.src = e.target.src;
   });
 
   function initProductPage() {

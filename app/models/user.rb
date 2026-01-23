@@ -28,6 +28,14 @@ class User < ApplicationRecord
     end
   end
 
+  def grant_hidden_reward
+    rewards.find_or_create_by!(
+      name: "Whoa, how'd you find this"
+    ) do |r|
+      r.description = "Involuntary site tester"
+    end
+  end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end

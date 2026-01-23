@@ -1,3 +1,19 @@
+## [0.1.24] - 2026-01-22
+
+### Added
+- S3 product image gallery support (main + alt images).
+- Admin upload selector for image type (main / alt).
+- Automatic S3 key structure: products/:slug/main.ext, alt.ext.
+- Thumbnail image switching on product show page.
+- New reward for 'involuntary site tester' added to user model since we're just gonna be pushing to production like this
+
+### Fixed
+- S3 upload argument order bug in Admin::ProductsController.
+- Ensured main image always loads first via explicit S3 key sorting.
+
+### Changed
+- Product show page now uses thumbnail gallery instead of single image.
+
 ## [0.1.23] - 2026-01-22
 
 ### Added

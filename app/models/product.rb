@@ -12,6 +12,28 @@ class Product < ApplicationRecord
         return nil if image_key.blank?
         S3Service.new.presigned_url(image_key)
     end
+    
+    def image_urls
+        return [] if image_key.blank?
 
+        prefix = image_key.sub(/main\..*$/, "")
+        s3 = S3Service.new
+
+        keys = s3.list_keys(prefix)
+
+        image_keys = keys.select do |k|
+            k.match?(/(main|alt\d*)\.(png|jpg|jpeg|webp)$/i)
+        end
+
+        image_keys.sort_by do |k|
+            if k.include?("main.")
+            0
+            elsif k =~ /alt\d*\./
+            1
+            else
+            2
+            end
+        end.map { |k| s3.presigned_url(k) }
+    end
 
 end

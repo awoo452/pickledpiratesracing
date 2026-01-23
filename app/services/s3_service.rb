@@ -32,4 +32,13 @@ class S3Service
     )
   end
 
+  def list_keys(prefix)
+    resp = @client.list_objects_v2(
+      bucket: @bucket,
+      prefix: prefix
+    )
+
+    resp.contents.map(&:key)
+  end
+
 end

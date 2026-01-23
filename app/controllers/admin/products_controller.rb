@@ -6,20 +6,19 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
     if params[:product][:image].present?
-        file = params[:product][:image]
+      image_type = params[:image_type] || "main"
+      uploaded = params[:product][:image]
 
-        raise "Missing slug" if @product.slug.blank?
+      ext = File.extname(uploaded.original_filename)
+      key = "products/#{@product.slug}/#{image_type}#{ext}"
 
-        key = "products/#{@product.slug}/main.png"
+      S3Service.new.upload(uploaded, key)
 
-        s3 = S3Service.new
-        s3.upload(file, key)
-
-        @product.update!(image_key: key)
+      @product.update!(image_key: key) if image_type == "main"
     end
 
-redirect_to product_path(@product)
-end
+    redirect_to product_path(@product)
+  end
 
   private
 
