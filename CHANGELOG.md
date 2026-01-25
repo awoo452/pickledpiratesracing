@@ -1,3 +1,13 @@
+## [0.1.27] - 2026-01-25
+
+### Changed
+- Added heading font variables and Google Font import (Bebas Neue).
+- Softened heading contrast and applied nav uppercase typography consistently.
+- Improved landing hero bottom radius handling.
+- Fixed videos index iframe wrapper for responsive sizing.
+- Reworked landing CTA placement and styling, with larger button on wide screens.
+- Removed landing image border/radius styling.
+
 ## [0.1.26] - 2026-01-25
 
 ### Changed
@@ -8,6 +18,7 @@
 - Added model validations (products, variants, videos, rewards, order items).
 - Added empty-state messaging for products and videos.
 - Normalized admin authorization alert for product uploads.
+- Added per-product price hiding with “Coming Soon” display and admin toggle.
 
 ## [0.1.25] - 2026-01-25
 

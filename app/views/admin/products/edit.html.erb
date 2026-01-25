@@ -12,6 +12,11 @@
     </select>
   </div>
 
+  <div>
+    <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
+    <%= f.check_box :price_hidden %>
+  </div>
+
   <%= f.file_field :image %>
   <%= f.submit "Upload" %>
 

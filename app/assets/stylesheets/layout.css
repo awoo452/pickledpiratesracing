@@ -1,9 +1,22 @@
+:root {
+  --font-heading: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: Verdana, sans-serif;
+}
+
 .layout {
   background-color: #e5e5e5;
   min-height: 100vh;
   padding: 0;
   margin: 0;
-  font-family: Verdana;
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: #222;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .empty-state {

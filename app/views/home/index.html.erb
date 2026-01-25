@@ -2,15 +2,15 @@
 
   <div class="main-landing-container">
     <div class="landing-background">
-        <%= image_tag "landing.png", alt: "Pickled Pirates Racing" %>
+        <%= image_tag "landing0.1.27.png", alt: "Pickled Pirates Racing" %>
     </div>
-  </div>
 
-  <% unless user_signed_in? %>
-    <div class="landing-cta">
-      <%= link_to "Subscribe for Updates", new_user_session_path, class: "cta-button" %>
-    </div>
-  <% end %>
+    <% unless user_signed_in? %>
+      <div class="landing-cta">
+        <%= link_to "Get Pickled", new_user_session_path, class: "cta-button" %>
+      </div>
+    <% end %>
+  </div>
 
   
 
@@ -52,7 +52,11 @@
 
                 <h3><%= product.name %></h3>
                 <p class="product-description"><%= product.description %></p>
-                <p>$<%= number_with_precision(product.price, precision: 2) %></p>
+                <% if product.price_hidden? %>
+                  <p>Coming Soon</p>
+                <% else %>
+                  <p>$<%= number_with_precision(product.price, precision: 2) %></p>
+                <% end %>
                 </div>
             <% end %>
             <% end %>

@@ -5,6 +5,12 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def update
+    updated = false
+    if product_params.key?(:price_hidden)
+      @product.update!(price_hidden: product_params[:price_hidden])
+      updated = true
+    end
+
     uploaded = params.dig(:product, :image)
     if uploaded.present?
       image_type = params[:image_type] || "main"
@@ -21,11 +27,14 @@ class Admin::ProductsController < Admin::BaseController
       end
 
       @product.update!(image_key: key) if image_type == "main"
-      redirect_to product_path(@product), notice: "Image uploaded"
-      return
+      updated = true
     end
 
-    redirect_to edit_admin_product_path(@product), alert: "No image selected"
+    if updated
+      redirect_to product_path(@product), notice: "Product updated"
+    else
+      redirect_to edit_admin_product_path(@product), alert: "No changes selected"
+    end
   end
 
   private
@@ -36,5 +45,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def require_admin
     redirect_to root_path, alert: "Not authorized" unless current_user&.admin?
+  end
+
+  def product_params
+    params.fetch(:product, {}).permit(:price_hidden)
   end
 end

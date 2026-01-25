@@ -12,8 +12,8 @@ p {
 
 .main-landing-container {
   background-color: black;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-radius: 0;
+  position: relative;
 }
 
 .main-landing-container h1 {
@@ -23,13 +23,24 @@ p {
 }
 
 .landing-background img {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-radius: 0;
   max-width: 100%;
 }
 
 .landing-cta {
-  margin: 16px 0 8px;
+  position: absolute;
+  bottom: 1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 2;
+}
+
+@media (min-width: 1200px) {
+  .cta-button {
+    padding: 18px 32px;
+    font-size: 1.4em;
+  }
 }
 
 .cta-button {
@@ -40,6 +51,7 @@ p {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .cta-button:hover {

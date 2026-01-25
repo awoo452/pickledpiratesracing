@@ -40,13 +40,17 @@
     <% end %>
 
 
-    <p class="product-price">
-      $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
-    </p>
+    <% if @product.price_hidden? %>
+      <p class="product-price">Coming Soon</p>
+    <% else %>
+      <p class="product-price">
+        $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
+      </p>
 
-    <div class="paypal-container" data-turbo="false">
-      <div id="paypal-button-container"></div>
-    </div>
+      <div class="paypal-container" data-turbo="false">
+        <div id="paypal-button-container"></div>
+      </div>
+    <% end %>
 
     <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
     
@@ -61,6 +65,7 @@
 
 </section>
 
+<% unless @product.price_hidden? %>
 <script>
   let paypalRendered = false;
 
@@ -136,3 +141,4 @@
   document.addEventListener("DOMContentLoaded", initProductPage);
   document.addEventListener("turbo:load", initProductPage);
 </script>
+<% end %>
