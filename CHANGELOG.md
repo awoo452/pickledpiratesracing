@@ -1,3 +1,8 @@
+## [0.1.30] - 2026-01-25
+
+### Changed
+- Bumped dependencies: devise 5.0.0, puma 7.2.0, selenium-webdriver 4.40.0, turbo-rails 2.0.21, bootsnap 1.21.1, solid_queue 1.3.1.
+
 ## [0.1.29] - 2026-01-25
 
 ### Changed
