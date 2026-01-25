@@ -1,3 +1,9 @@
+## [0.1.28] - 2026-01-25
+
+### Changed
+- Price validation now respects the “Coming Soon” toggle (price optional when hidden).
+- Admin product update now surfaces validation failures via flash.
+
 ## [0.1.27] - 2026-01-25
 
 ### Changed

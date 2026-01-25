@@ -3,7 +3,8 @@ class Product < ApplicationRecord
     before_validation :set_slug, on: :create
 
     validates :name, presence: true
-    validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+    validates :price, presence: true, unless: :price_hidden?
+    validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
     validates :slug, presence: true, uniqueness: true
 
     def set_slug

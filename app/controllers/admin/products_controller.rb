@@ -7,7 +7,11 @@ class Admin::ProductsController < Admin::BaseController
   def update
     updated = false
     if product_params.key?(:price_hidden)
-      @product.update!(price_hidden: product_params[:price_hidden])
+      unless @product.update(price_hidden: product_params[:price_hidden])
+        redirect_to edit_admin_product_path(@product),
+          alert: @product.errors.full_messages.to_sentence.presence || "Update failed"
+        return
+      end
       updated = true
     end
 
