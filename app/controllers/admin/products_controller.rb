@@ -5,19 +5,27 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def update
-    if params[:product][:image].present?
+    uploaded = params.dig(:product, :image)
+    if uploaded.present?
       image_type = params[:image_type] || "main"
-      uploaded = params[:product][:image]
 
       ext = File.extname(uploaded.original_filename)
       key = "products/#{@product.slug}/#{image_type}#{ext}"
 
-      S3Service.new.upload(uploaded, key)
+      begin
+        S3Service.new.upload(uploaded, key)
+      rescue StandardError => e
+        Rails.logger.error("S3 upload failed for product #{@product.id}: #{e.message}")
+        redirect_to edit_admin_product_path(@product), alert: "Upload failed. Please try again."
+        return
+      end
 
       @product.update!(image_key: key) if image_type == "main"
+      redirect_to product_path(@product), notice: "Image uploaded"
+      return
     end
 
-    redirect_to product_path(@product)
+    redirect_to edit_admin_product_path(@product), alert: "No image selected"
   end
 
   private
@@ -27,6 +35,6 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def require_admin
-    redirect_to root_path unless current_user&.admin?
+    redirect_to root_path, alert: "Not authorized" unless current_user&.admin?
   end
 end

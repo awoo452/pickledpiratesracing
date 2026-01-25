@@ -1,3 +1,14 @@
+## [0.1.26] - 2026-01-25
+
+### Changed
+- Added basic param guarding and user feedback for contact and enhancement request forms.
+- Improved admin product image upload error handling and empty upload feedback.
+- Clamped product descriptions on products index for consistent card heights.
+- Added enhancement request validation and eager-loaded admin order details.
+- Added model validations (products, variants, videos, rewards, order items).
+- Added empty-state messaging for products and videos.
+- Normalized admin authorization alert for product uploads.
+
 ## [0.1.25] - 2026-01-25
 
 ### Changed

@@ -2,6 +2,8 @@ class Product < ApplicationRecord
     has_many :product_variants, dependent: :destroy
     before_validation :set_slug, on: :create
 
+    validates :name, presence: true
+    validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
     validates :slug, presence: true, uniqueness: true
 
     def set_slug

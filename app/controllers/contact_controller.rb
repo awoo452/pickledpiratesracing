@@ -4,11 +4,22 @@ class ContactController < ApplicationController
   end
 
   def create
+    if contact_params[:email].blank? || contact_params[:message].blank?
+      redirect_to contact_path, alert: "Email and message are required"
+      return
+    end
+
     ContactMailer.contact_email(
-      params[:email],
-      params[:message]
+      contact_params[:email],
+      contact_params[:message]
     ).deliver_later
 
     redirect_to contact_path, notice: "Message sent"
+  end
+
+  private
+
+  def contact_params
+    params.permit(:email, :message)
   end
 end

@@ -5,3 +5,9 @@
   margin: 0;
   font-family: Verdana;
 }
+
+.empty-state {
+  color: #555;
+  font-style: italic;
+  margin-top: 12px;
+}

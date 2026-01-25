@@ -2,23 +2,25 @@
 
   <h1>Videos</h1>
 
-  <div class="videos-grid">
-    <% @videos.each do |video| %>
-      <div class="video-card">
+  <% if @videos.any? %>
+    <div class="videos-grid">
+      <% @videos.each do |video| %>
+        <div class="video-card">
+          <div class="video-frame">
+            <iframe
+              class="youtube-video"
+              src="<%= youtube_embed(video) %>"
+              frameborder="0"
+              allowfullscreen>
+            </iframe>
+          </div>
 
-        <div class="video-frame">
-          <iframe
-            class="youtube-video"
-            src="<%= youtube_embed(video) %>"
-            frameborder="0"
-            allowfullscreen>
-          </iframe>
+          <h4><%= video.title %></h4>
         </div>
-
-        <h4><%= video.title %></h4>
-
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No videos yet.</p>
+  <% end %>
 
 </section>
