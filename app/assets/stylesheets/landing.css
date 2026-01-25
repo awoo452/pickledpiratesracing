@@ -1,0 +1,54 @@
+.landing {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing a:not(.cta-button),
+h3,
+p {
+  text-decoration: none;
+  color: black;
+}
+
+.main-landing-container {
+  background-color: black;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.main-landing-container h1 {
+  margin: 0;
+  margin-bottom: 12px;
+  padding-top: 12px;
+}
+
+.landing-background img {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  max-width: 100%;
+}
+
+.landing-cta {
+  margin: 16px 0 8px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cta-button:hover {
+  opacity: 0.85;
+}
+
+.landing-divider {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 24px auto;
+  max-width: 900px;
+}

@@ -1,0 +1,45 @@
+.account-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.account-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 24px;
+  text-align: center;
+}
+
+.account-info {
+  margin-bottom: 24px;
+}
+
+.rewards-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reward-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.reward-item:last-child {
+  border-bottom: none;
+}
+
+.reward-item span {
+  display: block;
+  color: #555;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.no-rewards {
+  color: #777;
+  font-style: italic;
+  margin-top: 12px;
+}

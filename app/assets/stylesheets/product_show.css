@@ -1,0 +1,73 @@
+.product-show {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.product-show-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 24px;
+  text-align: center;
+}
+
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-main-image {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.product-thumbs {
+  display: flex;
+  gap: 8px;
+}
+
+.product-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.product-show-image {
+  max-height: 280px;
+  margin: 20px 0;
+}
+
+.product-description {
+  margin: 16px 0;
+}
+
+.variant-selector {
+  margin: 16px 0;
+}
+
+.variant-selector select {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.variant-selector label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.paypal-container {
+  margin: 24px 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+}

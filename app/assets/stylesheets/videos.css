@@ -1,0 +1,57 @@
+.main-landing-videos {
+  margin-top: 40px;
+}
+
+.main-landing-videos h2 {
+  margin-bottom: 16px;
+}
+
+.videos-page {
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.videos-page h1 {
+  margin-bottom: 16px;
+}
+
+.videos-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.video-card {
+  width: 320px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.video-card h4 {
+  margin-top: 10px;
+}
+
+.videos-grid .video-card:only-child {
+  width: 560px;
+  max-width: 100%;
+}
+
+.video-frame {
+  margin-top: 8px;
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.youtube-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}

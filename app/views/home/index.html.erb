@@ -6,30 +6,35 @@
     </div>
   </div>
 
-  <div class="main-landing-videos">
-
-  <% if @featured_videos.any? %>
-    <h2>Latest Videos</h2>
-
-    <div class="videos">
-      <% @featured_videos.each do |video| %>
-        
-        <div class="video">
-          <h5><%= video.title %></h5>
-          <iframe
-            width="300"
-            height="170"
-            src="<%= youtube_embed(video) %>"
-            frameborder="0"
-            allowfullscreen>
-          </iframe>
-        </div>
-        
-      <% end %>
+  <% unless user_signed_in? %>
+    <div class="landing-cta">
+      <%= link_to "Subscribe for Updates", new_user_session_path, class: "cta-button" %>
     </div>
   <% end %>
+
+  
+
+  <div class="main-landing-videos">
+    <% if @featured_videos.any? %>
+      <h2>Latest Videos</h2>
+
+      <div class="videos-grid">
+        <% @featured_videos.each do |video| %>
+          <div class="video-card">
+            <div class="video-frame">
+              <iframe
+                class="youtube-video"
+                src="<%= youtube_embed(video) %>"
+                frameborder="0"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-    
+
   <div class="main-landing-products">
     <% if @featured_products.any? %>
         <h2>Featured Products</h2>
@@ -46,7 +51,7 @@
 
 
                 <h3><%= product.name %></h3>
-                <p><%= product.description %></p>
+                <p class="product-description"><%= product.description %></p>
                 <p>$<%= number_with_precision(product.price, precision: 2) %></p>
                 </div>
             <% end %>

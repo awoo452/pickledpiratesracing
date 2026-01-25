@@ -1,3 +1,12 @@
+## [0.1.25] - 2026-01-25
+
+### Changed
+- Split frontend styles into page/feature CSS files with an `app.css` entrypoint.
+- Rebuilt landing page video section and moved sizing/layout to CSS.
+- Matched `/videos` styling to landing videos and added single-video full-width sizing.
+- Added landing CTA for not signed in user
+- Clamped product card descriptions.
+
 ## [0.1.24] - 2026-01-22
 
 ### Added
