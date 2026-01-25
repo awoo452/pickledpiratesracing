@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 12px 0;
+  padding: 12px 12px;
   flex-wrap: wrap;
   background: #f0f0f0;
   font-family: var(--font-heading);

@@ -9,15 +9,15 @@ Rails.application.routes.draw do
   get "/about", to: "about#show"
   get "/account", to: "account#show"
 
-  resources :enhancement_requests, only: [:new, :create]
-  resources :videos, only: [:index]
-  resources :products, only: [:index, :show]
+  resources :enhancement_requests, only: [ :new, :create ]
+  resources :videos, only: [ :index ]
+  resources :products, only: [ :index, :show ]
 
   namespace :admin do
     root to: "dashboard#index"
-    resources :orders, only: [:index, :show]
-    resources :product_variants, only: [:new, :create]
-    resources :products, only: [:edit, :update]
+    resources :orders, only: [ :index, :show ]
+    resources :product_variants, only: [ :new, :create ]
+    resources :products, only: [ :edit, :update ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

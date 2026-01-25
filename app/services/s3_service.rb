@@ -40,5 +40,4 @@ class S3Service
 
     resp.contents.map(&:key)
   end
-
 end

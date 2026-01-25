@@ -67,8 +67,8 @@ crewneck = Product.create!(
 
 # Shirt variants
 
-shirt_colors = ["Black", "White"]
-shirt_sizes = ["Kids", "S", "M", "L", "XL", "2XL", "3XL"]
+shirt_colors = [ "Black", "White" ]
+shirt_sizes = [ "Kids", "S", "M", "L", "XL", "2XL", "3XL" ]
 
 shirt_colors.each do |color|
   shirt_sizes.each do |size|
@@ -82,7 +82,7 @@ end
 
 # Sticker variants
 
-["Black", "White"].each do |color|
+[ "Black", "White" ].each do |color|
   ProductVariant.create!(
     product: sticker,
     name: color,

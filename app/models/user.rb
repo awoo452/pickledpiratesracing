@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :rewards
   has_many :orders
-  
+
   after_create :grant_founding_reward, :grant_early_access_reward
 
   def grant_founding_reward

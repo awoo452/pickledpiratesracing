@@ -15,7 +15,7 @@ class Product < ApplicationRecord
         return nil if image_key.blank?
         S3Service.new.presigned_url(image_key)
     end
-    
+
     def image_urls
         return [] if image_key.blank?
 
@@ -38,5 +38,4 @@ class Product < ApplicationRecord
             end
         end.map { |k| s3.presigned_url(k) }
     end
-
 end

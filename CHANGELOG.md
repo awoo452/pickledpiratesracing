@@ -1,3 +1,15 @@
+## [0.1.29] - 2026-01-25
+
+### Changed
+- Improved layout wrapping on small screens.
+- Fixed RuboCop linting issues (whitespace, spacing, missing newlines).
+- Fixed RuboCop linting in Devise initializer, development config, and about controller.
+- Pinned minitest to 5.27.x to resolve Rails test runner argument mismatch.
+- Auto-corrected remaining RuboCop spacing issues.
+- Fixed test fixtures by adding users and wiring rewards to users.
+- Updated controller tests to use correct route helpers and auth.
+- Fixed test fixtures/assets and restored videos helper for tests.
+
 ## [0.1.28] - 2026-01-25
 
 ### Changed
