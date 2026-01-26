@@ -1,3 +1,10 @@
+## [0.1.31] - 2026-01-25
+
+### Changed
+- Upgraded Rails to 8.1.2 and updated core framework gems.
+- Added Rails 8.1 defaults file, CI config, and new Active Storage migrations.
+- Updated Puma, Devise, Turbo, Bootsnap, Solid Queue, and Selenium WebDriver.
+
 ## [0.1.30] - 2026-01-25
 
 ### Changed
