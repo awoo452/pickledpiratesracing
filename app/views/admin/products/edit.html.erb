@@ -9,11 +9,25 @@
       <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
     </header>
 
-    <%= form_with model: @product,
-                  url: admin_product_path(@product),
-                  method: :patch,
-                  local: true,
-                  html: { multipart: true, data: { turbo: false }, class: "admin-form" } do |f| %>
+    <% heroku_host = "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com" %>
+    <% on_heroku = request.host == heroku_host %>
+
+    <% if Rails.env.production? && !on_heroku %>
+      <div class="admin-card">
+        <p class="admin-kicker">Uploads</p>
+        <p>Image uploads must be done on the Heroku admin to bypass CloudFront caching.</p>
+        <%= link_to "Open Heroku upload page",
+            "https://#{heroku_host}/admin/products/#{@product.id}/edit",
+            class: "admin-primary-button",
+            target: "_blank",
+            rel: "noopener" %>
+      </div>
+    <% else %>
+      <%= form_with model: @product,
+                    url: admin_product_path(@product),
+                    method: :patch,
+                    local: true,
+                    html: { multipart: true, data: { turbo: false }, class: "admin-form" } do |f| %>
 
       <div class="admin-form-grid">
         <div class="admin-field">
@@ -35,7 +49,8 @@
         <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
       </div>
 
-      <%= f.submit "Upload", class: "admin-primary-button" %>
+        <%= f.submit "Upload", class: "admin-primary-button" %>
+      <% end %>
     <% end %>
   </div>
 </section>

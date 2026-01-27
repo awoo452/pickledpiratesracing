@@ -1,3 +1,8 @@
+## [0.1.35] - 2026-01-27
+
+### Changed
+- Admin image upload form now posts to the production Heroku domain in production.
+
 ## [0.1.34] - 2026-01-27
 
 ### Added
