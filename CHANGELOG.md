@@ -1,3 +1,8 @@
+## [0.1.32] - 2026-01-27
+
+### Changed
+- Product show gallery now uses server-rendered thumbnail links to swap the main image without JavaScript.
+
 ## [0.1.31] - 2026-01-25
 
 ### Changed

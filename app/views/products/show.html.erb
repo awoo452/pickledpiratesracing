@@ -5,14 +5,21 @@
     <h1><%= @product.name %></h1>
 
     <% if @product.image_key.present? %>
+      <% selected_image = if params[:image].present? && @product.image_urls.include?(params[:image])
+        params[:image]
+      else
+        @product.image_urls.first
+      end %>
       <div class="product-gallery">
         <img id="main-product-image"
-            src="<%= @product.image_urls.first %>"
+            src="<%= selected_image %>"
             class="product-main-image">
 
         <div class="product-thumbs">
           <% @product.image_urls.each do |url| %>
-            <%= image_tag url, class: "product-thumb" %>
+            <%= link_to product_path(@product, image: url) do %>
+              <%= image_tag url, class: "product-thumb" %>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -124,13 +131,6 @@
     if (e.target && e.target.id === "variant_id") {
       updateDisplayedPrice();
     }
-  });
-
-  document.addEventListener("click", function(e) {
-    if (!e.target.classList.contains("product-thumb")) return;
-
-    const main = document.getElementById("main-product-image");
-    main.src = e.target.src;
   });
 
   function initProductPage() {
