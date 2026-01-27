@@ -1,0 +1,43 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Products</p>
+        <h1 class="admin-title">Create product</h1>
+        <p class="admin-subtitle">Add a new product before uploading images or variants.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
+
+    <%= form_with model: @product, url: admin_products_path, local: true, html: { class: "admin-form" } do |f| %>
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <%= f.label :name %>
+          <%= f.text_field :name, required: true %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :slug, "Slug (optional)" %>
+          <%= f.text_field :slug, placeholder: "auto-generated from name" %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :price %>
+          <%= f.number_field :price, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :description %>
+          <%= f.text_area :description, rows: 4 %>
+        </div>
+      </div>
+
+      <div class="admin-field admin-field-inline">
+        <%= f.check_box :price_hidden %>
+        <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
+      </div>
+
+      <%= f.submit "Create product", class: "admin-primary-button" %>
+    <% end %>
+  </div>
+</section>

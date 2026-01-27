@@ -1,5 +1,20 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :set_product
+  before_action :set_product, only: [ :edit, :update ]
+
+  def new
+    @product = Product.new
+  end
+
+  def create
+    @product = Product.new(create_product_params)
+
+    if @product.save
+      redirect_to edit_admin_product_path(@product), notice: "Product created"
+    else
+      flash.now[:alert] = @product.errors.full_messages.to_sentence.presence || "Product creation failed"
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   def edit
   end
@@ -53,5 +68,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def product_params
     params.fetch(:product, {}).permit(:price_hidden)
+  end
+
+  def create_product_params
+    params.fetch(:product, {}).permit(:name, :description, :price, :slug, :price_hidden)
   end
 end

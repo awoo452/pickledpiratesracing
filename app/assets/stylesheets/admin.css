@@ -277,6 +277,17 @@
   font-family: inherit;
 }
 
+.admin-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--admin-border);
+  background: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
 .admin-field input[type="checkbox"] {
   width: auto;
   margin-right: 8px;

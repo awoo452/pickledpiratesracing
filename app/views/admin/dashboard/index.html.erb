@@ -9,14 +9,21 @@
     </header>
 
     <div class="admin-actions">
-      <%= link_to new_admin_product_variant_path, class: "admin-action-card" do %>
+      <%= link_to new_admin_product_path, class: "admin-action-card" do %>
+        <span class="admin-action-kicker">Products</span>
+        <h2>Create product</h2>
+        <p>Add a new product before uploading images or variants.</p>
+        <span class="admin-action-link">Start product →</span>
+      <% end %>
+
+      <%= link_to new_admin_product_variant_path, class: "admin-action-card admin-action-card--accent" do %>
         <span class="admin-action-kicker">Variants</span>
         <h2>Add product variant</h2>
         <p>Create new sizes or options with stock and pricing overrides.</p>
         <span class="admin-action-link">Open variant form →</span>
       <% end %>
 
-      <%= link_to admin_orders_path, class: "admin-action-card admin-action-card--accent" do %>
+      <%= link_to admin_orders_path, class: "admin-action-card" do %>
         <span class="admin-action-kicker">Orders</span>
         <h2>Review orders</h2>
         <p>Track new purchases, totals, and fulfillment status.</p>

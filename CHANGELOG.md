@@ -1,3 +1,11 @@
+## [0.1.34] - 2026-01-27
+
+### Added
+- Admin product creation flow with a new dashboard action and form.
+
+### Fixed
+- Auto-generate product slugs when the admin leaves the slug blank.
+
 ## [0.1.33] - 2026-01-27
 
 ### Changed
