@@ -62,10 +62,27 @@
     <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
     
     <% if current_user&.admin? %>
+      <% heroku_host = "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com" %>
+      <% on_heroku = request.host == heroku_host %>
+
       <%= link_to "Edit Product Images (Production)",
-          "https://pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com/admin/products/#{@product.id}/edit",
+          "https://#{heroku_host}/admin/products/#{@product.id}/edit",
           target: "_blank",
           rel: "noopener" %>
+
+      <% if on_heroku %>
+        <%= button_to "Delete Product",
+            admin_product_path(@product),
+            method: :delete,
+            data: { turbo: false, confirm: "Delete this product and its S3 images?" },
+            class: "back-link" %>
+      <% else %>
+        <%= link_to "Delete Product on Heroku",
+            "https://#{heroku_host}/products/#{@product.id}",
+            class: "back-link",
+            target: "_blank",
+            rel: "noopener" %>
+      <% end %>
     <% end %>
 
   </div>

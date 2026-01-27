@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :set_product, only: [ :edit, :update ]
+  before_action :set_product, only: [ :edit, :update, :destroy ]
 
   def new
     @product = Product.new
@@ -54,6 +54,11 @@ class Admin::ProductsController < Admin::BaseController
     else
       redirect_to edit_admin_product_path(@product), alert: "No changes selected"
     end
+  end
+
+  def destroy
+    @product.destroy
+    redirect_to admin_root_path, notice: "Product deleted"
   end
 
   private

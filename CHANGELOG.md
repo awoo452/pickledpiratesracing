@@ -1,3 +1,11 @@
+## [0.1.36] - 2026-01-27
+
+### Added
+- Admin product delete button on product show page, with S3 cleanup on destroy.
+
+### Changed
+- Admin delete action now requires the Heroku domain; main site links out to Heroku for deletion.
+
 ## [0.1.35] - 2026-01-27
 
 ### Changed

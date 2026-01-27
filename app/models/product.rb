@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
     has_many :product_variants, dependent: :destroy
     before_validation :set_slug, on: :create
+    before_destroy :delete_s3_images
 
     validates :name, presence: true
     validates :price, presence: true, unless: :price_hidden?
@@ -37,5 +38,15 @@ class Product < ApplicationRecord
             2
             end
         end.map { |k| s3.presigned_url(k) }
+    end
+
+    def delete_s3_images
+        return if image_key.blank?
+        return if ENV["AWS_BUCKET"].blank?
+
+        prefix = image_key.sub(/main\..*$/, "")
+        S3Service.new.delete_prefix(prefix)
+    rescue StandardError => e
+        Rails.logger.error("S3 delete failed for product #{id}: #{e.message}")
     end
 end

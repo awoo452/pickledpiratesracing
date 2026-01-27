@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
     resources :orders, only: [ :index, :show ]
     resources :product_variants, only: [ :new, :create ]
-    resources :products, only: [ :new, :create, :edit, :update ]
+    resources :products, only: [ :new, :create, :edit, :update, :destroy ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
