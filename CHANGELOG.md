@@ -1,3 +1,8 @@
+## [0.1.33] - 2026-01-27
+
+### Changed
+- Reworked admin section layout, dashboard cards, and form/table styling.
+
 ## [0.1.32] - 2026-01-27
 
 ### Changed

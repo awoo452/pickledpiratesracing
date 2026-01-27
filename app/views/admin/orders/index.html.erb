@@ -1,7 +1,15 @@
-<div class="admin-page">
-  <h1>Orders</h1>
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Orders</p>
+        <h1 class="admin-title">Order queue</h1>
+        <p class="admin-subtitle">Latest purchases with totals and current status.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
 
-  <table class="admin-table">
+    <table class="admin-table">
     <thead>
       <tr>
         <th>ID</th>
@@ -29,4 +37,5 @@
       <% end %>
     </tbody>
   </table>
-</div>
+  </div>
+</section>

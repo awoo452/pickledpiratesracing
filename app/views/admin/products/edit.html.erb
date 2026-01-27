@@ -1,23 +1,41 @@
-<%= form_with model: @product,
-              url: admin_product_path(@product),
-              method: :patch,
-              local: true,
-              html: { multipart: true, data: { turbo: false } } do |f| %>
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Products</p>
+        <h1 class="admin-title">Update product images</h1>
+        <p class="admin-subtitle">Upload main or alt images and toggle price visibility.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
 
-  <div>
-    <label>Image type</label>
-    <select name="image_type">
-      <option value="main">Main</option>
-      <option value="alt">Alt</option>
-    </select>
+    <%= form_with model: @product,
+                  url: admin_product_path(@product),
+                  method: :patch,
+                  local: true,
+                  html: { multipart: true, data: { turbo: false }, class: "admin-form" } do |f| %>
+
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <label>Image type</label>
+          <select name="image_type">
+            <option value="main">Main</option>
+            <option value="alt">Alt</option>
+          </select>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :image, "Upload image" %>
+          <%= f.file_field :image %>
+        </div>
+      </div>
+
+      <div class="admin-field admin-field-inline">
+        <%= f.check_box :price_hidden %>
+        <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
+      </div>
+
+      <%= f.submit "Upload", class: "admin-primary-button" %>
+    <% end %>
   </div>
-
-  <div>
-    <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
-    <%= f.check_box :price_hidden %>
-  </div>
-
-  <%= f.file_field :image %>
-  <%= f.submit "Upload" %>
-
-<% end %>
+</section>

@@ -1,38 +1,45 @@
-<!-- app/views/product_variants/new.html.erb -->
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Variants</p>
+        <h1 class="admin-title">Create product variant</h1>
+        <p class="admin-subtitle">Add sizes, options, or one-off stock entries for a product.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
 
-<h1>Create Product Variant</h1>
+    <%= form_with url: admin_product_variants_path, model: @variant, local: true, html: { class: "admin-form" } do |f| %>
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <%= f.label :product_id %>
+          <%= f.select :product_id,
+                options_from_collection_for_select(@products, :id, :name),
+                prompt: "Select product" %>
+        </div>
 
-<%= form_with url: admin_product_variants_path, model: @variant, local: true do |f| %>
+        <div class="admin-field">
+          <%= f.label :name %>
+          <%= f.text_field :name, required: true %>
+        </div>
 
-  <div>
-    <%= f.label :product_id %><br>
-    <%= f.select :product_id,
-          options_from_collection_for_select(@products, :id, :name),
-          prompt: "Select product" %>
+        <div class="admin-field">
+          <%= f.label :price_override %>
+          <%= f.number_field :price_override, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :stock %>
+          <%= f.number_field :stock, required: true %>
+        </div>
+      </div>
+
+      <div class="admin-field admin-field-inline">
+        <%= f.check_box :active %>
+        <%= f.label :active %>
+      </div>
+
+      <%= f.submit "Create Variant", class: "admin-primary-button" %>
+    <% end %>
   </div>
-
-  <div>
-    <%= f.label :name %><br>
-    <%= f.text_field :name, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :price_override %><br>
-    <%= f.number_field :price_override, step: 0.01 %>
-  </div>
-
-  <div>
-    <%= f.label :stock %><br>
-    <%= f.number_field :stock, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :active %>
-    <%= f.check_box :active %>
-  </div>
-
-  <br>
-
-  <%= f.submit "Create Variant" %>
-
-<% end %>
+</section>

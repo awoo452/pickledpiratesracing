@@ -1,6 +1,27 @@
-<h1>Admin</h1>
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero">
+      <div>
+        <p class="admin-kicker">Admin Console</p>
+        <h1 class="admin-title">Captain's Desk</h1>
+        <p class="admin-subtitle">Everything you need is one click away. Ship variants fast and keep an eye on orders.</p>
+      </div>
+    </header>
 
-<ul>
-  <li><%= link_to "Add product variant", new_admin_product_variant_path %></li>
-  <li><%= link_to "View orders", admin_orders_path %></li>
-</ul>
+    <div class="admin-actions">
+      <%= link_to new_admin_product_variant_path, class: "admin-action-card" do %>
+        <span class="admin-action-kicker">Variants</span>
+        <h2>Add product variant</h2>
+        <p>Create new sizes or options with stock and pricing overrides.</p>
+        <span class="admin-action-link">Open variant form →</span>
+      <% end %>
+
+      <%= link_to admin_orders_path, class: "admin-action-card admin-action-card--accent" do %>
+        <span class="admin-action-kicker">Orders</span>
+        <h2>Review orders</h2>
+        <p>Track new purchases, totals, and fulfillment status.</p>
+        <span class="admin-action-link">Go to orders →</span>
+      <% end %>
+    </div>
+  </div>
+</section>

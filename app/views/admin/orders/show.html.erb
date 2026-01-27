@@ -1,34 +1,48 @@
-<div class="admin-page">
-  <h1>Order #<%= @order.id %></h1>
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Order</p>
+        <h1 class="admin-title">Order #<%= @order.id %></h1>
+        <p class="admin-subtitle">Review the customer details and line items.</p>
+      </div>
+      <%= link_to "Back to orders", admin_orders_path, class: "admin-secondary-link" %>
+    </header>
 
-  <div class="admin-card">
-    <p><strong>User:</strong> <%= @order.user.email %></p>
-    <p><strong>Status:</strong> <%= @order.status.capitalize %></p>
-    <p><strong>Total:</strong> $<%= number_with_precision(@order.total, precision: 2) %></p>
-  </div>
+    <div class="admin-card admin-card-grid">
+      <div>
+        <p class="admin-kicker">Customer</p>
+        <p><strong>User:</strong> <%= @order.user.email %></p>
+      </div>
+      <div>
+        <p class="admin-kicker">Status</p>
+        <p><strong>Status:</strong> <span class="status status-<%= @order.status %>"><%= @order.status.capitalize %></span></p>
+      </div>
+      <div>
+        <p class="admin-kicker">Total</p>
+        <p><strong>Total:</strong> $<%= number_with_precision(@order.total, precision: 2) %></p>
+      </div>
+    </div>
 
-  <h2>Items</h2>
+    <h2>Items</h2>
 
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Variant</th>
-        <th>Qty</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @order.order_items.each do |item| %>
+    <table class="admin-table">
+      <thead>
         <tr>
-          <td><%= item.product_variant.product.name %></td>
-          <td><%= item.product_variant.name %></td>
-          <td><%= item.quantity %></td>
+          <th>Product</th>
+          <th>Variant</th>
+          <th>Qty</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <div class="admin-back">
-    <%= link_to "← Back to orders", admin_orders_path %>
+      </thead>
+      <tbody>
+        <% @order.order_items.each do |item| %>
+          <tr>
+            <td><%= item.product_variant.product.name %></td>
+            <td><%= item.product_variant.name %></td>
+            <td><%= item.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
-</div>
+</section>
