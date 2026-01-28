@@ -1,3 +1,11 @@
+## [0.1.47] - 2026-01-28
+
+### Added
+- New “42069 Club” reward redeemable via the claim form.
+
+### Changed
+- Reward claim now supports multiple codes.
+
 ## [0.1.46] - 2026-01-28
 
 ### Added

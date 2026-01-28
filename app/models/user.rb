@@ -40,18 +40,27 @@ class User < ApplicationRecord
     end
   end
 
-  def claim_estranged_drags_2026_reward(code)
-    reward_code = "ESTRANGED2026tnine"
+  def claim_reward(code)
+    normalized = code.to_s.strip
 
-    return false unless code.casecmp?(reward_code)
-
-    rewards.find_or_create_by!(
-      name: "Estranged Drags 2026 Attendee"
-    ) do |r|
-      r.description = "Got Pickled at Estranged Drags 2026"
+    case normalized.downcase
+    when "estranged2026tnine"
+      rewards.find_or_create_by!(
+        name: "Estranged Drags 2026 Attendee"
+      ) do |r|
+        r.description = "Got Pickled at Estranged Drags 2026"
+      end
+      true
+    when "42069"
+      rewards.find_or_create_by!(
+        name: "42069 Club"
+      ) do |r|
+        r.description = "Nice. You found the code."
+      end
+      true
+    else
+      false
     end
-
-    true
   end
 
   devise :database_authenticatable, :registerable,
