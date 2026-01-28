@@ -1,3 +1,8 @@
+## [0.1.57] - 2026-01-28
+
+### Changed
+- Removed an unused product query from the admin dashboard.
+
 ## [0.1.55] - 2026-01-28
 
 ### Changed
