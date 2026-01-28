@@ -1,3 +1,14 @@
+## [0.1.41] - 2026-01-28
+
+### Added
+- Events page backed by a new events table.
+- Admin events management (create/edit/delete).
+- Events nav link and dashboard entry.
+
+### Changed
+- Events page now requires a signed-in user.
+- Fixed CSS asset loading by linking stylesheets directly in the layout.
+
 ## [0.1.40] - 2026-01-28
 
 ### Changed

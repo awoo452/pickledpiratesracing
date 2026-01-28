@@ -18,8 +18,20 @@
     <link rel="apple-touch-icon" href="/icon.png">
     
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "layout",
+                            "nav",
+                            "landing",
+                            "products",
+                            "product_show",
+                            "videos",
+                            "events",
+                            "admin",
+                            "about",
+                            "account",
+                            "footer",
+                            "contact",
+                            "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://www.paypal.com/sdk/js?client-id=AUYLaRtWxYYLSho9m0pAgHPRViPDMb1YAny30vIiarZQXKG4hi2tPXfJFYoGjxd9L1UbUwYdaOy3Z8bt&currency=USD"></script>
 

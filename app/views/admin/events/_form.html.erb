@@ -1,0 +1,30 @@
+<%= form_with model: @event, url: url, local: true, html: { class: "admin-form" } do |f| %>
+  <div class="admin-form-grid">
+    <div class="admin-field">
+      <%= f.label :title %>
+      <%= f.text_field :title, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :event_date, "Date" %>
+      <%= f.date_field :event_date, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :location %>
+      <%= f.text_field :location %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :link, "Link (optional)" %>
+      <%= f.url_field :link, placeholder: "https://..." %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :description %>
+      <%= f.text_area :description, rows: 4 %>
+    </div>
+  </div>
+
+  <%= f.submit submit_label, class: "admin-primary-button" %>
+<% end %>

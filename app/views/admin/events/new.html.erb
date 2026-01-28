@@ -1,0 +1,14 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Events</p>
+        <h1 class="admin-title">Create event</h1>
+        <p class="admin-subtitle">Add a new event to show on the public events page.</p>
+      </div>
+      <%= link_to "Back to events", admin_events_path, class: "admin-secondary-link" %>
+    </header>
+
+    <%= render "form", url: admin_events_path, submit_label: "Create event" %>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Events</p>
+        <h1 class="admin-title">Edit event</h1>
+        <p class="admin-subtitle">Update event details or remove outdated info.</p>
+      </div>
+      <%= link_to "Back to events", admin_events_path, class: "admin-secondary-link" %>
+    </header>
+
+    <%= render "form", url: admin_event_path(@event), submit_label: "Save changes" %>
+  </div>
+</section>

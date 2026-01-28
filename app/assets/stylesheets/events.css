@@ -1,0 +1,43 @@
+.events-page {
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.events-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.event-card {
+  width: 320px;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  padding: 16px;
+  text-align: center;
+}
+
+.event-date {
+  font-weight: bold;
+  margin: 8px 0 6px;
+}
+
+.event-location {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.event-description {
+  color: #333;
+}
+
+.event-link {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}

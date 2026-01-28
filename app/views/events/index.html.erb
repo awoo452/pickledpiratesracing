@@ -1,0 +1,27 @@
+<section class="events-page">
+
+  <h1>Events</h1>
+
+  <% if @events.any? %>
+    <div class="events-grid">
+      <% @events.each do |event| %>
+        <div class="event-card">
+          <h2><%= event.title %></h2>
+          <p class="event-date"><%= event.event_date.strftime("%B %d, %Y") %></p>
+          <% if event.location.present? %>
+            <p class="event-location"><%= event.location %></p>
+          <% end %>
+          <% if event.description.present? %>
+            <p class="event-description"><%= event.description %></p>
+          <% end %>
+          <% if event.link.present? %>
+            <%= link_to "More info", event.link, class: "event-link", target: "_blank", rel: "noopener" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No events yet.</p>
+  <% end %>
+
+</section>

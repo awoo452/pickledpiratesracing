@@ -1,0 +1,46 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Events</p>
+        <h1 class="admin-title">Upcoming events</h1>
+        <p class="admin-subtitle">Plan and publish upcoming races, meets, and gatherings.</p>
+      </div>
+      <div class="admin-hero-actions">
+        <%= link_to "New event", new_admin_event_path, class: "admin-primary-button" %>
+        <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+      </div>
+    </header>
+
+    <% if @events.any? %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @events.each do |event| %>
+            <tr>
+              <td><%= event.title %></td>
+              <td><%= event.event_date.strftime("%Y-%m-%d") %></td>
+              <td><%= event.location.presence || "—" %></td>
+              <td>
+                <%= link_to "Edit", edit_admin_event_path(event) %> |
+                <%= button_to "Delete", admin_event_path(event),
+                              method: :delete,
+                              form: { data: { turbo_confirm: "Delete this event?" } },
+                              class: "admin-link-button" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="empty-state">No events yet.</p>
+    <% end %>
+  </div>
+</section>

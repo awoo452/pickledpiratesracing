@@ -319,6 +319,16 @@
   font-weight: 600;
 }
 
+.admin-link-button {
+  background: none;
+  border: none;
+  color: var(--admin-accent);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+
 @media (max-width: 720px) {
   .admin-hero {
     flex-direction: column;
