@@ -40,7 +40,6 @@
 .video-frame {
   margin-top: 8px;
   background: #000;
-  border-radius: 6px;
   overflow: hidden;
   position: relative;
   width: 100%;

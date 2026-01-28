@@ -1,7 +1,15 @@
+## [0.1.40] - 2026-01-28
+
+### Changed
+- Updated the landing hero tagline copy.
+- Tuned landing hero image height caps across small and wide screens.
+
 ## [0.1.39] - 2026-01-28
 
 ### Changed
 - Refined the About page hero layout, added an eyebrow line, and tightened heading spacing.
+- Added an over-hero tagline describing the club on the landing page.
+- Removed the rounded corners from video frames.
 
 ## [0.1.38] - 2026-01-28
 
