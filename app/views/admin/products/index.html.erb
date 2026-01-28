@@ -1,0 +1,52 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Products</p>
+        <h1 class="admin-title">Manage products</h1>
+        <p class="admin-subtitle">Edit product details or jump into image uploads.</p>
+      </div>
+      <div class="admin-hero-actions">
+        <%= link_to "New product", new_admin_product_path, class: "admin-primary-button" %>
+        <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+      </div>
+    </header>
+
+    <% if @products.any? %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td>
+                <% if product.price_hidden? %>
+                  Coming Soon
+                <% else %>
+                  $<%= number_with_precision(product.price, precision: 2) %>
+                <% end %>
+              </td>
+              <td><%= product.featured? ? "Featured" : "Standard" %></td>
+              <td>
+                <%= link_to "Edit", edit_admin_product_path(product) %> |
+                <%= button_to "Delete", admin_product_path(product),
+                              method: :delete,
+                              form: { data: { turbo_confirm: "Delete this product and its S3 images?" } },
+                              class: "admin-link-button" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="empty-state">No products yet.</p>
+    <% end %>
+  </div>
+</section>

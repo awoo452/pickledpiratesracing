@@ -1,3 +1,12 @@
+## [0.1.45] - 2026-01-28
+
+### Added
+- Admin products list for editing and deleting products.
+- Admin dashboard link to manage products.
+
+### Changed
+- Removed product admin controls from the public product show page.
+
 ## [0.1.44] - 2026-01-28
 
 ### Changed

@@ -16,6 +16,13 @@
         <span class="admin-action-link">Start product →</span>
       <% end %>
 
+      <%= link_to admin_products_path, class: "admin-action-card admin-action-card--accent" do %>
+        <span class="admin-action-kicker">Products</span>
+        <h2>Manage products</h2>
+        <p>Edit details, pricing, and jump into image uploads.</p>
+        <span class="admin-action-link">Go to products →</span>
+      <% end %>
+
       <%= link_to new_admin_product_variant_path, class: "admin-action-card admin-action-card--accent" do %>
         <span class="admin-action-kicker">Variants</span>
         <h2>Add product variant</h2>

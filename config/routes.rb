@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :events, only: [ :index, :new, :create, :edit, :update, :destroy ]
     resources :orders, only: [ :index, :show ]
     resources :product_variants, only: [ :new, :create ]
-    resources :products, only: [ :new, :create, :edit, :update, :destroy ]
+    resources :products, only: [ :index, :new, :create, :edit, :update, :destroy ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

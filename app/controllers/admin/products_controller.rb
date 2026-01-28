@@ -1,6 +1,10 @@
 class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: [ :edit, :update, :destroy ]
 
+  def index
+    @products = Product.order(created_at: :desc)
+  end
+
   def new
     @product = Product.new
   end
