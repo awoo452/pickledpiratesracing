@@ -1,3 +1,8 @@
+## [0.1.51] - 2026-01-28
+
+### Changed
+- Refined feedback form layout, copy, and sizing.
+
 ## [0.1.50] - 2026-01-28
 
 ### Changed

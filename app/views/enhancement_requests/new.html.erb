@@ -1,17 +1,18 @@
 <section class="enhancement-requests">
-  <h2>Enhancement Requests</h2>
+  <h2>Feedback</h2>
+  <p class="enhancement-subtitle">Sometimes a Pirate needs guidance.</p>
 
-  <%= form_with url: enhancement_requests_path, method: :post, local: true do |f| %>
-    <div>
-      <%= f.label :email, "Email" %><br>
-      <%= f.email_field :email %>
+  <%= form_with url: enhancement_requests_path, method: :post, local: true, html: { class: "enhancement-form" } do |f| %>
+    <div class="enhancement-field">
+      <%= f.label :email, "Email (optional)" %>
+      <%= f.email_field :email, placeholder: "you@example.com" %>
     </div>
 
-    <div>
-      <%= f.label :message, "Request" %><br>
-      <%= f.text_area :message, rows: 4, required: true %>
+    <div class="enhancement-field">
+      <%= f.label :message, "What should we change?" %>
+      <%= f.text_area :message, rows: 6, required: true, placeholder: "" %>
     </div>
 
-    <%= f.submit "Submit" %>
+    <%= f.submit "Send feedback", class: "enhancement-submit" %>
   <% end %>
 </section>
