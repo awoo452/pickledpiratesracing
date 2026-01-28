@@ -38,6 +38,16 @@
   margin-top: 4px;
 }
 
+.reward-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reward-icon {
+  font-size: 16px;
+}
+
 .no-rewards {
   color: #777;
   font-style: italic;

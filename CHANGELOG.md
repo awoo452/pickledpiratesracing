@@ -1,3 +1,8 @@
+## [0.1.46] - 2026-01-28
+
+### Added
+- Reward icons (emoji) shown on the account rewards list.
+
 ## [0.1.45] - 2026-01-28
 
 ### Added

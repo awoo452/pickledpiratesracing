@@ -20,7 +20,10 @@
       <ul class="rewards-list">
         <% @rewards.each do |reward| %>
           <li class="reward-item">
-            <strong><%= reward.name %></strong>
+            <strong class="reward-title">
+              <span class="reward-icon" aria-hidden="true"><%= reward_icon(reward) %></span>
+              <%= reward.name %>
+            </strong>
             <span><%= reward.description %></span>
           </li>
         <% end %>
