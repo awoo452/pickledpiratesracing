@@ -3,6 +3,7 @@
 ### Changed
 - Updated the landing hero tagline copy.
 - Tuned landing hero image height caps across small and wide screens.
+- Pinned Ruby to 4.0.1.
 
 ## [0.1.39] - 2026-01-28
 
