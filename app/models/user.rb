@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :rewards
   has_many :orders
 
-  after_create :grant_founding_reward, :grant_early_access_reward
+  after_create :grant_founding_reward, :grant_early_access_reward, :grant_hidden_reward
 
   def grant_founding_reward
     # I don't love the way this is built but there's bigger fish to fry
@@ -29,6 +29,10 @@ class User < ApplicationRecord
   end
 
   def grant_hidden_reward
+    cutoff = Date.new(2026, 3, 1)
+
+    return if created_at.to_date > cutoff
+
     rewards.find_or_create_by!(
       name: "Whoa, how'd you find this"
     ) do |r|

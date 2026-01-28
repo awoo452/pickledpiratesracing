@@ -1,3 +1,8 @@
+## [0.1.37] - 2026-01-28
+
+### Changed
+- Auto-grant the hidden reward for new users until March 1, 2026.
+
 ## [0.1.36] - 2026-01-27
 
 ### Added
