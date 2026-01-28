@@ -41,7 +41,7 @@
 
 .enhancement-submit {
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-contrast);
   border: none;
   border-radius: var(--radius-sm);
   padding: 10px 16px;

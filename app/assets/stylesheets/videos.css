@@ -39,7 +39,7 @@
 
 .video-frame {
   margin-top: 8px;
-  background: #000;
+  background: var(--color-accent);
   overflow: hidden;
   position: relative;
   width: 100%;

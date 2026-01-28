@@ -1,3 +1,13 @@
+## [0.1.53] - 2026-01-28
+
+### Changed
+- Standardized public-site CSS to use layout variables for colors and radii.
+
+## [0.1.52] - 2026-01-28
+
+### Changed
+- Unified Devise login/signup/reset screens with a clean, consistent layout.
+
 ## [0.1.51] - 2026-01-28
 
 ### Changed

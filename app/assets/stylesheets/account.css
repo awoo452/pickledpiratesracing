@@ -60,17 +60,17 @@
 }
 
 .reward-claim.success {
-  color: #1b6e2b;
+  color: var(--color-success);
 }
 
 .reward-claim.error {
-  color: #a63b2d;
+  color: var(--color-error);
 }
 
 .reward-claim-form {
   margin-top: 28px;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .reward-claim-form h3 {
@@ -84,23 +84,23 @@
 }
 
 .reward-claim-fields input[type="text"] {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   padding: 8px 10px;
   min-width: 220px;
 }
 
 .reward-claim-fields input[type="submit"] {
-  background: #111;
+  background: var(--color-accent);
   border: none;
-  border-radius: 4px;
-  color: #fff;
+  border-radius: var(--radius-sm);
+  color: var(--color-contrast);
   cursor: pointer;
   padding: 8px 14px;
 }
 
 .reward-claim-fields input[type="submit"]:hover {
-  background: #2c2c2c;
+  background: var(--color-accent-hover);
 }
 
 @media (max-width: 520px) {
