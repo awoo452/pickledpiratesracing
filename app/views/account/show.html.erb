@@ -10,6 +10,12 @@
 
     <h2>Your Rewards</h2>
 
+    <% if params[:reward_claim] == "success" %>
+      <p class="reward-claim success">Reward added. Welcome to Estranged Drags 2026.</p>
+    <% elsif params[:reward_claim] == "invalid" %>
+      <p class="reward-claim error">That code didn’t work. Try again.</p>
+    <% end %>
+
     <% if @rewards.any? %>
       <ul class="rewards-list">
         <% @rewards.each do |reward| %>
@@ -22,6 +28,16 @@
     <% else %>
       <p class="no-rewards">No rewards yet.</p>
     <% end %>
+
+    <div class="reward-claim-form">
+      <h3>Claim Event Reward</h3>
+      <%= form_with url: claim_account_reward_path, method: :post, local: true do |form| %>
+        <div class="reward-claim-fields">
+          <%= form.text_field :code, placeholder: "Enter attendee code", aria: { label: "Attendee code" } %>
+          <%= form.submit "Claim" %>
+        </div>
+      <% end %>
+    </div>
 
   </div>
 

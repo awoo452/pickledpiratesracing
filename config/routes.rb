@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "/about", to: "about#show"
   get "/account", to: "account#show"
+  post "/account/rewards/claim", to: "account#claim_reward", as: :claim_account_reward
 
   resources :enhancement_requests, only: [ :new, :create ]
   resources :videos, only: [ :index ]

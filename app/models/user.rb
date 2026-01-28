@@ -40,6 +40,20 @@ class User < ApplicationRecord
     end
   end
 
+  def claim_estranged_drags_2026_reward(code)
+    reward_code = "ESTRANGED2026tnine"
+
+    return false unless code.casecmp?(reward_code)
+
+    rewards.find_or_create_by!(
+      name: "Estranged Drags 2026 Attendee"
+    ) do |r|
+      r.description = "Got Pickled at Estranged Drags 2026"
+    end
+
+    true
+  end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end

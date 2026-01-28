@@ -1,3 +1,11 @@
+## [0.1.38] - 2026-01-28
+
+### Added
+- Reward claim form for the Estranged Drags 2026 attendee badge.
+
+### Changed
+- Added a 2026 attendee reward redeemable with a claim code.
+
 ## [0.1.37] - 2026-01-28
 
 ### Changed
