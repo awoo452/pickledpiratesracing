@@ -1,3 +1,11 @@
+## [0.1.42] - 2026-01-28
+
+### Added
+- Event image support with main/alt keys and optional uploads.
+
+### Changed
+- Events admin delete now submits a real DELETE request.
+
 ## [0.1.41] - 2026-01-28
 
 ### Added

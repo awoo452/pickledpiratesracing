@@ -1,4 +1,4 @@
-<%= form_with model: @event, url: url, local: true, html: { class: "admin-form" } do |f| %>
+<%= form_with model: @event, url: url, local: true, html: { class: "admin-form", multipart: true } do |f| %>
   <div class="admin-form-grid">
     <div class="admin-field">
       <%= f.label :title %>
@@ -18,6 +18,26 @@
     <div class="admin-field">
       <%= f.label :link, "Link (optional)" %>
       <%= f.url_field :link, placeholder: "https://..." %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :image_key, "Main image (optional)" %>
+      <%= f.text_field :image_key, placeholder: "logo-dark or events/1/main.jpg" %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :image, "Upload main image" %>
+      <%= f.file_field :image %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :image_alt_key, "Alt image (optional)" %>
+      <%= f.text_field :image_alt_key, placeholder: "events/1/alt.jpg" %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :alt_image, "Upload alt image" %>
+      <%= f.file_field :alt_image %>
     </div>
 
     <div class="admin-field">

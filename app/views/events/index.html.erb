@@ -6,6 +6,11 @@
     <div class="events-grid">
       <% @events.each do |event| %>
         <div class="event-card">
+          <% if event.image_url.present? %>
+            <div class="event-image">
+              <%= image_tag event.image_url, alt: event.title %>
+            </div>
+          <% end %>
           <h2><%= event.title %></h2>
           <p class="event-date"><%= event.event_date.strftime("%B %d, %Y") %></p>
           <% if event.location.present? %>
@@ -13,6 +18,11 @@
           <% end %>
           <% if event.description.present? %>
             <p class="event-description"><%= event.description %></p>
+          <% end %>
+          <% if event.image_alt_url.present? %>
+            <div class="event-image event-image--alt">
+              <%= image_tag event.image_alt_url, alt: "#{event.title} alternate" %>
+            </div>
           <% end %>
           <% if event.link.present? %>
             <%= link_to "More info", event.link, class: "event-link", target: "_blank", rel: "noopener" %>

@@ -20,6 +20,20 @@
   text-align: center;
 }
 
+.event-image {
+  margin-bottom: 12px;
+}
+
+.event-image img {
+  max-width: 160px;
+  height: auto;
+}
+
+.event-image--alt img {
+  max-width: 120px;
+  opacity: 0.9;
+}
+
 .event-date {
   font-weight: bold;
   margin: 8px 0 6px;
