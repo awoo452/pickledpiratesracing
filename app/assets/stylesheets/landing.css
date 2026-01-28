@@ -54,20 +54,23 @@ p {
   }
 }
 
-.landing-cta {
+.landing-overlay {
   position: absolute;
-  bottom: 1.5em;
+  bottom: 1.4em;
   left: 50%;
   transform: translateX(-50%);
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   z-index: 2;
 }
 
+.landing-cta {
+  margin: 0;
+}
+
 .landing-tagline {
-  position: absolute;
-  bottom: 4.5em;
-  left: 50%;
-  transform: translateX(-50%);
   margin: 0;
   padding: 6px 12px;
   background: rgba(0, 0, 0, 0.7);
@@ -76,7 +79,6 @@ p {
   letter-spacing: 0.12em;
   font-size: 12px;
   border-radius: 4px;
-  z-index: 2;
 }
 
 @media (min-width: 1200px) {
@@ -112,6 +114,5 @@ p {
   .landing-tagline {
     font-size: 10px;
     letter-spacing: 0.1em;
-    bottom: 5em;
   }
 }

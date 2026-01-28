@@ -5,13 +5,14 @@
         <%= image_tag "landing0.1.27.png", alt: "Pickled Pirates Racing" %>
     </div>
 
-    <% unless user_signed_in? %>
-      <div class="landing-cta">
-        <%= link_to "Get Pickled", new_user_session_path, class: "cta-button" %>
-      </div>
-    <% end %>
-
-    <p class="landing-tagline">Racing since we can’t remember. Pickled since forever.</p>
+    <div class="landing-overlay">
+      <p class="landing-tagline">Racing since we can’t remember. Pickled since forever.</p>
+      <% unless user_signed_in? %>
+        <div class="landing-cta">
+          <%= link_to "Get Pickled", new_user_session_path, class: "cta-button" %>
+        </div>
+      <% end %>
+    </div>
   </div>
   
 

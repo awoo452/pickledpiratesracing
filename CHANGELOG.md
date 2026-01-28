@@ -1,3 +1,8 @@
+## [0.1.49] - 2026-01-28
+
+### Changed
+- Reworked landing hero overlay to avoid overlapping tagline and CTA.
+
 ## [0.1.48] - 2026-01-28
 
 ### Changed
