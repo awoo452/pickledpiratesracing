@@ -7,12 +7,9 @@
       <% @videos.each do |video| %>
         <div class="video-card">
           <div class="video-frame">
-            <iframe
-              class="youtube-video"
-              src="<%= youtube_embed(video) %>"
-              frameborder="0"
-              allowfullscreen>
-            </iframe>
+            <div class="youtube-placeholder" data-embed-url="<%= youtube_embed(video) %>">
+              <button type="button" class="youtube-play">Play video</button>
+            </div>
           </div>
 
           <h4><%= video.title %></h4>

@@ -1,3 +1,10 @@
+## [0.1.54] - 2026-01-28
+
+### Changed
+- YouTube embeds now load on click instead of on page load.
+- PayPal script now loads only on product pages (not globally).
+
+
 ## [0.1.53] - 2026-01-28
 
 ### Changed

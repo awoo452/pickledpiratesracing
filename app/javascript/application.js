@@ -25,3 +25,37 @@ const setupHerokuUploadGuard = () => {
 }
 
 document.addEventListener("turbo:load", setupHerokuUploadGuard)
+
+const setupYoutubePlaceholders = () => {
+  document.querySelectorAll(".youtube-placeholder").forEach((placeholder) => {
+    const embedUrl = placeholder.dataset.embedUrl
+    if (!embedUrl) return
+
+    const button = placeholder.querySelector("button")
+    if (!button) return
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault()
+
+      if (placeholder.dataset.loaded === "true") return
+      placeholder.dataset.loaded = "true"
+
+      const iframe = document.createElement("iframe")
+      iframe.className = "youtube-video"
+
+      const autoplayUrl = embedUrl.includes("?")
+        ? `${embedUrl}&autoplay=1`
+        : `${embedUrl}?autoplay=1`
+
+      iframe.src = autoplayUrl
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      iframe.allowFullscreen = true
+      iframe.setAttribute("frameborder", "0")
+
+      placeholder.replaceWith(iframe)
+    })
+  })
+}
+
+document.addEventListener("turbo:load", setupYoutubePlaceholders)
