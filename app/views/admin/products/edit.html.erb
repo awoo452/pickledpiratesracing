@@ -12,22 +12,28 @@
     <% heroku_host = "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com" %>
     <% on_heroku = request.host == heroku_host %>
 
-    <% if Rails.env.production? && !on_heroku %>
-      <div class="admin-card">
-        <p class="admin-kicker">Uploads</p>
-        <p>Image uploads must be done on the Heroku admin to bypass CloudFront caching.</p>
-        <%= link_to "Open Heroku upload page",
-            "https://#{heroku_host}/admin/products/#{@product.id}/edit",
-            class: "admin-primary-button",
-            target: "_blank",
-            rel: "noopener" %>
-      </div>
-    <% else %>
-      <%= form_with model: @product,
-                    url: admin_product_path(@product),
-                    method: :patch,
-                    local: true,
-                    html: { multipart: true, data: { turbo: false }, class: "admin-form" } do |f| %>
+    <%= form_with model: @product,
+                  url: admin_product_path(@product),
+                  method: :patch,
+                  local: true,
+                  html: { multipart: true,
+                          data: { turbo: false,
+                                  heroku_upload: true,
+                                  heroku_host: heroku_host,
+                                  heroku_url: "https://#{heroku_host}/admin/products/#{@product.id}/edit" },
+                          class: "admin-form" } do |f| %>
+
+      <% if Rails.env.production? && !on_heroku %>
+        <div class="admin-card">
+          <p class="admin-kicker">Uploads</p>
+          <p>Uploads must happen on the Heroku admin. Clicking upload will redirect you there.</p>
+          <%= link_to "Open Heroku upload page",
+              "https://#{heroku_host}/admin/products/#{@product.id}/edit",
+              class: "admin-primary-button",
+              target: "_blank",
+              rel: "noopener" %>
+        </div>
+      <% end %>
 
       <div class="admin-form-grid">
         <div class="admin-field">
@@ -40,7 +46,7 @@
 
         <div class="admin-field">
           <%= f.label :image, "Upload image" %>
-          <%= f.file_field :image %>
+          <%= f.file_field :image, data: { heroku_guard: true } %>
         </div>
       </div>
 
@@ -51,6 +57,5 @@
 
         <%= f.submit "Upload", class: "admin-primary-button" %>
       <% end %>
-    <% end %>
   </div>
 </section>

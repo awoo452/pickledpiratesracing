@@ -1,3 +1,8 @@
+## [0.1.44] - 2026-01-28
+
+### Changed
+- Product image uploads now auto-redirect to Heroku when started on the custom domain.
+
 ## [0.1.43] - 2026-01-28
 
 ### Changed
