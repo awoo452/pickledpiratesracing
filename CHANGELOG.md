@@ -1,3 +1,8 @@
+## [0.1.39] - 2026-01-28
+
+### Changed
+- Refined the About page hero layout, added an eyebrow line, and tightened heading spacing.
+
 ## [0.1.38] - 2026-01-28
 
 ### Added

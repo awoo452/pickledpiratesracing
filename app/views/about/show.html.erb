@@ -1,5 +1,16 @@
 <section class="about">
+  <div class="about-hero">
     <h1><%= @about&.title || "About" %></h1>
-    <%= image_tag "dan55.jpg" %>
-    <p><%= @about&.body %></p>
+    <p class="about-eyebrow">Est. A While Ago</p>
+    <p class="about-lede">
+      <%= @about&.body.presence || "World Champion Professional Drinkers of Beer." %>
+    </p>
+    <div class="about-actions">
+      <a class="cta-button" href="/products">Shop the gear</a>
+      <a class="cta-button" href="/videos">Watch the videos</a>
+    </div>
+    <div class="about-image">
+      <%= image_tag "dan55.jpg", alt: "Pickled Pirates Racing" %>
+    </div>
+  </div>
 </section>
