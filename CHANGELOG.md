@@ -1,3 +1,9 @@
+## [0.1.48] - 2026-01-28
+
+### Changed
+- Increased the nav logo size.
+- Added sitewide CSS variables and wired core public styles to use them.
+
 ## [0.1.47] - 2026-01-28
 
 ### Added

@@ -5,9 +5,9 @@
 }
 
 .account-card {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 24px;
   text-align: center;
 }
@@ -24,7 +24,7 @@
 
 .reward-item {
   padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .reward-item:last-child {
@@ -33,7 +33,7 @@
 
 .reward-item span {
   display: block;
-  color: #555;
+  color: var(--color-muted);
   font-size: 14px;
   margin-top: 4px;
 }
@@ -49,7 +49,7 @@
 }
 
 .no-rewards {
-  color: #777;
+  color: var(--color-muted);
   font-style: italic;
   margin-top: 12px;
 }

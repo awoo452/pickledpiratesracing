@@ -13,9 +13,9 @@
 .event-card {
   width: 320px;
   max-width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   padding: 16px;
   text-align: center;
 }
@@ -40,18 +40,18 @@
 }
 
 .event-location {
-  color: #555;
+  color: var(--color-muted);
   margin-bottom: 10px;
 }
 
 .event-description {
-  color: #333;
+  color: var(--color-text);
 }
 
 .event-link {
   display: inline-block;
   margin-top: 10px;
   text-decoration: none;
-  color: #000;
+  color: var(--color-accent);
   font-weight: bold;
 }

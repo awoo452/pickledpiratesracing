@@ -89,8 +89,8 @@ p {
 .cta-button {
   display: inline-block;
   padding: 10px 18px;
-  border-radius: 4px;
-  background: #000;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -103,7 +103,7 @@ p {
 
 .landing-divider {
   border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--color-border);
   margin: 24px auto;
   max-width: 900px;
 }

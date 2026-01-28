@@ -1,10 +1,26 @@
 :root {
   --font-heading: "Bebas Neue", "Arial Narrow", sans-serif;
   --font-body: Verdana, sans-serif;
+  --color-bg: #e5e5e5;
+  --color-surface: #fff;
+  --color-text: #222;
+  --color-muted: #555;
+  --color-border: #ccc;
+  --color-border-light: #eee;
+  --color-accent: #000;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
 }
 
 .layout {
-  background-color: #e5e5e5;
+  background-color: var(--color-bg);
   min-height: 100vh;
   padding: 0;
   margin: 0;
@@ -15,12 +31,12 @@ h1,
 h2,
 h3 {
   font-family: var(--font-heading);
-  color: #222;
+  color: var(--color-text);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .empty-state {
-  color: #555;
+  color: var(--color-muted);
   font-style: italic;
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }

@@ -11,10 +11,10 @@
 
 .product {
   width: 220px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   padding: 12px;
-  border-radius: 6px;
-  background: #fff;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -49,5 +49,5 @@
 
 .product-link {
   text-decoration: none;
-  color: black;
+  color: var(--color-text);
 }
