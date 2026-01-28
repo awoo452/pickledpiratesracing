@@ -9,6 +9,14 @@
       <%= link_to "Back to events", admin_events_path, class: "admin-secondary-link" %>
     </header>
 
-    <%= render "form", url: admin_event_path(@event), submit_label: "Save changes" %>
+    <% heroku_host = "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com" %>
+    <% on_heroku = request.host == heroku_host %>
+
+    <%= render "form",
+               url: admin_event_path(@event),
+               submit_label: "Save changes",
+               heroku_host: heroku_host,
+               heroku_url: "https://#{heroku_host}/admin/events/#{@event.id}/edit",
+               on_heroku: on_heroku %>
   </div>
 </section>

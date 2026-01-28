@@ -1,4 +1,21 @@
-<%= form_with model: @event, url: url, local: true, html: { class: "admin-form", multipart: true } do |f| %>
+<%= form_with model: @event,
+              url: url,
+              local: true,
+              html: { class: "admin-form",
+                      multipart: true,
+                      data: { turbo: false, heroku_upload: true, heroku_host: heroku_host, heroku_url: heroku_url } } do |f| %>
+  <% if Rails.env.production? && !on_heroku %>
+    <div class="admin-card">
+      <p class="admin-kicker">Uploads</p>
+      <p>Uploads must happen on the Heroku admin. Clicking upload will redirect you there.</p>
+      <%= link_to "Open Heroku upload page",
+          heroku_url,
+          class: "admin-primary-button",
+          target: "_blank",
+          rel: "noopener" %>
+    </div>
+  <% end %>
+
   <div class="admin-form-grid">
     <div class="admin-field">
       <%= f.label :title %>
@@ -27,7 +44,7 @@
 
     <div class="admin-field">
       <%= f.label :image, "Upload main image" %>
-      <%= f.file_field :image %>
+      <%= f.file_field :image, data: { heroku_guard: true } %>
     </div>
 
     <div class="admin-field">
@@ -37,7 +54,7 @@
 
     <div class="admin-field">
       <%= f.label :alt_image, "Upload alt image" %>
-      <%= f.file_field :alt_image %>
+      <%= f.file_field :alt_image, data: { heroku_guard: true } %>
     </div>
 
     <div class="admin-field">

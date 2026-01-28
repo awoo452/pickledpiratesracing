@@ -1,3 +1,9 @@
+## [0.1.43] - 2026-01-28
+
+### Changed
+- Events admin upload flow now mirrors the Heroku-only upload path used by products.
+- Upload buttons now auto-redirect to the Heroku admin when on the custom domain.
+
 ## [0.1.42] - 2026-01-28
 
 ### Added
@@ -5,6 +11,7 @@
 
 ### Changed
 - Events admin delete now submits a real DELETE request.
+- Events admin uploads now mirror the Heroku-only upload flow used by products.
 
 ## [0.1.41] - 2026-01-28
 
