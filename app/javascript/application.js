@@ -26,10 +26,51 @@ const setupHerokuUploadGuard = () => {
 
 document.addEventListener("turbo:load", setupHerokuUploadGuard)
 
+const canPersistVideoPreference = () => {
+  try {
+    const testKey = "ppr_video_pref_test"
+    window.localStorage.setItem(testKey, "1")
+    window.localStorage.removeItem(testKey)
+    return true
+  } catch (_error) {
+    return false
+  }
+}
+
+const shouldAutoloadYoutube = () => {
+  const cookiesEnabled = navigator.cookieEnabled
+  const storageOk = canPersistVideoPreference()
+
+  return cookiesEnabled && storageOk
+}
+
+const loadYoutubeIframe = (placeholder, autoplay) => {
+  const embedUrl = placeholder.dataset.embedUrl
+  if (!embedUrl) return
+
+  const iframe = document.createElement("iframe")
+  iframe.className = "youtube-video"
+
+  if (autoplay) {
+    iframe.src = embedUrl.includes("?") ? `${embedUrl}&autoplay=1` : `${embedUrl}?autoplay=1`
+  } else {
+    iframe.src = embedUrl
+  }
+
+  iframe.allow =
+    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  iframe.allowFullscreen = true
+  iframe.setAttribute("frameborder", "0")
+
+  placeholder.replaceWith(iframe)
+}
+
 const setupYoutubePlaceholders = () => {
   document.querySelectorAll(".youtube-placeholder").forEach((placeholder) => {
-    const embedUrl = placeholder.dataset.embedUrl
-    if (!embedUrl) return
+    if (shouldAutoloadYoutube()) {
+      loadYoutubeIframe(placeholder, false)
+      return
+    }
 
     const button = placeholder.querySelector("button")
     if (!button) return
@@ -40,20 +81,7 @@ const setupYoutubePlaceholders = () => {
       if (placeholder.dataset.loaded === "true") return
       placeholder.dataset.loaded = "true"
 
-      const iframe = document.createElement("iframe")
-      iframe.className = "youtube-video"
-
-      const autoplayUrl = embedUrl.includes("?")
-        ? `${embedUrl}&autoplay=1`
-        : `${embedUrl}?autoplay=1`
-
-      iframe.src = autoplayUrl
-      iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      iframe.allowFullscreen = true
-      iframe.setAttribute("frameborder", "0")
-
-      placeholder.replaceWith(iframe)
+      loadYoutubeIframe(placeholder, true)
     })
   })
 }
