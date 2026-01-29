@@ -1,0 +1,16 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Docs</p>
+        <h1 class="admin-title">Edit document</h1>
+        <p class="admin-subtitle">Keep the explanation accurate and up to date.</p>
+      </div>
+      <div class="admin-hero-actions">
+        <%= link_to "Back to docs", admin_documents_path, class: "admin-secondary-link" %>
+      </div>
+    </header>
+
+    <%= render "form", url: admin_document_path(@document), submit_label: "Update doc" %>
+  </div>
+</section>

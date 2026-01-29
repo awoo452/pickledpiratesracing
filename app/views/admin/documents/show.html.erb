@@ -1,0 +1,19 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Docs</p>
+        <h1 class="admin-title"><%= @document.title %></h1>
+        <p class="admin-subtitle">How this part of the site works.</p>
+      </div>
+      <div class="admin-hero-actions">
+        <%= link_to "Edit doc", edit_admin_document_path(@document), class: "admin-primary-button" %>
+        <%= link_to "Back to docs", admin_documents_path, class: "admin-secondary-link" %>
+      </div>
+    </header>
+
+    <div class="admin-card">
+      <p><%= simple_format(@document.body) %></p>
+    </div>
+  </div>
+</section>

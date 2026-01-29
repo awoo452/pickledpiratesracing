@@ -11,6 +11,7 @@
     <%= link_to "Contact", contact_path %> |
     <% if user_signed_in? && current_user.admin? %>
         <%= link_to "Admin", admin_root_path %> |
+        <%= link_to "Docs", admin_documents_path %> |
         <%= link_to "Feedback", new_enhancement_request_path %> |
     <% end %>
     <%= button_to "Logout",

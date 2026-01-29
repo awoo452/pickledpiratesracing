@@ -1,0 +1,13 @@
+<%= form_with model: @document, url: url, local: true, html: { class: "admin-form" } do |f| %>
+  <div class="admin-field">
+    <%= f.label :title %>
+    <%= f.text_field :title, required: true %>
+  </div>
+
+  <div class="admin-field">
+    <%= f.label :body, "Document body" %>
+    <%= f.text_area :body, rows: 10, required: true %>
+  </div>
+
+  <%= f.submit submit_label, class: "admin-primary-button" %>
+<% end %>
