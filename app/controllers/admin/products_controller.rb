@@ -37,6 +37,11 @@ class Admin::ProductsController < Admin::BaseController
 
     uploaded = params.dig(:product, :image)
     if uploaded.present?
+      if Rails.env.production? && !on_heroku?
+        redirect_to heroku_product_edit_url, alert: "Uploads must happen on the Heroku admin."
+        return
+      end
+
       image_type = params[:image_type] || "main"
 
       ext = File.extname(uploaded.original_filename)
@@ -82,5 +87,17 @@ class Admin::ProductsController < Admin::BaseController
 
   def create_product_params
     params.fetch(:product, {}).permit(:name, :description, :price, :slug, :price_hidden)
+  end
+
+  def heroku_host
+    "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com"
+  end
+
+  def on_heroku?
+    request.host == heroku_host
+  end
+
+  def heroku_product_edit_url
+    "https://#{heroku_host}/admin/products/#{@product.id}/edit"
   end
 end

@@ -1,3 +1,9 @@
+## [0.1.71] - 2026-01-29
+
+### Fixed
+- Global box-sizing to stop forms from overflowing on mobile.
+- Mobile nav dropdowns now open on first tap (hover only on hover-capable devices).
+
 ## [0.1.70] - 2026-01-29
 
 ### Added

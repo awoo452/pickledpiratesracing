@@ -2,30 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-const setupHerokuUploadGuard = () => {
-  document.querySelectorAll("form[data-heroku-upload]").forEach((form) => {
-    const herokuHost = form.dataset.herokuHost
-    const herokuUrl = form.dataset.herokuUrl
-
-    if (!herokuHost || !herokuUrl || window.location.host === herokuHost) {
-      return
-    }
-
-    const redirectToHeroku = (event) => {
-      event.preventDefault()
-      window.location.href = herokuUrl
-    }
-
-    form.addEventListener("submit", redirectToHeroku)
-
-    form.querySelectorAll('input[type="file"][data-heroku-guard="true"]').forEach((input) => {
-      input.addEventListener("click", redirectToHeroku)
-    })
-  })
-}
-
-document.addEventListener("turbo:load", setupHerokuUploadGuard)
-
 const canPersistVideoPreference = () => {
   try {
     const testKey = "ppr_video_pref_test"

@@ -13,8 +13,12 @@ class Admin::EventsController < Admin::BaseController
     @event = Event.new(event_params)
 
     if @event.save
-      handle_image_uploads(@event)
-      redirect_to admin_events_path, notice: "Event created"
+      if require_heroku_upload?
+        redirect_to heroku_event_edit_url(@event), notice: "Event created. Uploads must happen on the Heroku admin."
+      else
+        handle_image_uploads(@event)
+        redirect_to admin_events_path, notice: "Event created"
+      end
     else
       flash.now[:alert] = @event.errors.full_messages.to_sentence.presence || "Event creation failed"
       render :new, status: :unprocessable_entity
@@ -26,8 +30,12 @@ class Admin::EventsController < Admin::BaseController
 
   def update
     if @event.update(event_params)
-      handle_image_uploads(@event)
-      redirect_to admin_events_path, notice: "Event updated"
+      if require_heroku_upload?
+        redirect_to heroku_event_edit_url(@event), notice: "Event updated. Uploads must happen on the Heroku admin."
+      else
+        handle_image_uploads(@event)
+        redirect_to admin_events_path, notice: "Event updated"
+      end
     else
       flash.now[:alert] = @event.errors.full_messages.to_sentence.presence || "Event update failed"
       render :edit, status: :unprocessable_entity
@@ -47,6 +55,26 @@ class Admin::EventsController < Admin::BaseController
 
   def event_params
     params.fetch(:event, {}).permit(:title, :event_date, :location, :description, :link, :image_key, :image_alt_key)
+  end
+
+  def require_heroku_upload?
+    Rails.env.production? && !on_heroku? && upload_attempted?
+  end
+
+  def upload_attempted?
+    params.dig(:event, :image).present? || params.dig(:event, :alt_image).present?
+  end
+
+  def heroku_host
+    "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com"
+  end
+
+  def on_heroku?
+    request.host == heroku_host
+  end
+
+  def heroku_event_edit_url(event)
+    "https://#{heroku_host}/admin/events/#{event.id}/edit"
   end
 
   def handle_image_uploads(event)

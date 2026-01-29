@@ -39,6 +39,12 @@
   font-family: var(--font-body);
 }
 
+.layout *,
+.layout *::before,
+.layout *::after {
+  box-sizing: border-box;
+}
+
 h1,
 h2,
 h3 {
