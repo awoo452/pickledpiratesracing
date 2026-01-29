@@ -29,17 +29,24 @@
 
     <p class="product-description"><%= @product.description %></p>
 
+    <% available_variants = @variants.select { |variant| variant.stock.nil? || variant.stock > 0 } %>
     <% if @variants.any? %>
       <div class="variant-selector">
         <label for="variant_id">Choose option</label>
 
         <select id="variant_id">
           <% @variants.each do |variant| %>
+            <% out_of_stock = variant.stock.present? && variant.stock <= 0 %>
             <option
               value="<%= variant.id %>"
-              data-price="<%= variant.price_override.nil? ? @product.price : variant.price_override %>">
+              data-price="<%= variant.price_override.nil? ? @product.price : variant.price_override %>"
+              <%= "disabled" if out_of_stock %>>
               <%= variant.name %>
-              <% if variant.stock.present? %> (<%= variant.stock %> left)<% end %>
+              <% if out_of_stock %>
+                (Sold out)
+              <% elsif variant.stock.present? %>
+                (<%= variant.stock %> left)
+              <% end %>
             </option>
           <% end %>
         </select>
@@ -49,6 +56,8 @@
 
     <% if @product.price_hidden? %>
       <p class="product-price">Coming Soon</p>
+    <% elsif @variants.any? && available_variants.empty? %>
+      <p class="product-price">Sold Out</p>
     <% else %>
       <p class="product-price">
         $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
@@ -65,7 +74,7 @@
 
 </section>
 
-<% unless @product.price_hidden? %>
+<% unless @product.price_hidden? || (@variants.any? && available_variants.empty?) %>
 <script src="https://www.paypal.com/sdk/js?client-id=AUYLaRtWxYYLSho9m0pAgHPRViPDMb1YAny30vIiarZQXKG4hi2tPXfJFYoGjxd9L1UbUwYdaOy3Z8bt&currency=USD"></script>
 <script>
   let paypalRendered = false;
@@ -74,7 +83,12 @@
     const el = document.getElementById("variant_id");
     if (!el) return null;
 
-    const opt = el.options[el.selectedIndex];
+    let opt = el.options[el.selectedIndex];
+    if (!opt || opt.disabled) {
+      opt = Array.from(el.options).find((option) => !option.disabled);
+      if (!opt) return null;
+      el.value = opt.value;
+    }
     return {
       id: opt.value,
       price: opt.dataset.price
@@ -100,6 +114,7 @@
     paypal.Buttons({
       createOrder: function(data, actions) {
         const variant = selectedVariant();
+        if (document.getElementById("variant_id") && !variant) return;
 
         return actions.order.create({
           purchase_units: [{
@@ -112,6 +127,7 @@
 
       onApprove: function(data, actions) {
         const variant = selectedVariant();
+        if (document.getElementById("variant_id") && !variant) return;
 
         return actions.order.capture().then(function(details) {
           console.log("variant_id:", variant?.id);

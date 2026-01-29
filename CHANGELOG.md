@@ -1,3 +1,8 @@
+## [0.1.70] - 2026-01-29
+
+### Added
+- Sold-out handling for product variants and checkout gating when all variants are out.
+
 ## [0.1.69] - 2026-01-29
 
 ### Fixed
