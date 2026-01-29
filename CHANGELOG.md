@@ -1,3 +1,8 @@
+## [0.1.68] - 2026-01-29
+
+### Changed
+- Centralized shared shadow values into layout variables and reused them.
+
 ## [0.1.67] - 2026-01-29
 
 ### Changed

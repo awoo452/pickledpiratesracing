@@ -17,6 +17,9 @@
   --color-danger: #8f1d1d;
   --color-danger-border: #c24b4b;
   --color-danger-bg: #fff6f6;
+  --shadow-text: 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-hero: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 6px 12px rgba(0, 0, 0, 0.08);
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 12px;
@@ -41,7 +44,7 @@ h2,
 h3 {
   font-family: var(--font-heading);
   color: var(--color-text);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  text-shadow: var(--shadow-text);
 }
 
 .empty-state {
