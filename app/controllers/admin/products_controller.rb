@@ -25,8 +25,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
     updated = false
-    if product_params.key?(:price_hidden)
-      unless @product.update(price_hidden: product_params[:price_hidden])
+
+    if product_params.present?
+      unless @product.update(product_params)
         redirect_to edit_admin_product_path(@product),
           alert: @product.errors.full_messages.to_sentence.presence || "Update failed"
         return
@@ -54,7 +55,7 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if updated
-      redirect_to product_path(@product), notice: "Product updated"
+      redirect_to edit_admin_product_path(@product), notice: "Product updated"
     else
       redirect_to edit_admin_product_path(@product), alert: "No changes selected"
     end
@@ -76,7 +77,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
-    params.fetch(:product, {}).permit(:price_hidden)
+    params.fetch(:product, {}).permit(:name, :description, :price, :slug, :featured, :price_hidden)
   end
 
   def create_product_params

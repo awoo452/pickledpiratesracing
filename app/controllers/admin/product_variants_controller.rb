@@ -1,5 +1,7 @@
 module Admin
   class ProductVariantsController < Admin::BaseController
+    before_action :set_variant, only: [ :edit, :update ]
+
     def new
       @variant = ProductVariant.new
       @products = Product.order(:name)
@@ -16,7 +18,24 @@ module Admin
       end
     end
 
+    def edit
+      @products = Product.order(:name)
+    end
+
+    def update
+      if @variant.update(variant_params)
+        redirect_to edit_admin_product_variant_path(@variant), notice: "Variant updated"
+      else
+        @products = Product.order(:name)
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
     private
+
+    def set_variant
+      @variant = ProductVariant.find(params[:id])
+    end
 
     def variant_params
       params.require(:product_variant).permit(

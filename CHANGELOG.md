@@ -1,3 +1,9 @@
+## [0.1.69] - 2026-01-29
+
+### Fixed
+- Restored admin product variant edit/update routes and view.
+- Product can now be completely edited on the /show page, not just edits related to image
+
 ## [0.1.68] - 2026-01-29
 
 ### Changed

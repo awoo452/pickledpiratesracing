@@ -1,0 +1,45 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Variants</p>
+        <h1 class="admin-title">Edit product variant</h1>
+        <p class="admin-subtitle">Update stock, pricing, or availability.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
+
+    <%= form_with url: admin_product_variant_path(@variant), model: @variant, method: :patch, local: true, html: { class: "admin-form" } do |f| %>
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <%= f.label :product_id %>
+          <%= f.select :product_id,
+                options_from_collection_for_select(@products, :id, :name, @variant.product_id),
+                prompt: "Select product" %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :name %>
+          <%= f.text_field :name, required: true %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :price_override %>
+          <%= f.number_field :price_override, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :stock %>
+          <%= f.number_field :stock, required: true %>
+        </div>
+      </div>
+
+      <div class="admin-field admin-field-inline">
+        <%= f.check_box :active %>
+        <%= f.label :active %>
+      </div>
+
+      <%= f.submit "Update Variant", class: "admin-primary-button" %>
+    <% end %>
+  </div>
+</section>

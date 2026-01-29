@@ -3,8 +3,8 @@
     <header class="admin-hero admin-hero--compact">
       <div>
         <p class="admin-kicker">Products</p>
-        <h1 class="admin-title">Update product images</h1>
-        <p class="admin-subtitle">Upload main or alt images and toggle price visibility.</p>
+        <h1 class="admin-title">Edit product</h1>
+        <p class="admin-subtitle">Update details, pricing, and images in one place.</p>
       </div>
       <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
     </header>
@@ -37,6 +37,38 @@
 
       <div class="admin-form-grid">
         <div class="admin-field">
+          <%= f.label :name %>
+          <%= f.text_field :name, required: true %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :slug %>
+          <%= f.text_field :slug %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :price %>
+          <%= f.number_field :price, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :featured %>
+          <%= f.select :featured, [["Featured", true], ["Standard", false]], selected: @product.featured? %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :description %>
+          <%= f.text_area :description, rows: 4 %>
+        </div>
+      </div>
+
+      <div class="admin-field admin-field-inline">
+        <%= f.check_box :price_hidden %>
+        <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
+      </div>
+
+      <div class="admin-form-grid">
+        <div class="admin-field">
           <label>Image type</label>
           <select name="image_type">
             <option value="main">Main</option>
@@ -50,12 +82,44 @@
         </div>
       </div>
 
-      <div class="admin-field admin-field-inline">
-        <%= f.check_box :price_hidden %>
-        <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
-      </div>
+      <%= f.submit "Save changes", class: "admin-primary-button" %>
+    <% end %>
 
-        <%= f.submit "Upload", class: "admin-primary-button" %>
-      <% end %>
+    <% if @product.product_variants.any? %>
+      <div class="admin-card">
+        <p class="admin-kicker">Variants</p>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Variant</th>
+              <th>Stock</th>
+              <th>Active</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @product.product_variants.each do |variant| %>
+              <tr>
+                <td><%= variant.name %></td>
+                <td><%= variant.stock %></td>
+                <td><%= variant.active? ? "Yes" : "No" %></td>
+                <td><%= link_to "Edit", edit_admin_product_variant_path(variant) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="admin-back">
+          <%= link_to "Add variant", new_admin_product_variant_path %>
+        </div>
+      </div>
+    <% else %>
+      <div class="admin-card">
+        <p class="admin-kicker">Variants</p>
+        <p>No variants yet.</p>
+        <div class="admin-back">
+          <%= link_to "Add variant", new_admin_product_variant_path %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </section>

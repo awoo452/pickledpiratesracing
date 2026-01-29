@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resources :documents, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
     resources :events, only: [ :index, :new, :create, :edit, :update, :destroy ]
     resources :orders, only: [ :index, :show ]
-    resources :product_variants, only: [ :new, :create ]
+    resources :product_variants, only: [ :new, :create, :edit, :update ]
     resources :products, only: [ :index, :new, :create, :edit, :update, :destroy ]
   end
 
