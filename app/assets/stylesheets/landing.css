@@ -36,21 +36,21 @@ p {
   }
 }
 
-@media (min-width: 900px) {
-  .landing-background img {
-    max-height: 55vh;
-  }
-}
-
 @media (min-width: 1200px) {
   .landing-background img {
-    max-height: 50vh;
+    max-height: 75vh;
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1120px) {
+  .landing-background {
+    background: #000;
+  }
+
   .landing-background img {
-    max-height: 45vh;
+    height: 70vh;
+    max-height: none;
+    object-fit: contain;
   }
 }
 

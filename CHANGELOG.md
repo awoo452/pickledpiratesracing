@@ -1,3 +1,9 @@
+## [0.1.59] - 2026-01-29
+
+### Changed
+- Landing hero now letterboxes the image on wide screens to avoid cropping.
+- Constrained landing videos/products sections to a centered max width on large screens.
+
 ## [0.1.58] - 2026-01-29
 
 ### Added
