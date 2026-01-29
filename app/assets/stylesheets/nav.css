@@ -11,6 +11,24 @@
   letter-spacing: 0.04em;
 }
 
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+}
+
+.nav-links > * {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-links > * + *::before {
+  content: "|";
+  margin: 0 8px;
+  color: var(--color-text);
+}
+
 .nav a {
   text-decoration: none;
   color: var(--color-text);

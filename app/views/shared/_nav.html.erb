@@ -1,26 +1,33 @@
 <nav class="nav">
   <%= image_tag "logodark.png", class: "nav-img" %>
-  <%= link_to "Home", root_path %> |
-  <%= link_to "About", about_path %> |
-  <%= link_to "Products", products_path, data: { turbo: false } %> |
-  <%= link_to "Videos", videos_path %> |
-  <% if user_signed_in? %>
-    <%= link_to "Events", events_path %> |
-    <%= link_to "Swap Meet", parts_path %> |
-    <%= link_to "Contact", contact_path %> |
+  <div class="nav-links">
+    <%= link_to "Home", root_path %>
+    <%= link_to "About", about_path %>
     <div class="nav-dropdown">
-      <span class="nav-dropdown-trigger">Account</span>
+      <span class="nav-dropdown-trigger">Marketplace</span>
       <div class="nav-dropdown-menu">
-        <%= link_to "Account", "/account" %>
-        <%= button_to "Logout",
-              destroy_user_session_path,
-              method: :delete,
-              form: { data: { turbo: false }, class: "nav-dropdown-form" },
-              class: "nav-dropdown-button" %>
+        <%= link_to "Products", products_path, data: { turbo: false } %>
+        <% if user_signed_in? %>
+          <%= link_to "Swap Meet", parts_path %>
+        <% end %>
       </div>
     </div>
-    |
-    <% if user_signed_in? && current_user.admin? %>
+    <%= link_to "Videos", videos_path %>
+    <% if user_signed_in? %>
+      <%= link_to "Events", events_path %>
+      <%= link_to "Contact", contact_path %>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-trigger">Account</span>
+        <div class="nav-dropdown-menu">
+          <%= link_to "Account", "/account" %>
+          <%= button_to "Logout",
+                destroy_user_session_path,
+                method: :delete,
+                form: { data: { turbo: false }, class: "nav-dropdown-form" },
+                class: "nav-dropdown-button" %>
+        </div>
+      </div>
+      <% if user_signed_in? && current_user.admin? %>
         <div class="nav-dropdown">
           <span class="nav-dropdown-trigger">Admin</span>
           <div class="nav-dropdown-menu">
@@ -29,12 +36,12 @@
             <%= link_to "Feedback", new_enhancement_request_path %>
           </div>
         </div>
-        |
+      <% end %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+      <%= link_to "Sign up", new_user_registration_path %>
     <% end %>
-  <% else %>
-    <%= link_to "Login", new_user_session_path %> |
-    <%= link_to "Sign up", new_user_registration_path %>
-  <% end %>
+  </div>
 
 </nav>
 <hr class="nav-hr">

@@ -1,3 +1,9 @@
+## [0.1.63] - 2026-01-29
+
+### Changed
+- Converted nav separators to CSS-based pipes for consistent spacing.
+- Grouped Products/Swap Meet under a Marketplace dropdown.
+
 ## [0.1.62] - 2026-01-29
 
 ### Added
