@@ -29,12 +29,13 @@
   display: inline-flex;
   align-items: center;
   flex: 0 1 auto;
+  white-space: nowrap;
 }
 
-.nav-links > * + *::before {
-  content: "|";
-  margin: 0 8px;
-  color: var(--color-text);
+.nav-links > * + * {
+  border-left: 1px solid var(--color-text);
+  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .nav a {
