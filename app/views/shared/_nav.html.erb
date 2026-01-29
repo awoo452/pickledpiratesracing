@@ -7,18 +7,30 @@
   <% if user_signed_in? %>
     <%= link_to "Events", events_path %> |
     <%= link_to "Swap Meet", parts_path %> |
-    <%= link_to "Account", "/account" %> |
     <%= link_to "Contact", contact_path %> |
-    <% if user_signed_in? && current_user.admin? %>
-        <%= link_to "Admin", admin_root_path %> |
-        <%= link_to "Docs", admin_documents_path %> |
-        <%= link_to "Feedback", new_enhancement_request_path %> |
-    <% end %>
-    <%= button_to "Logout",
+    <div class="nav-dropdown">
+      <span class="nav-dropdown-trigger">Account</span>
+      <div class="nav-dropdown-menu">
+        <%= link_to "Account", "/account" %>
+        <%= button_to "Logout",
               destroy_user_session_path,
               method: :delete,
-              form: { data: { turbo: false } }
-              %>
+              form: { data: { turbo: false }, class: "nav-dropdown-form" },
+              class: "nav-dropdown-button" %>
+      </div>
+    </div>
+    |
+    <% if user_signed_in? && current_user.admin? %>
+        <div class="nav-dropdown">
+          <span class="nav-dropdown-trigger">Admin</span>
+          <div class="nav-dropdown-menu">
+            <%= link_to "Dashboard", admin_root_path %>
+            <%= link_to "Docs", admin_documents_path %>
+            <%= link_to "Feedback", new_enhancement_request_path %>
+          </div>
+        </div>
+        |
+    <% end %>
   <% else %>
     <%= link_to "Login", new_user_session_path %> |
     <%= link_to "Sign up", new_user_registration_path %>

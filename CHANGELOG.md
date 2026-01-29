@@ -1,3 +1,8 @@
+## [0.1.62] - 2026-01-29
+
+### Added
+- Admin and Account dropdowns in the main nav.
+
 ## [0.1.61] - 2026-01-29
 
 ### Added
