@@ -2,8 +2,8 @@
   <%= image_tag "logodark.png", class: "nav-img" %>
   <div class="nav-links">
     <%= link_to "Home", root_path %>
-    <div class="nav-dropdown">
-      <span class="nav-dropdown-trigger">Explore</span>
+    <details class="nav-dropdown">
+      <summary class="nav-dropdown-trigger">Explore</summary>
       <div class="nav-dropdown-menu">
         <%= link_to "About", about_path %>
         <%= link_to "Videos", videos_path %>
@@ -12,19 +12,19 @@
           <%= link_to "Contact", contact_path %>
         <% end %>
       </div>
-    </div>
-    <div class="nav-dropdown">
-      <span class="nav-dropdown-trigger">Marketplace</span>
+    </details>
+    <details class="nav-dropdown">
+      <summary class="nav-dropdown-trigger">Marketplace</summary>
       <div class="nav-dropdown-menu">
         <%= link_to "Products", products_path, data: { turbo: false } %>
         <% if user_signed_in? %>
           <%= link_to "Swap Meet", parts_path %>
         <% end %>
       </div>
-    </div>
+    </details>
     <% if user_signed_in? %>
-      <div class="nav-dropdown">
-        <span class="nav-dropdown-trigger">Account</span>
+      <details class="nav-dropdown">
+        <summary class="nav-dropdown-trigger">Account</summary>
         <div class="nav-dropdown-menu">
           <%= link_to "Account", "/account" %>
           <%= button_to "Logout",
@@ -33,16 +33,16 @@
                 form: { data: { turbo: false }, class: "nav-dropdown-form" },
                 class: "nav-dropdown-button" %>
         </div>
-      </div>
+      </details>
       <% if user_signed_in? && current_user.admin? %>
-        <div class="nav-dropdown">
-          <span class="nav-dropdown-trigger">Admin</span>
+        <details class="nav-dropdown">
+          <summary class="nav-dropdown-trigger">Admin</summary>
           <div class="nav-dropdown-menu">
             <%= link_to "Dashboard", admin_root_path %>
             <%= link_to "Docs", admin_documents_path %>
             <%= link_to "Feedback", new_enhancement_request_path %>
           </div>
-        </div>
+        </details>
       <% end %>
     <% else %>
       <%= link_to "Login", new_user_session_path %>

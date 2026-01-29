@@ -1,3 +1,14 @@
+## [0.1.66] - 2026-01-29
+
+### Changed
+- Made the nav actually function because ChatGPT might as well be like losing two good developers.
+
+## [0.1.65] - 2026-01-29
+
+### Fixed
+- Standardized dropdown padding so the logout button aligns with links.
+- Prevented the nav bar from overflowing the viewport width.
+
 ## [0.1.64] - 2026-01-29
 - Moved About/Videos/Events/Contact into an Explore dropdown.
 

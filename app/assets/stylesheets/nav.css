@@ -1,10 +1,14 @@
 .nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 16px;
   padding: 12px 12px;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
   background: var(--color-bg);
   font-family: var(--font-heading);
   text-transform: uppercase;
@@ -13,14 +17,18 @@
 
 .nav-links {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0;
+  max-width: 100%;
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 .nav-links > * {
   display: inline-flex;
   align-items: center;
+  flex: 0 1 auto;
 }
 
 .nav-links > * + *::before {
@@ -62,6 +70,7 @@
 .nav img.nav-img {
   max-height: 90px;
   width: auto;
+  max-width: 100%;
 }
 
 .nav-dropdown {
@@ -75,12 +84,24 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  list-style: none;
 }
 
 .nav-dropdown-trigger::after {
   content: "▾";
   font-size: 0.8em;
   line-height: 1;
+}
+
+.nav-dropdown-trigger::-webkit-details-marker {
+  display: none;
 }
 
 .nav-dropdown-menu {
@@ -92,6 +113,7 @@
   border-radius: var(--radius-sm);
   padding: 8px 10px;
   min-width: 160px;
+  max-width: calc(100vw - 24px);
   display: none;
   z-index: 10;
 }
@@ -105,24 +127,31 @@
   height: 6px;
 }
 
+.nav-dropdown[open] .nav-dropdown-menu,
 .nav-dropdown:hover .nav-dropdown-menu {
   display: block;
 }
 
-.nav-dropdown-menu a {
+
+.nav-dropdown-menu a,
+.nav-dropdown-menu button {
   display: block;
-  padding: 6px 4px;
+  width: 100%;
+  padding: 6px 8px;
+  margin: 0;
+  text-align: left;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .nav-dropdown-form {
   margin: 0;
+  width: 100%;
 }
 
 .nav-dropdown-button {
-  width: 100%;
-  text-align: left;
-  padding: 6px 4px;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .nav-dropdown-button:hover {
@@ -132,4 +161,62 @@
 .nav-hr {
   border: 1px solid var(--color-accent);
   margin: 0;
+}
+
+@media (max-width: 720px) {
+  .nav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    padding: 12px 0 0;
+    text-align: center;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  .nav-links > * + *::before {
+    content: "";
+    margin: 0;
+  }
+
+  .nav-dropdown {
+    width: 100%;
+    align-items: flex-start;
+    display: block;
+    text-align: center;
+  }
+
+  .nav-dropdown-trigger {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    margin-top: 6px;
+    margin-left: 0;
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    border: 0;
+  }
+
+  .nav-dropdown-button {
+    text-align: center;
+  }
+
+  .nav img.nav-img {
+    display: block;
+    margin: 0 auto;
+  }
 }
