@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   get "/about", to: "about#show"
   get "/account", to: "account#show"
+  get "/account/details/edit", to: "account#edit_details", as: :edit_account_details
   post "/account/rewards/claim", to: "account#claim_reward", as: :claim_account_reward
+  patch "/account/details", to: "account#update_details", as: :update_account_details
   resources :events, only: [ :index ]
 
   resources :enhancement_requests, only: [ :new, :create ]

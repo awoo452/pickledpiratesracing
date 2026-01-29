@@ -1,3 +1,11 @@
+## [0.1.58] - 2026-01-29
+
+### Added
+- First/last name profile fields with a “Profile Completed” reward.
+
+### Changed
+- Moved profile name editing to a dedicated edit page.
+
 ## [0.1.57] - 2026-01-28
 
 ### Changed

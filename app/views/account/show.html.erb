@@ -8,6 +8,15 @@
       <p><strong>Email:</strong> <%= current_user.email %></p>
     </div>
 
+    <div class="profile-details">
+      <h2>Profile Details</h2>
+      <p class="profile-summary">
+        <strong>Name:</strong>
+        <%= [current_user.first_name, current_user.last_name].compact.join(" ").presence || "Not set" %>
+      </p>
+      <%= link_to "Edit profile", edit_account_details_path, class: "profile-edit-link" %>
+    </div>
+
     <h2>Your Rewards</h2>
 
     <% if params[:reward_claim] == "success" %>

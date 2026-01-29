@@ -1,0 +1,27 @@
+<section class="account-page">
+  <div class="account-card">
+    <h1>Edit Profile</h1>
+    <p class="profile-note">Fill in your first and last name to earn the Profile Completed reward.</p>
+
+    <%= form_with model: current_user,
+                  url: update_account_details_path,
+                  method: :patch,
+                  local: true,
+                  html: { class: "profile-details-form" } do |form| %>
+      <div class="profile-details-fields">
+        <div class="profile-details-field">
+          <%= form.label :first_name, "First name" %>
+          <%= form.text_field :first_name %>
+        </div>
+        <div class="profile-details-field">
+          <%= form.label :last_name, "Last name" %>
+          <%= form.text_field :last_name %>
+        </div>
+      </div>
+      <div class="profile-details-actions">
+        <%= form.submit "Save", class: "profile-submit" %>
+        <%= link_to "Back to account", account_path, class: "profile-cancel" %>
+      </div>
+    <% end %>
+  </div>
+</section>

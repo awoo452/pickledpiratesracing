@@ -16,6 +16,73 @@
   margin-bottom: 24px;
 }
 
+.profile-details {
+  margin: 16px 0 24px;
+}
+
+.profile-summary {
+  margin: 8px 0 12px;
+  color: var(--color-text);
+}
+
+.profile-edit-link {
+  display: inline-block;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.profile-edit-link:hover {
+  opacity: 0.7;
+}
+
+.profile-details-form {
+  margin-top: 10px;
+}
+
+.profile-details-fields {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.profile-details-field {
+  text-align: left;
+}
+
+.profile-details-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.profile-details-field input {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  min-width: 200px;
+}
+
+.profile-details-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.profile-cancel {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.profile-cancel:hover {
+  opacity: 0.7;
+}
+
 .rewards-list {
   list-style: none;
   padding: 0;

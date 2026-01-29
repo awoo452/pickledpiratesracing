@@ -63,6 +63,16 @@ class User < ApplicationRecord
     end
   end
 
+  def grant_profile_completed_reward
+    return if first_name.blank? || last_name.blank?
+
+    rewards.find_or_create_by!(
+      name: "Profile Completed"
+    ) do |r|
+      r.description = "Filled out first and last name"
+    end
+  end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end

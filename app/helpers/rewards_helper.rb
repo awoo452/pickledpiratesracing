@@ -4,7 +4,8 @@ module RewardsHelper
     "Early Member" => "⏳",
     "Whoa, how'd you find this" => "🧪",
     "Estranged Drags 2026 Attendee" => "🏁",
-    "42069 Club" => "😏"
+    "42069 Club" => "😏",
+    "Profile Completed" => "✅"
   }.freeze
 
   def reward_icon(reward)
