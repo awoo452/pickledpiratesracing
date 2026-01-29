@@ -1,3 +1,9 @@
+## [0.1.60] - 2026-01-29
+
+### Added
+- Swap Meet parts postings with account-owned listings and a post form.
+- Account page section to manage Swap Meet posts with delete-only controls.
+
 ## [0.1.59] - 2026-01-29
 
 ### Changed

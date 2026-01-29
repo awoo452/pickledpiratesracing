@@ -6,6 +6,7 @@
   <%= link_to "Videos", videos_path %> |
   <% if user_signed_in? %>
     <%= link_to "Events", events_path %> |
+    <%= link_to "Swap Meet", parts_path %> |
     <%= link_to "Account", "/account" %> |
     <%= link_to "Contact", contact_path %> |
     <% if user_signed_in? && current_user.admin? %>

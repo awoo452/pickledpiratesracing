@@ -1,0 +1,28 @@
+<section class="parts-page">
+  <div class="parts-header">
+    <h1>Swap Meet</h1>
+    <%= link_to "Post a Part", new_part_path, class: "cta-button" %>
+  </div>
+
+  <% if @parts.any? %>
+    <div class="parts-grid">
+      <% @parts.each do |part| %>
+        <div class="part-card">
+          <div class="part-card-header">
+            <h3><%= part.part %></h3>
+            <span class="part-price"><%= number_to_currency(part.price) %></span>
+          </div>
+
+          <p class="part-description"><%= part.description %></p>
+          <p class="part-contact"><strong>Contact:</strong> <%= part.contact_info %></p>
+
+          <% if part.user_id == current_user.id %>
+            <%= button_to "Delete", part_path(part), method: :delete, class: "part-delete" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No parts yet. Be the first to post one.</p>
+  <% end %>
+</section>

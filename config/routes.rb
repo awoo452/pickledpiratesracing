@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :enhancement_requests, only: [ :new, :create ]
   resources :videos, only: [ :index ]
   resources :products, only: [ :index, :show ]
+  resources :parts, only: [ :index, :new, :create, :destroy ]
 
   namespace :admin do
     root to: "dashboard#index"

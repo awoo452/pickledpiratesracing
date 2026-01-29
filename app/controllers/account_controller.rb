@@ -3,6 +3,7 @@ class AccountController < ApplicationController
 
   def show
     @rewards = current_user.rewards
+    @parts = current_user.parts.order(created_at: :desc)
   end
 
   def edit_details

@@ -1,0 +1,133 @@
+.parts-page {
+  margin: 40px auto 0;
+  max-width: 1000px;
+  padding: 0 20px 40px;
+  text-align: center;
+}
+
+.parts-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.parts-header h1 {
+  margin: 0;
+}
+
+.parts-back-link {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.parts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.part-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: left;
+}
+
+.part-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.part-card h3 {
+  margin: 0;
+}
+
+.part-price {
+  font-weight: 700;
+}
+
+.part-description {
+  margin: 12px 0;
+  color: var(--color-text);
+}
+
+.part-contact {
+  margin: 0 0 16px;
+  color: var(--color-muted);
+}
+
+.part-delete {
+  background: var(--color-danger);
+  border: 1px solid var(--color-danger-border);
+  color: var(--color-contrast);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.parts-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  font-family: var(--font-body);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.form-errors {
+  background: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-sm);
+  color: var(--color-danger);
+}
+
+.form-errors ul {
+  margin: 8px 0 0;
+}
+
+.parts-form .cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .parts-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

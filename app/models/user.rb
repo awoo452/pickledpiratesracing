@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :rewards
   has_many :orders
+  has_many :parts, dependent: :destroy
 
   after_create :grant_founding_reward, :grant_early_access_reward, :grant_hidden_reward
 

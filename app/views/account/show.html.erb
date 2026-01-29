@@ -51,6 +51,27 @@
       <% end %>
     </div>
 
+    <div class="account-parts">
+      <h2>Your Swap Meet Posts</h2>
+      <%= link_to "Post a Part", new_part_path, class: "account-parts-link" %>
+
+      <% if @parts.any? %>
+        <ul class="account-parts-list">
+          <% @parts.each do |part| %>
+            <li class="account-part">
+              <div class="account-part-details">
+                <strong><%= part.part %></strong>
+                <span><%= number_to_currency(part.price) %></span>
+              </div>
+              <%= button_to "Delete", part_path(part), method: :delete, class: "account-part-delete" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="no-rewards">No parts posted yet.</p>
+      <% end %>
+    </div>
+
   </div>
 
 </section>

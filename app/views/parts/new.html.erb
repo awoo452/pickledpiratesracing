@@ -1,0 +1,43 @@
+<section class="parts-page">
+  <div class="parts-header">
+    <h1>Post a Part</h1>
+    <%= link_to "Back to Swap Meet", parts_path, class: "parts-back-link" %>
+  </div>
+
+  <div class="parts-form">
+    <%= form_with model: @part, local: true do |form| %>
+      <% if @part.errors.any? %>
+        <div class="form-errors">
+          <h2><%= pluralize(@part.errors.count, "error") %> stopped this post</h2>
+          <ul>
+            <% @part.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-field">
+        <%= form.label :part, "Part" %>
+        <%= form.text_field :part, required: true %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :description %>
+        <%= form.text_area :description, rows: 4, required: true %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :price, "Price (USD)" %>
+        <%= form.number_field :price, step: 0.01, min: 0, required: true %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :contact_info, "Contact info" %>
+        <%= form.text_area :contact_info, rows: 2, required: true %>
+      </div>
+
+      <%= form.submit "Post Part", class: "cta-button" %>
+    <% end %>
+  </div>
+</section>
