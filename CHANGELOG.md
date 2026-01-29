@@ -1,3 +1,8 @@
+## [0.1.67] - 2026-01-29
+
+### Changed
+- Removed nav separators in favor of clean spacing.
+
 ## [0.1.66] - 2026-01-29
 
 ### Changed
