@@ -1,3 +1,6 @@
+## [0.1.64] - 2026-01-29
+- Moved About/Videos/Events/Contact into an Explore dropdown.
+
 ## [0.1.63] - 2026-01-29
 
 ### Changed

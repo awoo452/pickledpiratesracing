@@ -2,7 +2,17 @@
   <%= image_tag "logodark.png", class: "nav-img" %>
   <div class="nav-links">
     <%= link_to "Home", root_path %>
-    <%= link_to "About", about_path %>
+    <div class="nav-dropdown">
+      <span class="nav-dropdown-trigger">Explore</span>
+      <div class="nav-dropdown-menu">
+        <%= link_to "About", about_path %>
+        <%= link_to "Videos", videos_path %>
+        <% if user_signed_in? %>
+          <%= link_to "Events", events_path %>
+          <%= link_to "Contact", contact_path %>
+        <% end %>
+      </div>
+    </div>
     <div class="nav-dropdown">
       <span class="nav-dropdown-trigger">Marketplace</span>
       <div class="nav-dropdown-menu">
@@ -12,10 +22,7 @@
         <% end %>
       </div>
     </div>
-    <%= link_to "Videos", videos_path %>
     <% if user_signed_in? %>
-      <%= link_to "Events", events_path %>
-      <%= link_to "Contact", contact_path %>
       <div class="nav-dropdown">
         <span class="nav-dropdown-trigger">Account</span>
         <div class="nav-dropdown-menu">
