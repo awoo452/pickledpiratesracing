@@ -26,7 +26,10 @@
 }
 
 .product img {
+  max-width: 100%;
   max-height: 140px;
+  height: auto;
+  width: 100%;
   object-fit: contain;
 }
 
@@ -40,6 +43,7 @@
 .products-page {
   margin-top: 40px;
   text-align: center;
+  padding: 0 20px;
 }
 
 .products-grid {
@@ -52,4 +56,12 @@
 .product-link {
   text-decoration: none;
   color: var(--color-text);
+}
+
+@media (max-width: 600px) {
+  .product {
+    width: 85%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
 }

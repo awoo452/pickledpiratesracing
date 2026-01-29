@@ -1,3 +1,9 @@
+## [0.1.72] - 2026-01-29
+
+### Fixed
+- Constrained product index images/cards on mobile to prevent overflow.
+- Centered product cards on small screens.
+
 ## [0.1.71] - 2026-01-29
 
 ### Fixed
