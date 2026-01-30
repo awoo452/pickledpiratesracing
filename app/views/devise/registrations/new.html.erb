@@ -25,5 +25,12 @@
     <%= f.submit "Sign up", class: "auth-submit" %>
   <% end %>
 
+  <p class="auth-legal">
+    By creating an account you agree to the
+    <%= link_to "Terms", "/terms" %>
+    and
+    <%= link_to "Privacy Policy", "/privacy" %>.
+  </p>
+
   <%= render "devise/shared/links" %>
 </section>

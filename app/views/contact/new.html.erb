@@ -15,5 +15,12 @@
 
       <%= submit_tag "Send", class: "contact-submit" %>
     <% end %>
+
+    <p class="contact-legal">
+      By sending a message you agree to the
+      <%= link_to "Terms", "/terms" %>
+      and
+      <%= link_to "Privacy Policy", "/privacy" %>.
+    </p>
   </div>
 </section>

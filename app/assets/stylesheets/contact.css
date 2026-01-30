@@ -58,3 +58,18 @@
 .contact-submit:hover {
   background: var(--color-accent-hover);
 }
+
+.contact-legal {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.contact-legal a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.contact-legal a:hover {
+  opacity: 0.7;
+}

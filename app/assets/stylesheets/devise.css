@@ -83,6 +83,21 @@
   opacity: 0.7;
 }
 
+.auth-legal {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.auth-legal a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.auth-legal a:hover {
+  opacity: 0.7;
+}
+
 .auth-divider {
   border-top: 1px solid var(--color-border);
   margin: 20px 0;

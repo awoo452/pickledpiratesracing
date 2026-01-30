@@ -39,6 +39,11 @@
         <%= form.text_area :contact_info, rows: 2, required: true %>
       </div>
 
+      <div class="form-field form-field-inline">
+        <%= form.check_box :disclaimer_ack, required: true %>
+        <%= form.label :disclaimer_ack, "I understand Swap Meet listings are user-posted and transactions are between buyer and seller." %>
+      </div>
+
       <%= form.submit "Post Part", class: "cta-button" %>
     <% end %>
   </div>

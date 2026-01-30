@@ -94,6 +94,18 @@
   text-align: center;
 }
 
+.form-field-inline {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+}
+
+.form-field-inline label {
+  margin: 0;
+  text-align: left;
+}
+
 .form-field input,
 .form-field textarea {
   width: 100%;

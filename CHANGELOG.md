@@ -1,3 +1,13 @@
+## [0.1.77] - 2026-01-29
+
+### Added
+- Swap Meet post form now requires a disclaimer acknowledgment checkbox.
+- Legal acceptance copy with Terms/Privacy links on sign-up and contact forms.
+
+### Changed
+- Styled the Swap Meet disclaimer checkbox layout for readability.
+- Added legal helper text styles for auth and contact pages.
+
 ## [0.1.76] - 2026-01-29
 
 ### Changed
