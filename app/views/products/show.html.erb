@@ -29,14 +29,14 @@
 
     <p class="product-description"><%= @product.description %></p>
 
-    <% available_variants = @variants.select { |variant| variant.stock.nil? || variant.stock > 0 } %>
+<% available_variants = @variants.select { |variant| variant.stock.present? && variant.stock > 0 } %>
     <% if @variants.any? %>
       <div class="variant-selector">
         <label for="variant_id">Choose option</label>
 
         <select id="variant_id">
           <% @variants.each do |variant| %>
-            <% out_of_stock = variant.stock.present? && variant.stock <= 0 %>
+      <% out_of_stock = variant.stock.blank? || variant.stock <= 0 %>
             <option
               value="<%= variant.id %>"
               data-price="<%= variant.price_override.nil? ? @product.price : variant.price_override %>"

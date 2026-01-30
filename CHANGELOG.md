@@ -1,3 +1,13 @@
+## [0.1.80] - 2026-01-30
+
+### Added
+- Store PayPal order/capture IDs and payment status on orders.
+
+### Fixed
+- PayPal capture now decrements variant stock safely inside a transaction with row locking.
+- Blank or zero stock is treated as out of stock in the storefront and checkout.
+- Variant stock field is optional in admin forms (nil = out of stock).
+
 ## [0.1.79] - 2026-01-30
 
 ### Fixed

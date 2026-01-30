@@ -45,21 +45,36 @@ class PaypalController < ApplicationController
       return render_error("Payment amount mismatch", :unprocessable_entity)
     end
 
-    order = Order.create!(
-      user: current_user,
-      status: "paid",
-      total: price,
-      paypal_order_id: params[:id],
-      paypal_capture_id: capture_id,
-      payment_status: status
-    )
+    order = nil
+    Order.transaction do
+      @variant.lock!
 
-    OrderItem.create!(
-      order: order,
-      product_variant: @variant,
-      quantity: 1,
-      price_at_purchase: price
-    )
+      if @variant.stock.blank? || @variant.stock <= 0
+        raise ActiveRecord::Rollback, "Out of stock"
+      end
+
+      @variant.update!(stock: @variant.stock - 1)
+
+      order = Order.create!(
+        user: current_user,
+        status: "paid",
+        total: price,
+        paypal_order_id: params[:id],
+        paypal_capture_id: capture_id,
+        payment_status: status
+      )
+
+      OrderItem.create!(
+        order: order,
+        product_variant: @variant,
+        quantity: 1,
+        price_at_purchase: price
+      )
+    end
+
+    if order.nil?
+      return render_error("Out of stock", :unprocessable_entity)
+    end
 
     render json: { status: "ok", order_id: order.id }
   rescue PaypalClient::Error => e
@@ -86,7 +101,7 @@ class PaypalController < ApplicationController
       return halt_with_error("Variant inactive", :unprocessable_entity)
     end
 
-    if @variant && @variant.stock.present? && @variant.stock <= 0
+    if @variant && (@variant.stock.blank? || @variant.stock <= 0)
       return halt_with_error("Out of stock", :unprocessable_entity)
     end
   end

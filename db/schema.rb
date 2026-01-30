@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_29_004000) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_001500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_29_004000) do
 
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "payment_status"
+    t.string "paypal_capture_id"
+    t.string "paypal_order_id"
     t.string "status"
     t.decimal "total"
     t.datetime "updated_at", null: false
