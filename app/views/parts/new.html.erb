@@ -4,6 +4,8 @@
     <%= link_to "Back to Swap Meet", parts_path, class: "parts-back-link" %>
   </div>
 
+  <%= render "disclaimer" %>
+
   <div class="parts-form">
     <%= form_with model: @part, local: true do |form| %>
       <% if @part.errors.any? %>

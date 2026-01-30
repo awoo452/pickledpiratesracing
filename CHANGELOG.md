@@ -1,3 +1,12 @@
+## [0.1.73] - 2026-01-29
+
+### Added
+- Terms and Privacy pages plus footer links.
+- Swap Meet disclaimer panel on listing and post form.
+
+### Changed
+- Updated nav logo and increased nav height for readability.
+
 ## [0.1.72] - 2026-01-29
 
 ### Fixed

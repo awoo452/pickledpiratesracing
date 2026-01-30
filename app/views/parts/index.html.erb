@@ -4,6 +4,8 @@
     <%= link_to "Post a Part", new_part_path, class: "cta-button" %>
   </div>
 
+  <%= render "disclaimer" %>
+
   <% if @parts.any? %>
     <div class="parts-grid">
       <% @parts.each do |part| %>

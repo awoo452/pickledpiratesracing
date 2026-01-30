@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
-  padding: 12px 12px;
+  padding: 16px 12px;
   flex-wrap: wrap;
   width: 100%;
   max-width: 100%;
@@ -69,7 +69,7 @@
 }
 
 .nav img.nav-img {
-  max-height: 90px;
+  max-height: 120px;
   width: auto;
   max-width: 100%;
 }
