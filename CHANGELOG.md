@@ -1,3 +1,8 @@
+## [0.1.76] - 2026-01-29
+
+### Changed
+- Locked the contact form to signed-in users to match nav access.
+
 ## [0.1.75] - 2026-01-29
 
 ### Changed

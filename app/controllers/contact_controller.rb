@@ -1,5 +1,7 @@
 # app/controllers/contact_controller.rb
 class ContactController < ApplicationController
+  before_action :authenticate_user!
+
   def new
   end
 
