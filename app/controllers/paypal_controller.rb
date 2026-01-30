@@ -1,4 +1,5 @@
 class PaypalController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [ :orders, :capture ]
   before_action :authenticate_user!
   before_action :load_product
 

@@ -1,3 +1,9 @@
+## [0.1.79] - 2026-01-30
+
+### Fixed
+- PayPal order/capture requests now skip CSRF verification to avoid HTML 422 responses.
+- PayPal fetch handlers now send credentials/Accept headers and guard against non-JSON responses.
+
 ## [0.1.78] - 2026-01-29
 
 ### Added

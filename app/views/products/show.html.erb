@@ -109,6 +109,27 @@
     priceEl.textContent = parseFloat(variant.price).toFixed(2);
   }
 
+  function csrfToken() {
+    const token = document.querySelector('meta[name="csrf-token"]');
+    return token ? token.content : "";
+  }
+
+  function handleJsonResponse(response) {
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+      return response.json().then((data) => {
+        if (!response.ok) {
+          throw new Error(data && data.error ? data.error : "Request failed.");
+        }
+        return data;
+      });
+    }
+
+    return response.text().then(() => {
+      throw new Error(response.ok ? "Unexpected response." : "Request failed.");
+    });
+  }
+
   function renderPaypalButton() {
     if (paypalRendered) return;
     if (!window.paypal) return setTimeout(renderPaypalButton, 300);
@@ -122,16 +143,18 @@
 
         return fetch("/paypal/orders", {
           method: "POST",
+          credentials: "same-origin",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+            "Accept": "application/json",
+            "X-CSRF-Token": csrfToken()
           },
           body: JSON.stringify({
             product_id: productId,
             variant_id: variant.id
           })
         })
-          .then((response) => response.json())
+          .then(handleJsonResponse)
           .then((data) => {
             if (data.error) throw new Error(data.error);
             return data.id;
@@ -144,16 +167,18 @@
 
         return fetch(`/paypal/orders/${data.orderID}/capture`, {
           method: "POST",
+          credentials: "same-origin",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+            "Accept": "application/json",
+            "X-CSRF-Token": csrfToken()
           },
           body: JSON.stringify({
             product_id: productId,
             variant_id: variant.id
           })
         })
-          .then((response) => response.json())
+          .then(handleJsonResponse)
           .then((data) => {
             if (data.error) throw new Error(data.error);
             alert("Payment completed.");
