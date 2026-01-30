@@ -5,7 +5,7 @@ class ContactMailer < ApplicationMailer
     @message = message
 
     mail(
-      to: ENV.fetch("CONTACT_EMAIL", "aaronwood8888@gmail.com"),
+      to: ENV.fetch("CONTACT_EMAIL", "pickledpiratescc@gmail.com"),
       subject: "Contact form message"
     )
   end

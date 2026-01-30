@@ -1,3 +1,9 @@
+## [0.1.75] - 2026-01-29
+
+### Changed
+- Updated fallback contact email for feedback mailer.
+- Feedback is admin only for now.
+
 ## [0.1.74] - 2026-01-29
 
 ### Changed
