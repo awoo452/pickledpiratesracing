@@ -5,24 +5,24 @@
     <h1><%= @product.name %></h1>
 
     <% if @product.image_key.present? %>
-      <% selected_image = if params[:image].present? && @product.image_urls.include?(params[:image])
-        params[:image]
-      else
-        @product.image_urls.first
-      end %>
-      <div class="product-gallery">
-        <img id="main-product-image"
-            src="<%= selected_image %>"
-            class="product-main-image">
+      <% variants = @product.image_variants %>
+      <% if variants.any? %>
+        <% selected_key = params[:image].to_s %>
+        <% selected_variant = variants.find { |variant| variant[:key] == selected_key } || variants.first %>
+        <div class="product-gallery">
+          <img id="main-product-image"
+              src="<%= selected_variant[:url] %>"
+              class="product-main-image">
 
-        <div class="product-thumbs">
-          <% @product.image_urls.each do |url| %>
-            <%= link_to product_path(@product, image: url) do %>
-              <%= image_tag url, class: "product-thumb" %>
+          <div class="product-thumbs">
+            <% variants.each do |variant| %>
+              <%= link_to product_path(@product, image: variant[:key]) do %>
+                <%= image_tag variant[:url], class: "product-thumb" %>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% else %>
       <%= image_tag @product.image, alt: @product.name, class: "product-show-image" if @product.image.present? %>
     <% end %>

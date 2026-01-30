@@ -18,6 +18,20 @@ class Product < ApplicationRecord
     end
 
     def image_urls
+        image_variants.map { |variant| variant[:url] }
+    end
+
+    def image_variants
+        keys = image_variant_keys
+        return [] if keys.empty?
+
+        s3 = S3Service.new
+        keys.map { |key| { key: key, url: s3.presigned_url(key) } }
+    end
+
+    private
+
+    def image_variant_keys
         return [] if image_key.blank?
 
         prefix = image_key.sub(/main\..*$/, "")
@@ -25,19 +39,39 @@ class Product < ApplicationRecord
 
         keys = s3.list_keys(prefix)
 
-        image_keys = keys.select do |k|
-            k.match?(/(main|alt\d*)\.(png|jpg|jpeg|webp)$/i)
+        ext_priority = {
+            "webp" => 0,
+            "jpg" => 1,
+            "jpeg" => 2,
+            "png" => 3,
+        }
+
+        selected = {}
+
+        keys.each do |k|
+            match = k.match(/(main|alt\d*)\.(png|jpg|jpeg|webp)$/i)
+            next unless match
+
+            base = match[1].downcase
+            ext = match[2].downcase
+            priority = ext_priority[ext]
+            next if priority.nil?
+
+            current = selected[base]
+            if current.nil? || priority < current[:priority]
+                selected[base] = { key: k, priority: priority }
+            end
         end
 
-        image_keys.sort_by do |k|
-            if k.include?("main.")
-            0
-            elsif k =~ /alt\d*\./
-            1
+        selected.keys.sort_by do |base|
+            if base == "main"
+                [0, 0]
             else
-            2
+                num_str = base.delete_prefix("alt")
+                num = num_str.empty? ? 0 : num_str.to_i
+                [1, num]
             end
-        end.map { |k| s3.presigned_url(k) }
+        end.map { |base| selected[base][:key] }
     end
 
     def delete_s3_images
