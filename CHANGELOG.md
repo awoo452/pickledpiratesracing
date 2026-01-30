@@ -1,3 +1,8 @@
+## [0.1.74] - 2026-01-29
+
+### Changed
+- Truncated product titles/descriptions on the index and home featured list only.
+
 ## [0.1.73] - 2026-01-29
 
 ### Added

@@ -13,7 +13,7 @@
               <%= image_tag product.image, alt: product.name %>
             <% end %>
 
-            <h3><%= product.name %></h3>
+            <h3 class="product-title"><%= product.name %></h3>
             <p class="product-description"><%= product.description %></p>
             <% if product.price_hidden? %>
               <p>Coming Soon</p>

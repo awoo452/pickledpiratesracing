@@ -11,6 +11,14 @@
   flex-wrap: wrap;
 }
 
+.main-landing-products .product-description,
+.main-landing-products .product-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .product {
   width: 220px;
   border: 1px solid var(--color-border);
@@ -33,7 +41,14 @@
   object-fit: contain;
 }
 
-.product-description {
+.products-page .product-description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.products-page .product-title {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
