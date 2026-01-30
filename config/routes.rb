@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :videos, only: [ :index ]
   resources :products, only: [ :index, :show ]
   resources :parts, only: [ :index, :new, :create, :destroy ]
+  post "/paypal/orders", to: "paypal#orders"
+  post "/paypal/orders/:id/capture", to: "paypal#capture"
 
   namespace :admin do
     root to: "dashboard#index"

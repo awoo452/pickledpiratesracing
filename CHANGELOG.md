@@ -1,3 +1,12 @@
+## [0.1.78] - 2026-01-29
+
+### Added
+- Server-side PayPal order creation/capture endpoints with DB order creation.
+- PayPal API client service and stored PayPal IDs on orders.
+
+### Changed
+- Product PayPal flow now uses Rails endpoints and ENV client ID.
+
 ## [0.1.77] - 2026-01-29
 
 ### Added

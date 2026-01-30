@@ -58,6 +58,8 @@
       <p class="product-price">Coming Soon</p>
     <% elsif @variants.any? && available_variants.empty? %>
       <p class="product-price">Sold Out</p>
+    <% elsif @variants.none? %>
+      <p class="product-price">No options available</p>
     <% else %>
       <p class="product-price">
         $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
@@ -74,10 +76,12 @@
 
 </section>
 
-<% unless @product.price_hidden? || (@variants.any? && available_variants.empty?) %>
-<script src="https://www.paypal.com/sdk/js?client-id=AUYLaRtWxYYLSho9m0pAgHPRViPDMb1YAny30vIiarZQXKG4hi2tPXfJFYoGjxd9L1UbUwYdaOy3Z8bt&currency=USD"></script>
+<% can_purchase = !@product.price_hidden? && @variants.any? && available_variants.any? %>
+<% if can_purchase %>
+<script src="https://www.paypal.com/sdk/js?client-id=<%= ENV.fetch("PAYPAL_CLIENT_ID", "AUYLaRtWxYYLSho9m0pAgHPRViPDMb1YAny30vIiarZQXKG4hi2tPXfJFYoGjxd9L1UbUwYdaOy3Z8bt") %>&currency=USD"></script>
 <script>
   let paypalRendered = false;
+  const productId = "<%= @product.id %>";
 
   function selectedVariant() {
     const el = document.getElementById("variant_id");
@@ -114,25 +118,49 @@
     paypal.Buttons({
       createOrder: function(data, actions) {
         const variant = selectedVariant();
-        if (document.getElementById("variant_id") && !variant) return;
+        if (!variant) return;
 
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: variant ? variant.price : "<%= @product.price %>"
-            }
-          }]
-        });
+        return fetch("/paypal/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            variant_id: variant.id
+          })
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) throw new Error(data.error);
+            return data.id;
+          });
       },
 
       onApprove: function(data, actions) {
         const variant = selectedVariant();
-        if (document.getElementById("variant_id") && !variant) return;
+        if (!variant) return;
 
-        return actions.order.capture().then(function(details) {
-          console.log("variant_id:", variant?.id);
-          alert("Payment completed by " + details.payer.name.given_name);
-        });
+        return fetch(`/paypal/orders/${data.orderID}/capture`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            variant_id: variant.id
+          })
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) throw new Error(data.error);
+            alert("Payment completed.");
+          })
+          .catch((error) => {
+            alert(error.message || "Payment failed.");
+          });
       }
     }).render("#paypal-button-container");
   }
