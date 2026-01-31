@@ -1,16 +1,26 @@
 <section class="about">
   <div class="about-hero">
-    <h1><%= @about&.title || "About" %></h1>
-    <p class="about-eyebrow">Est. A While Ago</p>
-    <p class="about-lede">
-      <%= @about&.body.presence || "World Champion Professional Drinkers of Beer." %>
-    </p>
+    <p class="about-eyebrow"><%= @about.eyebrow %></p>
+
+    <h1><%= @about.title %></h1>
+
+    <p class="about-lede"><%= @about.lede %></p>
+
+    <% if @about.mission.present? %>
+      <p class="about-mission">
+        <%= @about.mission %>
+      </p>
+    <% end %>
+
     <div class="about-actions">
-      <a class="cta-button" href="/products">Shop the gear</a>
-      <a class="cta-button" href="/videos">Watch the videos</a>
+      <%= link_to "Shop the gear", products_path, class: "cta-button" %>
+      <%= link_to "Watch the videos", videos_path, class: "cta-button" %>
     </div>
-    <div class="about-image">
-      <%= image_tag "dan55.jpg", alt: "Pickled Pirates Racing" %>
-    </div>
+
+    <% if @about.image_key.present? %>
+      <div class="about-image">
+        <%= image_tag @about.image_key, alt: @about.title %>
+      </div>
+    <% end %>
   </div>
 </section>

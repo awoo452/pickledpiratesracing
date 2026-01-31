@@ -1,3 +1,15 @@
+## [0.1.84] - 2026-01-31
+
+### Changed
+- Refactored main navigation Account menu into a single unified dropdown
+- Fixed mobile nav layout issues caused by dropdown spacer pseudo-elements
+
+### Added
+- Expanded About page data model to separate content concerns
+  - Added eyebrow text field
+  - Added lede field for primary description
+  - Added image key support for flexible hero imagery
+
 ## [0.1.83] - 2026-01-30
 
 ### Changed

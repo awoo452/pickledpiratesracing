@@ -201,12 +201,16 @@
     text-align: center;
   }
 
+  .nav-dropdown::after {
+    display: none;
+  }
+
   .nav-dropdown-trigger {
     display: block;
     width: 100%;
     text-align: center;
   }
-
+  
   .nav-dropdown-menu {
     position: static;
     margin-top: 6px;
@@ -220,8 +224,10 @@
 
   .nav-dropdown-menu a,
   .nav-dropdown-menu button {
-    text-align: center;
-    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
   }
 
   .nav-dropdown-button {

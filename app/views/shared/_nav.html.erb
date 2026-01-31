@@ -1,7 +1,9 @@
 <nav class="nav">
   <%= image_tag "logodark-speedshop.png", class: "nav-img" %>
+
   <div class="nav-links">
     <%= link_to "Home", root_path %>
+
     <details class="nav-dropdown">
       <summary class="nav-dropdown-trigger">Explore</summary>
       <div class="nav-dropdown-menu">
@@ -13,6 +15,7 @@
         <% end %>
       </div>
     </details>
+
     <details class="nav-dropdown">
       <summary class="nav-dropdown-trigger">Marketplace</summary>
       <div class="nav-dropdown-menu">
@@ -22,33 +25,32 @@
         <% end %>
       </div>
     </details>
-    <% if user_signed_in? %>
-      <details class="nav-dropdown">
-        <summary class="nav-dropdown-trigger">Account</summary>
-        <div class="nav-dropdown-menu">
+
+    <details class="nav-dropdown">
+      <summary class="nav-dropdown-trigger">Account</summary>
+      <div class="nav-dropdown-menu">
+        <% if user_signed_in? %>
           <%= link_to "Account", "/account" %>
+
           <%= button_to "Logout",
                 destroy_user_session_path,
                 method: :delete,
                 form: { data: { turbo: false }, class: "nav-dropdown-form" },
                 class: "nav-dropdown-button" %>
-        </div>
-      </details>
-      <% if user_signed_in? && current_user.admin? %>
-        <details class="nav-dropdown">
-          <summary class="nav-dropdown-trigger">Admin</summary>
-          <div class="nav-dropdown-menu">
-            <%= link_to "Dashboard", admin_root_path %>
+
+          <% if current_user.admin? %>
+            <hr>
+            <%= link_to "Admin Dashboard", admin_root_path %>
             <%= link_to "Docs", admin_documents_path %>
             <%= link_to "Feedback", new_enhancement_request_path %>
-          </div>
-        </details>
-      <% end %>
-    <% else %>
-      <%= link_to "Login", new_user_session_path %>
-      <%= link_to "Sign up", new_user_registration_path %>
-    <% end %>
+          <% end %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "Sign up", new_user_registration_path %>
+        <% end %>
+      </div>
+    </details>
   </div>
-
 </nav>
+
 <hr class="nav-hr">

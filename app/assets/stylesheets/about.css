@@ -1,6 +1,6 @@
 .about {
+  padding: 48px 20px;
   text-align: center;
-  padding: 40px 20px;
 }
 
 .about-hero {
@@ -9,37 +9,44 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 28px 24px;
+  padding: 40px 32px;
+  box-sizing: border-box;
 }
 
 .about-eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   font-size: 12px;
   color: var(--color-muted);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .about-hero h1 {
-  margin: 4px 0 10px;
+  margin: 0 0 14px;
 }
 
 .about-lede {
   font-size: 16px;
-  line-height: 1.6;
-  margin: 14px auto 18px;
+  line-height: 1.65;
+  margin: 0 auto 24px;
   max-width: 720px;
 }
 
 .about-actions {
   display: flex;
-  gap: 12px;
   justify-content: center;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+}
+
+.about-image {
+  margin-top: 24px;
 }
 
 .about-image img {
+  display: block;
   max-width: 100%;
+  margin: 0 auto;
   border-radius: var(--radius-md);
 }
