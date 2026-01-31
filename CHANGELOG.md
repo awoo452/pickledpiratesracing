@@ -1,3 +1,8 @@
+## [0.1.85] - 2026-01-31
+
+### Changed
+- New landing image, now referenced on the front end!
+
 ## [0.1.84] - 2026-01-31
 
 ### Changed
