@@ -1,3 +1,8 @@
+## [0.1.83] - 2026-01-30
+
+### Changed
+- 2 days of troubleshooting because once again turbo is slowing things down
+
 ## [0.1.82] - 2026-01-30
 
 ### Added

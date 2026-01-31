@@ -1,42 +1,28 @@
 <section class="product-show">
-
   <div class="product-show-card">
 
     <h1><%= @product.name %></h1>
 
     <% if @product.image_key.present? %>
-      <% variants = @product.image_variants %>
-      <% if variants.any? %>
-        <% selected_key = params[:image].to_s %>
-        <% selected_variant = variants.find { |variant| variant[:key] == selected_key } || variants.first %>
-        <div class="product-gallery">
-          <img id="main-product-image"
-              src="<%= selected_variant[:url] %>"
-              class="product-main-image">
-
-          <div class="product-thumbs">
-            <% variants.each do |variant| %>
-              <%= link_to product_path(@product, image: variant[:key]) do %>
-                <%= image_tag variant[:url], class: "product-thumb" %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+      <% @product.image_variants.each do |img| %>
+        <img
+          src="<%= img[:url] %>"
+          class="product-main-image"
+        >
       <% end %>
-    <% else %>
-      <%= image_tag @product.image, alt: @product.name, class: "product-show-image" if @product.image.present? %>
     <% end %>
 
     <p class="product-description"><%= @product.description %></p>
 
-<% available_variants = @variants.select { |variant| variant.stock.present? && variant.stock > 0 } %>
+    <% available_variants = @variants.select { |v| v.stock.present? && v.stock > 0 } %>
+
     <% if @variants.any? %>
       <div class="variant-selector">
         <label for="variant_id">Choose option</label>
 
         <select id="variant_id">
           <% @variants.each do |variant| %>
-      <% out_of_stock = variant.stock.blank? || variant.stock <= 0 %>
+            <% out_of_stock = variant.stock.blank? || variant.stock <= 0 %>
             <option
               value="<%= variant.id %>"
               data-price="<%= variant.price_override.nil? ? @product.price : variant.price_override %>"
@@ -52,7 +38,6 @@
         </select>
       </div>
     <% end %>
-
 
     <% if @product.price_hidden? %>
       <p class="product-price">Coming Soon</p>
@@ -70,138 +55,9 @@
       </div>
     <% end %>
 
-    <%= link_to "Back to products", products_path, class: "back-link", data: { turbo: false } %>
-    
+    <%= link_to "Back to products", products_path,
+          class: "back-link",
+          data: { turbo: false } %>
+
   </div>
-
 </section>
-
-<% can_purchase = !@product.price_hidden? && @variants.any? && available_variants.any? %>
-<% if can_purchase %>
-<script src="https://www.paypal.com/sdk/js?client-id=<%= ENV.fetch("PAYPAL_CLIENT_ID", "AUYLaRtWxYYLSho9m0pAgHPRViPDMb1YAny30vIiarZQXKG4hi2tPXfJFYoGjxd9L1UbUwYdaOy3Z8bt") %>&currency=USD"></script>
-<script>
-  let paypalRendered = false;
-  const productId = "<%= @product.id %>";
-
-  function selectedVariant() {
-    const el = document.getElementById("variant_id");
-    if (!el) return null;
-
-    let opt = el.options[el.selectedIndex];
-    if (!opt || opt.disabled) {
-      opt = Array.from(el.options).find((option) => !option.disabled);
-      if (!opt) return null;
-      el.value = opt.value;
-    }
-    return {
-      id: opt.value,
-      price: opt.dataset.price
-    };
-  }
-
-  function updateDisplayedPrice() {
-    const variant = selectedVariant();
-    if (!variant) return;
-
-    const priceEl = document.getElementById("display-price");
-    if (!priceEl) return;
-
-    priceEl.textContent = parseFloat(variant.price).toFixed(2);
-  }
-
-  function csrfToken() {
-    const token = document.querySelector('meta[name="csrf-token"]');
-    return token ? token.content : "";
-  }
-
-  function handleJsonResponse(response) {
-    const contentType = response.headers.get("content-type") || "";
-    if (contentType.includes("application/json")) {
-      return response.json().then((data) => {
-        if (!response.ok) {
-          throw new Error(data && data.error ? data.error : "Request failed.");
-        }
-        return data;
-      });
-    }
-
-    return response.text().then(() => {
-      throw new Error(response.ok ? "Unexpected response." : "Request failed.");
-    });
-  }
-
-  function renderPaypalButton() {
-    if (paypalRendered) return;
-    if (!window.paypal) return setTimeout(renderPaypalButton, 300);
-
-    paypalRendered = true;
-
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        const variant = selectedVariant();
-        if (!variant) return;
-
-        return fetch("/paypal/orders", {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "X-CSRF-Token": csrfToken()
-          },
-          body: JSON.stringify({
-            product_id: productId,
-            variant_id: variant.id
-          })
-        })
-          .then(handleJsonResponse)
-          .then((data) => {
-            if (data.error) throw new Error(data.error);
-            return data.id;
-          });
-      },
-
-      onApprove: function(data, actions) {
-        const variant = selectedVariant();
-        if (!variant) return;
-
-        return fetch(`/paypal/orders/${data.orderID}/capture`, {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "X-CSRF-Token": csrfToken()
-          },
-          body: JSON.stringify({
-            product_id: productId,
-            variant_id: variant.id
-          })
-        })
-          .then(handleJsonResponse)
-          .then((data) => {
-            if (data.error) throw new Error(data.error);
-            alert("Payment completed.");
-          })
-          .catch((error) => {
-            alert(error.message || "Payment failed.");
-          });
-      }
-    }).render("#paypal-button-container");
-  }
-
-  document.addEventListener("change", function(e) {
-    if (e.target && e.target.id === "variant_id") {
-      updateDisplayedPrice();
-    }
-  });
-
-  function initProductPage() {
-    renderPaypalButton();
-    updateDisplayedPrice();
-  }
-
-  document.addEventListener("DOMContentLoaded", initProductPage);
-  document.addEventListener("turbo:load", initProductPage);
-</script>
-<% end %>
