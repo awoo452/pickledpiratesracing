@@ -1,9 +1,11 @@
 class Admin::OrdersController < Admin::BaseController
   def index
-    @orders = Order.includes(:user, :order_items).order(created_at: :desc)
+    data = Admin::Orders::IndexData.call
+    @orders = data.orders
   end
 
   def show
-    @order = Order.includes(order_items: { product_variant: :product }).find(params[:id])
+    data = Admin::Orders::ShowData.call(id: params[:id])
+    @order = data.order
   end
 end

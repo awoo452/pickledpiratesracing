@@ -1,17 +1,12 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [ :show ]
-
   def index
-    @products = Product.all
+    data = Products::IndexData.call
+    @products = data.products
   end
 
   def show
-    @variants = @product.product_variants.where(active: true)
-  end
-
-  private
-
-  def set_product
-    @product = Product.find(params[:id])
+    data = Products::ShowData.call(id: params[:id])
+    @product = data.product
+    @variants = data.variants
   end
 end

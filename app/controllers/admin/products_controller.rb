@@ -2,7 +2,8 @@ class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: [ :edit, :update, :destroy ]
 
   def index
-    @products = Product.order(created_at: :desc)
+    data = Admin::Products::IndexData.call
+    @products = data.products
   end
 
   def new
@@ -10,12 +11,13 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def create
-    @product = Product.new(create_product_params)
+    result = Admin::Products::CreateProduct.call(params: create_product_params)
+    @product = result.product
 
-    if @product.save
+    if result.success?
       redirect_to edit_admin_product_path(@product), notice: "Product created"
     else
-      flash.now[:alert] = @product.errors.full_messages.to_sentence.presence || "Product creation failed"
+      flash.now[:alert] = result.error
       render :new, status: :unprocessable_entity
     end
   end
@@ -24,50 +26,29 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def update
-    updated = false
+    result = Admin::Products::UpdateProduct.call(
+      product: @product,
+      params: product_params,
+      uploaded: params.dig(:product, :image),
+      image_type: params[:image_type] || "main",
+      request_host: request.host,
+      production: Rails.env.production?
+    )
 
-    if product_params.present?
-      unless @product.update(product_params)
-        redirect_to edit_admin_product_path(@product),
-          alert: @product.errors.full_messages.to_sentence.presence || "Update failed"
-        return
-      end
-      updated = true
+    if result.redirect_url.present?
+      redirect_to result.redirect_url, alert: result.alert
+      return
     end
 
-    uploaded = params.dig(:product, :image)
-    if uploaded.present?
-      if Rails.env.production? && !on_heroku?
-        redirect_to heroku_product_edit_url, alert: "Uploads must happen on the Heroku admin."
-        return
-      end
-
-      image_type = params[:image_type] || "main"
-
-      ext = File.extname(uploaded.original_filename)
-      key = "products/#{@product.slug}/#{image_type}#{ext}"
-
-      begin
-        S3Service.new.upload(uploaded, key)
-      rescue StandardError => e
-        Rails.logger.error("S3 upload failed for product #{@product.id}: #{e.message}")
-        redirect_to edit_admin_product_path(@product), alert: "Upload failed. Please try again."
-        return
-      end
-
-      @product.update!(image_key: key) if image_type == "main"
-      updated = true
-    end
-
-    if updated
-      redirect_to edit_admin_product_path(@product), notice: "Product updated"
+    if result.success?
+      redirect_to edit_admin_product_path(@product), notice: result.notice
     else
-      redirect_to edit_admin_product_path(@product), alert: "No changes selected"
+      redirect_to edit_admin_product_path(@product), alert: result.alert
     end
   end
 
   def destroy
-    @product.destroy
+    Admin::Products::DestroyProduct.call(product: @product)
     redirect_to admin_root_path, notice: "Product deleted"
   end
 
@@ -75,10 +56,6 @@ class Admin::ProductsController < Admin::BaseController
 
   def set_product
     @product = Product.find(params[:id])
-  end
-
-  def require_admin
-    redirect_to root_path, alert: "Not authorized" unless current_user&.admin?
   end
 
   def product_params
@@ -89,15 +66,4 @@ class Admin::ProductsController < Admin::BaseController
     params.fetch(:product, {}).permit(:name, :description, :price, :slug, :price_hidden)
   end
 
-  def heroku_host
-    "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com"
-  end
-
-  def on_heroku?
-    request.host == heroku_host
-  end
-
-  def heroku_product_edit_url
-    "https://#{heroku_host}/admin/products/#{@product.id}/edit"
-  end
 end

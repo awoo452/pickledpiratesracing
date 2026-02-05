@@ -1,3 +1,9 @@
+## [0.1.86] - 2026-02-05
+
+### Changed
+- Refactored controllers to delegate to service objects following the `getawd` structure.
+- Added domain-scoped services for home, products, events, parts, account, admin, and PayPal flows.
+
 ## [0.1.85] - 2026-01-31
 
 ### Changed

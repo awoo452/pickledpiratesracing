@@ -2,17 +2,17 @@ class AccountController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @rewards = current_user.rewards
-    @parts = current_user.parts.order(created_at: :desc)
+    data = Account::ShowData.call(user: current_user)
+    @rewards = data.rewards
+    @parts = data.parts
   end
 
   def edit_details
   end
 
   def claim_reward
-    code = params[:code].to_s.strip
-
-    if current_user.claim_reward(code)
+    result = Account::ClaimReward.call(user: current_user, code: params[:code])
+    if result.success?
       redirect_to account_path(reward_claim: "success")
     else
       redirect_to account_path(reward_claim: "invalid")
@@ -20,8 +20,8 @@ class AccountController < ApplicationController
   end
 
   def update_details
-    if current_user.update(user_details_params)
-      current_user.grant_profile_completed_reward
+    result = Account::UpdateDetails.call(user: current_user, params: user_details_params)
+    if result.success?
       redirect_to account_path
     else
       redirect_to edit_account_details_path

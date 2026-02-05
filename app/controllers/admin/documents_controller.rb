@@ -2,7 +2,8 @@ class Admin::DocumentsController < Admin::BaseController
   before_action :set_document, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @documents = Document.order(created_at: :desc)
+    data = Admin::Documents::IndexData.call
+    @documents = data.documents
   end
 
   def new
@@ -10,12 +11,13 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def create
-    @document = Document.new(document_params)
+    result = Admin::Documents::CreateDocument.call(params: document_params)
+    @document = result.document
 
-    if @document.save
+    if result.success?
       redirect_to admin_documents_path, notice: "Document created"
     else
-      flash.now[:alert] = @document.errors.full_messages.to_sentence.presence || "Document creation failed"
+      flash.now[:alert] = result.error
       render :new, status: :unprocessable_entity
     end
   end
@@ -27,16 +29,17 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def update
-    if @document.update(document_params)
+    result = Admin::Documents::UpdateDocument.call(document: @document, params: document_params)
+    if result.success?
       redirect_to admin_documents_path, notice: "Document updated"
     else
-      flash.now[:alert] = @document.errors.full_messages.to_sentence.presence || "Document update failed"
+      flash.now[:alert] = result.error
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @document.destroy
+    Admin::Documents::DestroyDocument.call(document: @document)
     redirect_to admin_documents_path, notice: "Document deleted"
   end
 

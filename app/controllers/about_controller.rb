@@ -1,5 +1,6 @@
 class AboutController < ApplicationController
   def show
-    @about = About.first
+    data = Abouts::ShowData.call
+    @about = data.about
   end
 end

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @featured_products = Product.where(featured: true)
-    @featured_videos = Video.where(featured: true)
+    data = Home::IndexData.call
+    @featured_products = data.featured_products
+    @featured_videos = data.featured_videos
   end
 end

@@ -4,29 +4,35 @@ module Admin
 
     def new
       @variant = ProductVariant.new
-      @products = Product.order(:name)
+      data = Admin::ProductVariants::FormData.call
+      @products = data.products
     end
 
     def create
-      @variant = ProductVariant.new(variant_params)
+      result = Admin::ProductVariants::CreateVariant.call(params: variant_params)
+      @variant = result.variant
 
-      if @variant.save
+      if result.success?
         redirect_to new_admin_product_variant_path, notice: "Variant created"
       else
-        @products = Product.order(:name)
+        data = Admin::ProductVariants::FormData.call
+        @products = data.products
         render :new, status: :unprocessable_entity
       end
     end
 
     def edit
-      @products = Product.order(:name)
+      data = Admin::ProductVariants::FormData.call
+      @products = data.products
     end
 
     def update
-      if @variant.update(variant_params)
+      result = Admin::ProductVariants::UpdateVariant.call(variant: @variant, params: variant_params)
+      if result.success?
         redirect_to edit_admin_product_variant_path(@variant), notice: "Variant updated"
       else
-        @products = Product.order(:name)
+        data = Admin::ProductVariants::FormData.call
+        @products = data.products
         render :edit, status: :unprocessable_entity
       end
     end

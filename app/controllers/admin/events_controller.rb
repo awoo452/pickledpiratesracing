@@ -2,7 +2,8 @@ class Admin::EventsController < Admin::BaseController
   before_action :set_event, only: [ :edit, :update, :destroy ]
 
   def index
-    @events = Event.order(event_date: :asc)
+    data = Admin::Events::IndexData.call
+    @events = data.events
   end
 
   def new
@@ -10,17 +11,23 @@ class Admin::EventsController < Admin::BaseController
   end
 
   def create
-    @event = Event.new(event_params)
+    result = Admin::Events::CreateEvent.call(
+      params: event_params,
+      request_host: request.host,
+      production: Rails.env.production?,
+      image: params.dig(:event, :image),
+      alt_image: params.dig(:event, :alt_image)
+    )
+    @event = result.event
 
-    if @event.save
-      if require_heroku_upload?
-        redirect_to heroku_event_edit_url(@event), notice: "Event created. Uploads must happen on the Heroku admin."
+    if result.success?
+      if result.redirect_url.present?
+        redirect_to result.redirect_url, notice: result.notice
       else
-        handle_image_uploads(@event)
-        redirect_to admin_events_path, notice: "Event created"
+        redirect_to admin_events_path, notice: result.notice
       end
     else
-      flash.now[:alert] = @event.errors.full_messages.to_sentence.presence || "Event creation failed"
+      flash.now[:alert] = result.alert
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,21 +36,29 @@ class Admin::EventsController < Admin::BaseController
   end
 
   def update
-    if @event.update(event_params)
-      if require_heroku_upload?
-        redirect_to heroku_event_edit_url(@event), notice: "Event updated. Uploads must happen on the Heroku admin."
+    result = Admin::Events::UpdateEvent.call(
+      event: @event,
+      params: event_params,
+      request_host: request.host,
+      production: Rails.env.production?,
+      image: params.dig(:event, :image),
+      alt_image: params.dig(:event, :alt_image)
+    )
+
+    if result.success?
+      if result.redirect_url.present?
+        redirect_to result.redirect_url, notice: result.notice
       else
-        handle_image_uploads(@event)
-        redirect_to admin_events_path, notice: "Event updated"
+        redirect_to admin_events_path, notice: result.notice
       end
     else
-      flash.now[:alert] = @event.errors.full_messages.to_sentence.presence || "Event update failed"
+      flash.now[:alert] = result.alert
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @event.destroy
+    Admin::Events::DestroyEvent.call(event: @event)
     redirect_to admin_events_path, notice: "Event deleted"
   end
 
@@ -57,48 +72,4 @@ class Admin::EventsController < Admin::BaseController
     params.fetch(:event, {}).permit(:title, :event_date, :location, :description, :link, :image_key, :image_alt_key)
   end
 
-  def require_heroku_upload?
-    Rails.env.production? && !on_heroku? && upload_attempted?
-  end
-
-  def upload_attempted?
-    params.dig(:event, :image).present? || params.dig(:event, :alt_image).present?
-  end
-
-  def heroku_host
-    "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com"
-  end
-
-  def on_heroku?
-    request.host == heroku_host
-  end
-
-  def heroku_event_edit_url(event)
-    "https://#{heroku_host}/admin/events/#{event.id}/edit"
-  end
-
-  def handle_image_uploads(event)
-    upload_event_image(event, params.dig(:event, :image), "main")
-    upload_event_image(event, params.dig(:event, :alt_image), "alt")
-  end
-
-  def upload_event_image(event, uploaded, image_type)
-    return if uploaded.blank?
-
-    ext = File.extname(uploaded.original_filename)
-    key = "events/#{event.id}/#{image_type}#{ext}"
-
-    begin
-      S3Service.new.upload(uploaded, key)
-    rescue StandardError => e
-      Rails.logger.error("S3 upload failed for event #{event.id}: #{e.message}")
-      return
-    end
-
-    if image_type == "main"
-      event.update!(image_key: key)
-    else
-      event.update!(image_alt_key: key)
-    end
-  end
 end

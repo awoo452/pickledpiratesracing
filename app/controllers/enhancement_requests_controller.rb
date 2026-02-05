@@ -6,16 +6,16 @@ class EnhancementRequestsController < ApplicationController
   end
 
   def create
-    if enhancement_request_params[:message].blank?
-      redirect_back fallback_location: root_path, alert: "Request message is required"
-      return
-    end
-
-    EnhancementRequest.create(
+    result = EnhancementRequests::CreateRequest.call(
       email: enhancement_request_params[:email],
       message: enhancement_request_params[:message]
     )
-    redirect_back fallback_location: root_path, notice: "Request submitted"
+
+    if result.success?
+      redirect_back fallback_location: root_path, notice: "Request submitted"
+    else
+      redirect_back fallback_location: root_path, alert: result.error
+    end
   end
 
   private

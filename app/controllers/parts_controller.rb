@@ -1,9 +1,9 @@
 class PartsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_part, only: [ :destroy ]
 
   def index
-    @parts = Part.order(created_at: :desc)
+    data = Parts::IndexData.call
+    @parts = data.parts
   end
 
   def new
@@ -11,9 +11,10 @@ class PartsController < ApplicationController
   end
 
   def create
-    @part = current_user.parts.new(part_params)
+    result = Parts::CreatePart.call(user: current_user, params: part_params)
+    @part = result.part
 
-    if @part.save
+    if result.success?
       redirect_to parts_path, notice: "Part posted."
     else
       render :new, status: :unprocessable_entity
@@ -21,15 +22,11 @@ class PartsController < ApplicationController
   end
 
   def destroy
-    @part.destroy
+    Parts::DestroyPart.call(user: current_user, id: params[:id])
     redirect_to parts_path, notice: "Part removed."
   end
 
   private
-
-  def set_part
-    @part = current_user.parts.find(params[:id])
-  end
 
   def part_params
     params.require(:part).permit(:part, :description, :price, :contact_info, :disclaimer_ack)
