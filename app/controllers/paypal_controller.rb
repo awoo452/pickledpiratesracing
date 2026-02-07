@@ -1,6 +1,6 @@
 class PaypalController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :orders, :capture ]
-  before_action :authenticate_user!
+  before_action :authenticate_user_json!
 
   def orders
     result = Paypal::CreateOrder.call(
@@ -31,6 +31,12 @@ class PaypalController < ApplicationController
   end
 
   private
+
+  def authenticate_user_json!
+    return if user_signed_in?
+
+    render json: { error: "Please either sign up or sign into the Pickled Pirates website to purchase. See Account Menu to get started." }, status: :unauthorized
+  end
 
   def render_error(message, status)
     render json: { error: message }, status: status

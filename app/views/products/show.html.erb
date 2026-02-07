@@ -1,3 +1,12 @@
+<% content_for :head do %>
+  <meta name="turbo-visit-control" content="reload">
+  <% if ENV["PAYPAL_CLIENT_ID"].present? %>
+    <script
+      src="https://www.paypal.com/sdk/js?client-id=<%= ENV["PAYPAL_CLIENT_ID"] %>&currency=USD&intent=capture"
+      data-turbo-track="reload"></script>
+  <% end %>
+<% end %>
+
 <section class="product-show">
   <div class="product-show-card">
 
@@ -50,8 +59,16 @@
         $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
       </p>
 
-      <div class="paypal-container" data-turbo="false">
-        <div id="paypal-button-container"></div>
+      <div
+        class="paypal-container"
+        data-turbo="false"
+        data-controller="paypal"
+        data-paypal-client-id-value="<%= ENV["PAYPAL_CLIENT_ID"] %>"
+        data-paypal-product-id-value="<%= @product.id %>"
+        data-paypal-variant-select-id-value="variant_id"
+        data-paypal-currency-value="USD">
+        <div id="paypal-button-container" data-paypal-target="buttons"></div>
+        <p class="paypal-status" data-paypal-target="status" aria-live="polite"></p>
       </div>
     <% end %>
 

@@ -42,6 +42,19 @@
   margin: 24px 0;
 }
 
+.paypal-status {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.paypal-status-error {
+  color: var(--color-danger, #b42318);
+}
+
+.paypal-status-success {
+  color: var(--color-success, #027a48);
+}
+
 .back-link {
   display: inline-block;
   margin-top: 20px;

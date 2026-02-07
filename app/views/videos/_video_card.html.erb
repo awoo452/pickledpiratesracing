@@ -1,0 +1,14 @@
+<% show_title = local_assigns.fetch(:show_title, true) %>
+<% button_label = video.title.present? ? "Play video: #{video.title}" : "Play video" %>
+
+<div class="video-card">
+  <div class="video-frame">
+    <div class="youtube-placeholder" data-embed-url="<%= youtube_embed(video) %>">
+      <button type="button" class="youtube-play" aria-label="<%= button_label %>">Play video</button>
+    </div>
+  </div>
+
+  <% if show_title && video.title.present? %>
+    <h4><%= video.title %></h4>
+  <% end %>
+</div>

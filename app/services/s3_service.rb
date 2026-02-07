@@ -1,15 +1,26 @@
 class S3Service
   def initialize
-    @client = Aws::S3::Client.new(
-      region: ENV["AWS_REGION"],
-      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
-      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
-    )
+    @region = ENV["AWS_REGION"].presence || ENV["AWS_DEFAULT_REGION"].presence
+    @access_key_id = ENV["AWS_ACCESS_KEY_ID"].presence
+    @secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"].presence
+    @bucket = ENV["AWS_BUCKET"].presence
 
-    @bucket = ENV["AWS_BUCKET"]
+    @configured = [@region, @access_key_id, @secret_access_key, @bucket].all?(&:present?)
+    return unless @configured
+
+    @client = Aws::S3::Client.new(
+      region: @region,
+      access_key_id: @access_key_id,
+      secret_access_key: @secret_access_key
+    )
+  end
+
+  def configured?
+    @configured
   end
 
   def upload(uploaded_file, key)
+    ensure_configured!("upload")
     File.open(uploaded_file.tempfile.path, "rb") do |file|
       @client.put_object(
         bucket: @bucket,
@@ -23,6 +34,8 @@ class S3Service
   end
 
   def presigned_url(key, expires_in: 3600)
+    return nil unless configured?
+
     signer = Aws::S3::Presigner.new(client: @client)
     signer.presigned_url(
       :get_object,
@@ -33,6 +46,8 @@ class S3Service
   end
 
   def list_keys(prefix)
+    return [] unless configured?
+
     resp = @client.list_objects_v2(
       bucket: @bucket,
       prefix: prefix
@@ -42,6 +57,8 @@ class S3Service
   end
 
   def delete_prefix(prefix)
+    return unless configured?
+
     continuation = nil
 
     loop do
@@ -62,5 +79,13 @@ class S3Service
       break unless resp.is_truncated
       continuation = resp.next_continuation_token
     end
+  end
+
+  private
+
+  def ensure_configured!(action)
+    return if configured?
+
+    raise "S3Service not configured for #{action}. Set AWS_REGION (or AWS_DEFAULT_REGION), AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_BUCKET."
   end
 end

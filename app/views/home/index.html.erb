@@ -1,8 +1,7 @@
 <section class="landing">
-
   <div class="main-landing-container">
     <div class="landing-background">
-        <%= image_tag "landing0.1.85.png", alt: "Pickled Pirates Racing" %>
+      <%= image_tag "landing0.1.85.png", alt: "Pickled Pirates Racing" %>
     </div>
 
     <div class="landing-overlay">
@@ -14,21 +13,13 @@
       <% end %>
     </div>
   </div>
-  
 
   <div class="main-landing-videos">
     <% if @featured_videos.any? %>
       <h2>Latest Videos</h2>
-
       <div class="videos-grid">
         <% @featured_videos.each do |video| %>
-          <div class="video-card">
-            <div class="video-frame">
-              <div class="youtube-placeholder" data-embed-url="<%= youtube_embed(video) %>">
-                <button type="button" class="youtube-play">Play video</button>
-              </div>
-            </div>
-          </div>
+          <%= render "videos/video_card", video: video, show_title: false %>
         <% end %>
       </div>
     <% end %>
@@ -36,32 +27,12 @@
 
   <div class="main-landing-products">
     <% if @featured_products.any? %>
-        <h2>Featured Products</h2>
-
-        <div class="products">
+      <h2>Featured Products</h2>
+      <div class="products">
         <% @featured_products.each do |product| %>
-            <%= link_to product_path(product), class: "featured-product-link", data: { turbo: false } do %>
-                <div class="product">
-                <% if product.image_key.present? %>
-                  <%= image_tag product.image_url, alt: product.name %>
-                <% elsif product.image.present? %>
-                  <%= image_tag product.image, alt: product.name %>
-                <% end %>
-
-
-                <h3 class="product-title"><%= product.name %></h3>
-                <p class="product-description"><%= product.description %></p>
-                <% if product.price_hidden? %>
-                  <p>Coming Soon</p>
-                <% else %>
-                  <p>$<%= number_with_precision(product.price, precision: 2) %></p>
-                <% end %>
-                </div>
-            <% end %>
-            <% end %>
-        </div>
+          <%= render "products/product_card", product: product, link_class: "featured-product-link" %>
+        <% end %>
+      </div>
     <% end %>
-
   </div>
-
 </section>

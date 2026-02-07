@@ -1,3 +1,16 @@
+## [0.1.87] - 2026-02-06
+
+### Fixed
+- PayPal endpoints now return JSON 401 for unauthenticated requests instead of redirect HTML.
+- PayPal frontend surfaces a clear sign-in message if a non-JSON response is received.
+
+### Changed
+- Explicitly load the PayPal SDK on product pages and wait for it before rendering buttons.
+- Wired the PayPal Stimulus controller to a stable container with visible status messaging.
+- Extracted shared product/video card partials for home and index pages.
+- Made S3 image handling safe in dev when AWS env vars are missing.
+- Added dotenv support in development/test with a sample `.env.example`.
+
 ## [0.1.86] - 2026-02-05
 
 ### Changed

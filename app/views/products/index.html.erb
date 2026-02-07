@@ -1,31 +1,13 @@
 <section class="products-page">
-
   <h1>Products</h1>
 
   <% if @products.any? %>
     <div class="products-grid">
       <% @products.each do |product| %>
-        <%= link_to product_path(product), class: "product-link", data: { turbo: false } do %>
-          <div class="product">
-            <% if product.image_key.present? %>
-              <%= image_tag product.image_url, alt: product.name %>
-            <% elsif product.image.present? %>
-              <%= image_tag product.image, alt: product.name %>
-            <% end %>
-
-            <h3 class="product-title"><%= product.name %></h3>
-            <p class="product-description"><%= product.description %></p>
-            <% if product.price_hidden? %>
-              <p>Coming Soon</p>
-            <% else %>
-              <p>$<%= number_with_precision(product.price, precision: 2) %></p>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render "products/product_card", product: product %>
       <% end %>
     </div>
   <% else %>
     <p class="empty-state">No products available right now.</p>
   <% end %>
-
 </section>
