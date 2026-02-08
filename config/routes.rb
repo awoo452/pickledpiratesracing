@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   patch "/account/details", to: "account#update_details", as: :update_account_details
   resources :events, only: [ :index ]
 
-  resources :enhancement_requests, only: [ :new, :create ]
+  resources :enhancement_requests, only: [ :new, :create, :index ]
   resources :videos, only: [ :index ]
   resources :products, only: [ :index, :show ]
   resources :parts, only: [ :index, :new, :create, :destroy ]

@@ -1,0 +1,31 @@
+<section class="enhancement-requests">
+  <div class="enhancement-header">
+    <div>
+      <h2>Feedback Log</h2>
+      <p class="enhancement-subtitle">Tracking what to tackle next.</p>
+    </div>
+    <%= link_to "Submit feedback", new_enhancement_request_path, class: "enhancement-link" %>
+  </div>
+
+  <% if @requests.any? %>
+    <div class="enhancement-cards">
+      <% @requests.each do |request| %>
+        <article class="enhancement-card <%= request.completed? ? "enhancement-card--done" : "enhancement-card--todo" %>">
+          <div class="enhancement-card-header">
+            <p class="enhancement-card-id">#<%= request.id %></p>
+            <span class="enhancement-card-status">
+              <%= request.completed? ? "Completed" : "Open" %>
+            </span>
+          </div>
+          <p class="enhancement-card-message"><%= simple_format(request.message) %></p>
+          <div class="enhancement-card-meta">
+            <span><%= request.email.presence || "No email" %></span>
+            <span><%= request.created_at.strftime("%b %d, %Y") %></span>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No feedback yet.</p>
+  <% end %>
+</section>

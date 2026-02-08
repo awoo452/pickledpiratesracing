@@ -1,3 +1,8 @@
+## [0.1.90] - 2026-02-08
+
+### Added
+- Added a feedback log page that lists enhancement requests with a completed status badge.
+
 ## [0.1.89] - 2026-02-08
 
 ### Added

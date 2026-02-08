@@ -5,6 +5,10 @@ class EnhancementRequestsController < ApplicationController
   def new
   end
 
+  def index
+    @requests = EnhancementRequest.order(created_at: :desc)
+  end
+
   def create
     result = EnhancementRequests::CreateRequest.call(
       email: enhancement_request_params[:email],
