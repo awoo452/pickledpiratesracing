@@ -1,3 +1,8 @@
+## [0.1.89] - 2026-02-08
+
+### Added
+- Added a completed flag on feedback items.
+
 ## [0.1.88] - 2026-02-08
 
 ### Changed
