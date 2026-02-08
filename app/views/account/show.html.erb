@@ -42,11 +42,11 @@
     <% end %>
 
     <div class="reward-claim-form">
-      <h3>Claim Event Reward</h3>
+      <h3>Redeem Reward Code</h3>
       <%= form_with url: claim_account_reward_path, method: :post, local: true do |form| %>
         <div class="reward-claim-fields">
-          <%= form.text_field :code, placeholder: "Enter attendee code", aria: { label: "Attendee code" } %>
-          <%= form.submit "Claim" %>
+          <%= form.text_field :code, placeholder: "Enter reward code", aria: { label: "Reward code" } %>
+          <%= form.submit "Redeem" %>
         </div>
       <% end %>
     </div>

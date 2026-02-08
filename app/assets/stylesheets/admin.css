@@ -253,6 +253,15 @@
   gap: 18px;
 }
 
+.admin-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-form-actions--bottom {
+  margin-top: 16px;
+}
+
 .admin-form-grid {
   display: grid;
   gap: 16px;

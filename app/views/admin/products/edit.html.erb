@@ -17,6 +17,7 @@
                   method: :patch,
                   local: true,
                   html: { multipart: true,
+                          id: "admin-product-form",
                           data: { turbo: false },
                           class: "admin-form" } do |f| %>
 
@@ -79,7 +80,6 @@
         </div>
       </div>
 
-      <%= f.submit "Save changes", class: "admin-primary-button" %>
     <% end %>
 
     <% if @product.product_variants.any? %>
@@ -118,5 +118,9 @@
         </div>
       </div>
     <% end %>
+
+    <div class="admin-form-actions admin-form-actions--bottom">
+      <button type="submit" form="admin-product-form" class="admin-primary-button">Save changes</button>
+    </div>
   </div>
 </section>

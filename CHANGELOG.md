@@ -1,3 +1,10 @@
+## [0.1.88] - 2026-02-08
+
+### Changed
+- Moved About page CTAs onto the hero image with a cleaner overlay treatment.
+- Renamed the account reward action to “Redeem reward code” with clearer input copy.
+- Repositioned the admin product save button to the page bottom and removed the full-width stretch.
+
 ## [0.1.87] - 2026-02-06
 
 ### Fixed
