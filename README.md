@@ -1,24 +1,48 @@
-# README
+# Pickled Pirates Racing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Pickled Pirates Racing site with a storefront, events, videos, swap meet, and admin tools.
 
-Things you may want to cover:
+## Stack
+- Ruby 4.0.1
+- Rails 8.1
+- PostgreSQL
 
-* Ruby version
+## Setup
+1. `bundle install`
+2. `bin/rails db:prepare` (or `bin/setup`)
+3. `bin/dev`
 
-* System dependencies
+## Seed data (optional)
+- `bin/rails db:seed`
 
-* Configuration
+## Tests
+- `bin/rails test`
 
-* Database creation
+## Environment variables
+- `PAYPAL_CLIENT_ID` (required to render PayPal buttons)
+- `PAYPAL_SECRET`
+- `PAYPAL_ENV` (defaults to `sandbox`, set to `live` for production)
+- `AWS_REGION` or `AWS_DEFAULT_REGION`
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_BUCKET`
+- `CONTACT_EMAIL` (defaults to `pickledpiratescc@gmail.com`)
+- `SES_SMTP_USERNAME` (production mail)
+- `SES_SMTP_PASSWORD` (production mail)
+- `DATABASE_URL` (production)
+- `RAILS_LOG_LEVEL`
+- `RAILS_MAX_THREADS`
+- `PORT`
+- `JOB_CONCURRENCY`
 
-* Database initialization
+## Admin notes
+- Set `users.admin = true` to access admin pages.
+- Docs are managed in Admin > Docs (see `currentdocs.sql` for current reference).
 
-* How to run the test suite
+## Payments and inventory
+- PayPal create/capture calls create `Order` and `OrderItem` records and decrement variant stock.
+- Products must have at least one active variant with stock > 0 and `price_hidden = false` to be purchasable.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## S3 uploads
+- Image uploads use S3. Set the AWS variables above to enable uploads and deletes.
+- In production, admin uploads redirect to the Heroku admin host defined in the admin services.

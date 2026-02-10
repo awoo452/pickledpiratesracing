@@ -24,7 +24,7 @@
       <% if Rails.env.production? && !on_heroku %>
         <div class="admin-card">
           <p class="admin-kicker">Uploads</p>
-          <p>Uploads must happen on the Heroku admin. Saving with an upload will redirect you there.</p>
+          <p>Uploads only work on the Heroku admin. Click the button to open the correct page, log in if prompted, then upload and save there. If you try to upload here, you will be redirected to Heroku and asked to log in again.</p>
           <%= link_to "Open Heroku upload page",
               "https://#{heroku_host}/admin/products/#{@product.id}/edit",
               class: "admin-primary-button",
@@ -65,20 +65,22 @@
         <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
       </div>
 
-      <div class="admin-form-grid">
-        <div class="admin-field">
-          <label>Image type</label>
-          <select name="image_type">
-            <option value="main">Main</option>
-            <option value="alt">Alt</option>
-          </select>
-        </div>
+      <% if !Rails.env.production? || on_heroku %>
+        <div class="admin-form-grid">
+          <div class="admin-field">
+            <label>Image type</label>
+            <select name="image_type">
+              <option value="main">Main</option>
+              <option value="alt">Alt</option>
+            </select>
+          </div>
 
-        <div class="admin-field">
-          <%= f.label :image, "Upload image" %>
-          <%= f.file_field :image %>
+          <div class="admin-field">
+            <%= f.label :image, "Upload image" %>
+            <%= f.file_field :image %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
     <% end %>
 

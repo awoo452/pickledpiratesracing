@@ -4,10 +4,12 @@
               html: { class: "admin-form",
                       multipart: true,
                       data: { turbo: false } } do |f| %>
+  <% show_uploads = !Rails.env.production? || on_heroku %>
+
   <% if Rails.env.production? && !on_heroku %>
     <div class="admin-card">
       <p class="admin-kicker">Uploads</p>
-      <p>Uploads must happen on the Heroku admin. Saving with an upload will redirect you there.</p>
+      <p>Uploads only work on the Heroku admin. Click the button to open the correct page, log in if prompted, then upload and save there. If you try to upload here, you will be redirected to Heroku and asked to log in again.</p>
       <%= link_to "Open Heroku upload page",
           heroku_url,
           class: "admin-primary-button",
@@ -43,27 +45,29 @@
     </div>
   </div>
 
-  <div class="admin-form-grid">
-    <div class="admin-field">
-      <%= f.label :image_key, "Main image (optional)" %>
-      <%= f.text_field :image_key, placeholder: "logo-dark or events/1/main.jpg" %>
-    </div>
+  <% if show_uploads %>
+    <div class="admin-form-grid">
+      <div class="admin-field">
+        <%= f.label :image_key, "Main image (optional)" %>
+        <%= f.text_field :image_key, placeholder: "logo-dark or events/1/main.jpg" %>
+      </div>
 
-    <div class="admin-field">
-      <%= f.label :image, "Upload main image" %>
-      <%= f.file_field :image %>
-    </div>
+      <div class="admin-field">
+        <%= f.label :image, "Upload main image" %>
+        <%= f.file_field :image %>
+      </div>
 
-    <div class="admin-field">
-      <%= f.label :image_alt_key, "Alt image (optional)" %>
-      <%= f.text_field :image_alt_key, placeholder: "events/1/alt.jpg" %>
-    </div>
+      <div class="admin-field">
+        <%= f.label :image_alt_key, "Alt image (optional)" %>
+        <%= f.text_field :image_alt_key, placeholder: "events/1/alt.jpg" %>
+      </div>
 
-    <div class="admin-field">
-      <%= f.label :alt_image, "Upload alt image" %>
-      <%= f.file_field :alt_image %>
+      <div class="admin-field">
+        <%= f.label :alt_image, "Upload alt image" %>
+        <%= f.file_field :alt_image %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <%= f.submit submit_label, class: "admin-primary-button" %>
 <% end %>

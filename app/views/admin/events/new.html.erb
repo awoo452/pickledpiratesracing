@@ -11,12 +11,12 @@
 
     <% heroku_host = "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com" %>
     <% on_heroku = request.host == heroku_host %>
+    <% heroku_url = "https://#{heroku_host}/admin/events/new" %>
 
     <%= render "form",
                url: admin_events_path,
                submit_label: "Create event",
-               heroku_host: heroku_host,
-               heroku_url: "https://#{heroku_host}/admin/events",
-               on_heroku: on_heroku %>
+               on_heroku: on_heroku,
+               heroku_url: heroku_url %>
   </div>
 </section>

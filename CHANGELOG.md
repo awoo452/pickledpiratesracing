@@ -1,3 +1,13 @@
+## [0.1.91] - 2026-02-10
+
+### Added
+- Added an internal doc explaining Heroku-only image uploads for products and events.
+
+### Changed
+- Gated product and event image uploads to the Heroku admin host with clear call-to-action messaging.
+- Hid upload fields when not on the Heroku admin to prevent failed uploads.
+- Centralized event upload gating inside the shared form.
+
 ## [0.1.90] - 2026-02-08
 
 ### Added
