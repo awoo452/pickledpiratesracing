@@ -3,6 +3,10 @@
 ### Added
 - Added a feedback log page that lists enhancement requests with a completed status badge.
 
+### Changed
+- Aligned the admin event form layout so image fields sit together like the product edit form.
+- Feedback in nav links to index, not new
+
 ## [0.1.89] - 2026-02-08
 
 ### Added
