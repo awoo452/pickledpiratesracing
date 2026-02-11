@@ -13,8 +13,10 @@
       <div class="page-actions">
         <%= link_to "Shop the gear", products_path, class: "cta-button" %>
         <%= link_to "Watch the videos", videos_path, class: "cta-button" %>
-        <%= link_to "Swap Meet", parts_path, class: "cta-button" %>
-        <%= link_to "Upcoming events", events_path, class: "cta-button" %>
+        <% if user_signed_in? %>
+          <%= link_to "Swap Meet", parts_path, class: "cta-button" %>
+          <%= link_to "Upcoming events", events_path, class: "cta-button" %>
+        <% end %>
       </div>
     </div>
   </div>

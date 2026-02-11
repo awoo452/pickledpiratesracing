@@ -10,6 +10,10 @@
         <a href="#videos-track" class="cta-button">The Track</a>
         <a href="#videos-pits" class="cta-button">The Pits</a>
         <a href="#videos-food" class="cta-button">The Food</a>
+        <a href="#videos-shop-time" class="cta-button">Shop Time</a>
+        <a href="#videos-car-show" class="cta-button">Car Show</a>
+        <a href="#videos-minibikes" class="cta-button">Minibikes</a>
+        <a href="#videos-burnouts" class="cta-button">Burnouts</a>
         <a href="#videos-events" class="cta-button">Past Events</a>
       </div>
     </div>
@@ -22,6 +26,11 @@
     <% pits_videos = grouped.fetch("pits", []) %>
     <% food_videos = grouped.fetch("food", []) %>
     <% event_videos = grouped.fetch("events", []) %>
+    <% past_event_videos = grouped.fetch("past_events", []) %>
+    <% shop_time_videos = grouped.fetch("shop_time", []) %>
+    <% car_show_videos = grouped.fetch("car_show", []) %>
+    <% minibike_videos = grouped.fetch("minibikes", []) %>
+    <% burnout_videos = grouped.fetch("burnouts", []) %>
 
     <section id="videos-featured" class="videos-section">
       <div class="videos-section-header">
@@ -87,14 +96,79 @@
       <% end %>
     </section>
 
+    <section id="videos-shop-time" class="videos-section">
+      <div class="videos-section-header">
+        <h2>Shop Time</h2>
+        <p>Wrenching, fab, installs, and everything that happens between runs.</p>
+      </div>
+      <% if shop_time_videos.any? %>
+        <div class="videos-grid">
+          <% shop_time_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No shop time clips yet.</p>
+      <% end %>
+    </section>
+
+    <section id="videos-car-show" class="videos-section">
+      <div class="videos-section-header">
+        <h2>Car Show</h2>
+        <p>Show floor walk-throughs, rigs, and crowd favorites.</p>
+      </div>
+      <% if car_show_videos.any? %>
+        <div class="videos-grid">
+          <% car_show_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No car show clips yet.</p>
+      <% end %>
+    </section>
+
+    <section id="videos-minibikes" class="videos-section">
+      <div class="videos-section-header">
+        <h2>Minibikes</h2>
+        <p>Small bikes, big energy.</p>
+      </div>
+      <% if minibike_videos.any? %>
+        <div class="videos-grid">
+          <% minibike_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No minibike clips yet.</p>
+      <% end %>
+    </section>
+
+    <section id="videos-burnouts" class="videos-section">
+      <div class="videos-section-header">
+        <h2>Burnouts</h2>
+        <p>Smoke shows and the aftermath.</p>
+      </div>
+      <% if burnout_videos.any? %>
+        <div class="videos-grid">
+          <% burnout_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No burnout clips yet.</p>
+      <% end %>
+    </section>
+
     <section id="videos-events" class="videos-section">
       <div class="videos-section-header">
         <h2>Past Events</h2>
         <p>Highlights that tie back to the event calendar.</p>
       </div>
-      <% if event_videos.any? %>
+      <% combined_events = event_videos + past_event_videos %>
+      <% if combined_events.any? %>
         <div class="videos-grid">
-          <% event_videos.each do |video| %>
+          <% combined_events.each do |video| %>
             <%= render "videos/video_card", video: video %>
           <% end %>
         </div>

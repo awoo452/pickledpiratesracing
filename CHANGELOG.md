@@ -1,3 +1,8 @@
+## [0.1.94] - 2026-02-11
+
+### Changed
+- Normalized video categories to include past events and burnouts, with updated front-end sections.
+
 ## [0.1.93] - 2026-02-11
 
 ### Changed
@@ -8,6 +13,7 @@
 - Simplified the Videos hero to a single CTA box with heading, copy, and section links.
 - Matched the About hero layout to the Videos hero with a single centered CTA box.
 - Rebuilt About and Videos pages on a shared hero layout and added video categories for tagging.
+- Added video start timestamps and a Minibikes category for videos.
 
 ## [0.1.92] - 2026-02-11
 
