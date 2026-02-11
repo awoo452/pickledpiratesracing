@@ -18,6 +18,7 @@ module Parts
                @user.parts.find(@id)
              end
       part.destroy
+      @user.grant_swap_meet_delete_reward!
       Result.new(success?: true, part: part)
     rescue ActiveRecord::RecordNotFound
       Result.new(success?: false, part: nil)

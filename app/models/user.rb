@@ -74,6 +74,32 @@ class User < ApplicationRecord
     end
   end
 
+  def grant_swap_meet_post_rewards!(part_count: nil)
+    count = part_count || parts.count
+
+    [
+      { threshold: 1, name: "Swap Meet Apprentice", description: "Posted your first Swap Meet listing" },
+      { threshold: 2, name: "Swap Meet Journeyman", description: "Posted 2 Swap Meet listings" },
+      { threshold: 3, name: "Swap Meet Parts Pusher", description: "Posted 3 Swap Meet listings" },
+      { threshold: 5, name: "Swap Meet Regular", description: "Posted 5 Swap Meet listings" },
+      { threshold: 25, name: "Swap Meet Legend", description: "Posted 25 Swap Meet listings" }
+    ].each do |entry|
+      next if count < entry[:threshold]
+
+      rewards.find_or_create_by!(name: entry[:name]) do |r|
+        r.description = entry[:description]
+      end
+    end
+  end
+
+  def grant_swap_meet_delete_reward!
+    rewards.find_or_create_by!(
+      name: "Swap Meet Cleanup"
+    ) do |r|
+      r.description = "Deleted a Swap Meet listing"
+    end
+  end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end

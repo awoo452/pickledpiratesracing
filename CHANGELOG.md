@@ -2,6 +2,7 @@
 
 ### Added
 - Added Swap Meet eras (classic, retro, current) to parts with validation and UI display.
+- Added Swap Meet rewards for posting parts (1, 2, 3, 5, 25) and deleting a listing.
 
 ### Fixed
 - Restricted Swap Meet deletions to post owners, while allowing admins to delete any post.
