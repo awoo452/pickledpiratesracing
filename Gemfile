@@ -18,7 +18,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-gem "minitest", "~> 5.25"
+gem "minitest", "~> 6.0"
 
 # AWS
 gem "aws-sdk-s3"
