@@ -1,12 +1,107 @@
-<section class="videos-page">
-  <h1>Videos</h1>
+<section class="page-shell page-shell--videos">
+  <div class="page-hero">
+    <div class="page-hero-card">
+      <p class="page-eyebrow">Videos Garage</p>
+      <h1 class="page-title">Pickled Pirates Videos</h1>
+      <p class="page-lede">Spending too long in burnout boxes, inappropriate pit banter, stuffing our faces, and everything in between. We’ve built a racing lifestyle, and now you get to see it, one series at a time.</p>
+      <p class="page-subcopy">Videos are tagged by series so you can jump straight to what you want.</p>
+      <div class="page-actions">
+        <a href="#videos-featured" class="cta-button">Featured</a>
+        <a href="#videos-track" class="cta-button">The Track</a>
+        <a href="#videos-pits" class="cta-button">The Pits</a>
+        <a href="#videos-food" class="cta-button">The Food</a>
+        <a href="#videos-events" class="cta-button">Past Events</a>
+      </div>
+    </div>
+  </div>
 
   <% if @videos.any? %>
-    <div class="videos-grid">
-      <% @videos.each do |video| %>
-        <%= render "videos/video_card", video: video %>
+    <% grouped = @videos.group_by(&:category) %>
+    <% featured_videos = grouped.fetch("featured", []) %>
+    <% track_videos = grouped.fetch("track", []) %>
+    <% pits_videos = grouped.fetch("pits", []) %>
+    <% food_videos = grouped.fetch("food", []) %>
+    <% event_videos = grouped.fetch("events", []) %>
+
+    <section id="videos-featured" class="videos-section">
+      <div class="videos-section-header">
+        <h2>Featured playlist</h2>
+        <p>All current uploads in one place.</p>
+      </div>
+      <% if featured_videos.any? %>
+        <div class="videos-grid">
+          <% featured_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No featured videos yet.</p>
       <% end %>
-    </div>
+    </section>
+
+    <section id="videos-track" class="videos-section">
+      <div class="videos-section-header">
+        <h2>The Track</h2>
+        <p>Race runs, passes, launches, and the loud stuff.</p>
+      </div>
+      <% if track_videos.any? %>
+        <div class="videos-grid">
+          <% track_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No track clips yet.</p>
+      <% end %>
+    </section>
+
+    <section id="videos-pits" class="videos-section">
+      <div class="videos-section-header">
+        <h2>The Pits</h2>
+        <p>Wrench time, chatter, and the setup that makes it happen.</p>
+      </div>
+      <% if pits_videos.any? %>
+        <div class="videos-grid">
+          <% pits_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No pit videos yet.</p>
+      <% end %>
+    </section>
+
+    <section id="videos-food" class="videos-section">
+      <div class="videos-section-header">
+        <h2>The Food</h2>
+        <p>Trackside eats, late-night fuel, and whatever keeps us moving.</p>
+      </div>
+      <% if food_videos.any? %>
+        <div class="videos-grid">
+          <% food_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">No food clips yet.</p>
+      <% end %>
+    </section>
+
+    <section id="videos-events" class="videos-section">
+      <div class="videos-section-header">
+        <h2>Past Events</h2>
+        <p>Highlights that tie back to the event calendar.</p>
+      </div>
+      <% if event_videos.any? %>
+        <div class="videos-grid">
+          <% event_videos.each do |video| %>
+            <%= render "videos/video_card", video: video %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="empty-state">Past event videos are coming soon.</p>
+      <% end %>
+    </section>
   <% else %>
     <p class="empty-state">No videos yet.</p>
   <% end %>

@@ -1,5 +1,14 @@
 class Video < ApplicationRecord
+  CATEGORIES = {
+    "featured" => "Featured",
+    "track" => "The Track",
+    "pits" => "The Pits",
+    "food" => "The Food",
+    "events" => "Past Events"
+  }.freeze
+
   validates :title, presence: true
+  validates :category, inclusion: { in: CATEGORIES.keys }
   validate :youtube_source_present
 
   private

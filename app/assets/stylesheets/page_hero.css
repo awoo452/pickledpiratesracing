@@ -1,0 +1,87 @@
+.page-shell {
+  padding: 72px 20px 80px;
+  background:
+    radial-gradient(circle at 10% 10%, #f8f1e7 0, #ededed 45%, #e0e0e0 100%);
+  text-align: center;
+}
+
+.page-hero {
+  max-width: 1100px;
+  margin: 0 auto 36px;
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0.86)),
+    var(--page-hero-image, none);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.page-hero-card {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1d1d1d 50%, #000 100%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 32px 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.page-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 10px;
+}
+
+.page-title {
+  margin: 0 0 12px;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  color: #fff;
+  text-shadow: none;
+}
+
+.page-lede {
+  margin: 0 auto 16px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.page-subcopy {
+  margin: 0 auto 18px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.page-actions {
+  display: grid;
+  gap: 12px;
+}
+
+.page-actions .cta-button {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 56px 16px 64px;
+  }
+
+  .page-hero {
+    padding: 32px 24px;
+  }
+
+  .page-hero-card {
+    padding: 28px 22px;
+  }
+}

@@ -1,3 +1,14 @@
+## [0.1.93] - 2026-02-11
+
+### Changed
+- Overhauled About page layout with a bold hero, mission callout, and dedicated CTA panel.
+- Added the About hero image under the title and expanded CTA links.
+- Renamed the About hero background asset to a descriptive filename.
+- Restyled the Videos page with a hero panel, category sections, and series placeholders.
+- Simplified the Videos hero to a single CTA box with heading, copy, and section links.
+- Matched the About hero layout to the Videos hero with a single centered CTA box.
+- Rebuilt About and Videos pages on a shared hero layout and added video categories for tagging.
+
 ## [0.1.92] - 2026-02-11
 
 ### Added

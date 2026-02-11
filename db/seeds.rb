@@ -95,7 +95,8 @@ end
 Video.create!(
   title: "Pickled Pirates Racing Playlist",
   youtube_playlist_id: "PLHno3IJ04is-0SqgevE25D5ga-c8U9rGB",
-  featured: true
+  featured: true,
+  category: "featured"
 )
 
 # Dummy User
