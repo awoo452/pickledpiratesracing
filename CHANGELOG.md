@@ -1,3 +1,11 @@
+## [0.1.92] - 2026-02-11
+
+### Added
+- Added Swap Meet eras (classic, retro, current) to parts with validation and UI display.
+
+### Fixed
+- Restricted Swap Meet deletions to post owners, while allowing admins to delete any post.
+
 ## [0.1.91] - 2026-02-10
 
 ### Added

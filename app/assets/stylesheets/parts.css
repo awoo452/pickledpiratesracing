@@ -18,6 +18,10 @@
   margin: 0;
 }
 
+.parts-cta {
+  margin-bottom: 20px;
+}
+
 .parts-back-link {
   text-decoration: none;
   color: var(--color-text);
@@ -28,6 +32,16 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
+}
+
+.parts-era-section {
+  margin: 32px 0;
+  text-align: left;
+}
+
+.parts-era-title {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
 }
 
 .part-card {

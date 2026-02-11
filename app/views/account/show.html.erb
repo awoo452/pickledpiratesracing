@@ -62,6 +62,7 @@
               <div class="account-part-details">
                 <strong><%= part.part %></strong>
                 <span><%= number_to_currency(part.price) %></span>
+                <span><%= part.era_label %></span>
               </div>
               <%= button_to "Delete", part_path(part), method: :delete, class: "account-part-delete" %>
             </li>

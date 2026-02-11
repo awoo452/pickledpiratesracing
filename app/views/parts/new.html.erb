@@ -30,6 +30,14 @@
       </div>
 
       <div class="form-field">
+        <%= form.label :era, "Era" %>
+        <%= form.select :era,
+              options_for_select(Part::ERAS.map { |key, label| [label, key] }, @part.era || "current"),
+              {},
+              required: true %>
+      </div>
+
+      <div class="form-field">
         <%= form.label :price, "Price (USD)" %>
         <%= form.number_field :price, step: 0.01, min: 0, required: true %>
       </div>

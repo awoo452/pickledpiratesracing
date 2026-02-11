@@ -12,9 +12,15 @@ module Parts
     end
 
     def call
-      part = @user.parts.find(@id)
+      part = if @user.admin?
+               Part.find(@id)
+             else
+               @user.parts.find(@id)
+             end
       part.destroy
       Result.new(success?: true, part: part)
+    rescue ActiveRecord::RecordNotFound
+      Result.new(success?: false, part: nil)
     end
   end
 end

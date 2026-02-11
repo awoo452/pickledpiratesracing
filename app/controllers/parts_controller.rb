@@ -22,13 +22,17 @@ class PartsController < ApplicationController
   end
 
   def destroy
-    Parts::DestroyPart.call(user: current_user, id: params[:id])
-    redirect_to parts_path, notice: "Part removed."
+    result = Parts::DestroyPart.call(user: current_user, id: params[:id])
+    if result.success?
+      redirect_to parts_path, notice: "Part removed."
+    else
+      redirect_to parts_path, alert: "Not authorized to delete that post."
+    end
   end
 
   private
 
   def part_params
-    params.require(:part).permit(:part, :description, :price, :contact_info, :disclaimer_ack)
+    params.require(:part).permit(:part, :description, :price, :contact_info, :era, :disclaimer_ack)
   end
 end

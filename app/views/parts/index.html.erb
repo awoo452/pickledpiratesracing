@@ -1,29 +1,41 @@
 <section class="parts-page">
   <div class="parts-header">
     <h1>Swap Meet</h1>
+  </div>
+  <div class="parts-cta">
     <%= link_to "Post a Part", new_part_path, class: "cta-button" %>
   </div>
 
   <%= render "disclaimer" %>
 
   <% if @parts.any? %>
-    <div class="parts-grid">
-      <% @parts.each do |part| %>
-        <div class="part-card">
-          <div class="part-card-header">
-            <h3><%= part.part %></h3>
-            <span class="part-price"><%= number_to_currency(part.price) %></span>
-          </div>
+    <% grouped_parts = @parts.group_by(&:era) %>
 
-          <p class="part-description"><%= part.description %></p>
-          <p class="part-contact"><strong>Contact:</strong> <%= part.contact_info %></p>
+    <% Part::ERAS.each do |key, label| %>
+      <% era_parts = grouped_parts[key] %>
+      <% next if era_parts.blank? %>
 
-          <% if part.user_id == current_user.id %>
-            <%= button_to "Delete", part_path(part), method: :delete, class: "part-delete" %>
+      <section class="parts-era-section">
+        <h2 class="parts-era-title"><%= label %></h2>
+        <div class="parts-grid">
+          <% era_parts.each do |part| %>
+            <div class="part-card">
+              <div class="part-card-header">
+                <h3><%= part.part %></h3>
+                <span class="part-price"><%= number_to_currency(part.price) %></span>
+              </div>
+
+              <p class="part-description"><%= part.description %></p>
+              <p class="part-contact"><strong>Contact:</strong> <%= part.contact_info %></p>
+
+              <% if current_user.admin? || part.user_id == current_user.id %>
+                <%= button_to "Delete", part_path(part), method: :delete, class: "part-delete" %>
+              <% end %>
+            </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
+      </section>
+    <% end %>
   <% else %>
     <p class="empty-state">No parts yet. Be the first to post one.</p>
   <% end %>
