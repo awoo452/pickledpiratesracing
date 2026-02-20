@@ -43,7 +43,7 @@ class Product < ApplicationRecord
             "webp" => 0,
             "jpg" => 1,
             "jpeg" => 2,
-            "png" => 3,
+            "png" => 3
         }
 
         selected = {}
@@ -65,11 +65,11 @@ class Product < ApplicationRecord
 
         selected.keys.sort_by do |base|
             if base == "main"
-                [0, 0]
+                [ 0, 0 ]
             else
                 num_str = base.delete_prefix("alt")
                 num = num_str.empty? ? 0 : num_str.to_i
-                [1, num]
+                [ 1, num ]
             end
         end.map { |base| selected[base][:key] }
     end

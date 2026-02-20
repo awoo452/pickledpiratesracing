@@ -1,3 +1,12 @@
+## [0.1.95] - 2026-02-20
+
+### Fixed
+- Cleaned up RuboCop style issues in admin controllers, product model array/hash formatting, and service alignment.
+- Updated contact controller tests to sign in before hitting authenticated actions.
+
+### Changed
+- Bumped Brakeman to 8.0.2 to satisfy CI version checks.
+
 ## [0.1.94] - 2026-02-11
 
 ### Changed

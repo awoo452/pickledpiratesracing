@@ -5,7 +5,7 @@ class S3Service
     @secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"].presence
     @bucket = ENV["AWS_BUCKET"].presence
 
-    @configured = [@region, @access_key_id, @secret_access_key, @bucket].all?(&:present?)
+    @configured = [ @region, @access_key_id, @secret_access_key, @bucket ].all?(&:present?)
     return unless @configured
 
     @client = Aws::S3::Client.new(
