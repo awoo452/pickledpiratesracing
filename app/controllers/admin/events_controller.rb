@@ -71,5 +71,4 @@ class Admin::EventsController < Admin::BaseController
   def event_params
     params.fetch(:event, {}).permit(:title, :event_date, :location, :description, :link, :image_key, :image_alt_key)
   end
-
 end

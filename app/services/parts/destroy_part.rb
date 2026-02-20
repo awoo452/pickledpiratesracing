@@ -13,10 +13,10 @@ module Parts
 
     def call
       part = if @user.admin?
-               Part.find(@id)
-             else
-               @user.parts.find(@id)
-             end
+        Part.find(@id)
+      else
+        @user.parts.find(@id)
+      end
       part.destroy
       @user.grant_swap_meet_delete_reward!
       Result.new(success?: true, part: part)

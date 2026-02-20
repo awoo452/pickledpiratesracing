@@ -104,7 +104,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.21.1)
       msgpack (~> 1.2)
-    brakeman (7.1.2)
+    brakeman (8.0.2)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -411,7 +411,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-s3
   bootsnap
-  brakeman
+  brakeman (~> 8.0.2)
   capybara
   debug
   devise (~> 5.0)

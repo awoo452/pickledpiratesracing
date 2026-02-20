@@ -65,5 +65,4 @@ class Admin::ProductsController < Admin::BaseController
   def create_product_params
     params.fetch(:product, {}).permit(:name, :description, :price, :slug, :price_hidden)
   end
-
 end
