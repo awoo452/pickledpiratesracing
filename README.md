@@ -4,7 +4,7 @@ Pickled Pirates Racing site with a storefront, events, videos, swap meet, and ad
 
 ## Stack
 - Ruby 4.0.1
-- Rails 8.1
+- Rails 8.1.2
 - PostgreSQL
 
 ## Setup

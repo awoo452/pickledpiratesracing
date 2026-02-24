@@ -1,3 +1,8 @@
+## [0.1.97] - 2026-02-24
+
+### Changed
+- Pinned Ruby to 4.0.1 and Rails to 8.1.2.
+
 ## [0.1.96] - 2026-02-22
 
 ### Added
