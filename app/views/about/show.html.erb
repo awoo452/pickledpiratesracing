@@ -1,7 +1,8 @@
 <section class="page-shell page-shell--about">
   <% hero_image = @about&.image_key.presence || "about-hero.jpg" %>
   <% hero_image = "about-hero.jpg" if hero_image == "dan55.jpg" %>
-  <div class="page-hero" style="<%= "--page-hero-image: url('#{image_path(hero_image)}')" %>">
+  <div class="page-hero">
+    <%= image_tag hero_image, class: "page-hero-image", alt: "", aria: { hidden: true } %>
     <div class="page-hero-card">
       <% eyebrow = @about&.eyebrow.presence || "Pickled Pirates Racing" %>
       <p class="page-eyebrow"><%= eyebrow %></p>

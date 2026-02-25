@@ -14,9 +14,11 @@
 
     <% if @product.image_key.present? %>
       <% @product.image_variants.each do |img| %>
+        <% proxy_url = image_proxy_url(img[:key], width: 840, height: 840, fit: "inside", format: "webp") || img[:url] %>
         <img
-          src="<%= img[:url] %>"
+          src="<%= proxy_url %>"
           class="product-main-image"
+          loading="lazy"
         >
       <% end %>
     <% end %>

@@ -6,9 +6,10 @@
     <div class="events-grid">
       <% @events.each do |event| %>
         <div class="event-card">
-          <% if event.image_url.present? %>
+          <% image_url = image_proxy_url(event.image_key, width: 320, height: 320, fit: "inside", format: "webp") || event.image_url %>
+          <% if image_url.present? %>
             <div class="event-image">
-              <%= image_tag event.image_url, alt: event.title %>
+              <%= image_tag image_url, alt: event.title, loading: "lazy" %>
             </div>
           <% end %>
           <h2><%= event.title %></h2>
@@ -19,9 +20,10 @@
           <% if event.description.present? %>
             <p class="event-description"><%= event.description %></p>
           <% end %>
-          <% if event.image_alt_url.present? %>
+          <% alt_url = image_proxy_url(event.image_alt_key, width: 240, height: 240, fit: "inside", format: "webp") || event.image_alt_url %>
+          <% if alt_url.present? %>
             <div class="event-image event-image--alt">
-              <%= image_tag event.image_alt_url, alt: "#{event.title} alternate" %>
+              <%= image_tag alt_url, alt: "#{event.title} alternate", loading: "lazy" %>
             </div>
           <% end %>
           <% if event.link.present? %>
