@@ -8,17 +8,29 @@ class Event < ApplicationRecord
     return nil if image_key.blank?
     return image_key unless image_key.include?("/")
 
-    S3Service.new.presigned_url(image_key)
+    return nil unless s3_configured?
+
+    s3_media_path_for(image_key)
   end
 
   def image_alt_url
     return nil if image_alt_key.blank?
     return image_alt_key unless image_alt_key.include?("/")
 
-    S3Service.new.presigned_url(image_alt_key)
+    return nil unless s3_configured?
+
+    s3_media_path_for(image_alt_key)
   end
 
   private
+
+  def s3_media_path_for(key)
+    Rails.application.routes.url_helpers.s3_media_path(key: key)
+  end
+
+  def s3_configured?
+    S3Service.new.configured?
+  end
 
   def delete_s3_images
     return if image_key.blank?

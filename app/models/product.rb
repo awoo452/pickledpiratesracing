@@ -14,7 +14,9 @@ class Product < ApplicationRecord
 
     def image_url
         return nil if image_key.blank?
-        S3Service.new.presigned_url(image_key)
+        return nil unless s3_configured?
+
+        s3_media_path_for(image_key)
     end
 
     def image_urls
@@ -25,11 +27,18 @@ class Product < ApplicationRecord
         keys = image_variant_keys
         return [] if keys.empty?
 
-        s3 = S3Service.new
-        keys.map { |key| { key: key, url: s3.presigned_url(key) } }
+        keys.map { |key| { key: key, url: s3_media_path_for(key) } }
     end
 
     private
+
+    def s3_media_path_for(key)
+        Rails.application.routes.url_helpers.s3_media_path(key: key)
+    end
+
+    def s3_configured?
+        S3Service.new.configured?
+    end
 
     def image_variant_keys
         return [] if image_key.blank?

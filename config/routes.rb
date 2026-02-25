@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :videos, only: [ :index ]
   resources :products, only: [ :index, :show ]
   resources :parts, only: [ :index, :new, :create, :destroy ]
+  get "media/*key", to: "s3_proxy#show", as: :s3_media, format: false
   post "/paypal/orders", to: "paypal#orders"
   post "/paypal/orders/:id/capture", to: "paypal#capture"
 

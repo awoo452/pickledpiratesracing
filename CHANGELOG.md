@@ -1,3 +1,9 @@
+## [0.1.98] - 2026-02-24
+
+### Fixed
+- Added a safe S3 media proxy with an allowlist to prevent open redirects.
+- Switched product and event image URLs to use the stable `/media/*` proxy path.
+
 ## [0.1.97] - 2026-02-24
 
 ### Changed
