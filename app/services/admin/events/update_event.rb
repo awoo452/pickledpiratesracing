@@ -26,6 +26,14 @@ module Admin
       end
 
       def call
+        unless valid_image_uploads?
+          return Result.new(
+            success?: false,
+            event: @event,
+            alert: "Uploads must be JPG, PNG, or WEBP images."
+          )
+        end
+
         unless @event.update(@params)
           return Result.new(
             success?: false,
@@ -88,6 +96,22 @@ module Admin
         else
           event.update!(image_alt_key: key)
         end
+      end
+
+      def valid_image_uploads?
+        valid_image_upload?(@image) && valid_image_upload?(@alt_image)
+      end
+
+      def valid_image_upload?(uploaded)
+        return true if uploaded.blank?
+
+        content_type = uploaded.content_type.to_s.downcase
+        ext = File.extname(uploaded.original_filename.to_s).downcase
+
+        allowed_types = %w[image/jpeg image/jpg image/png image/webp]
+        allowed_exts = %w[.jpg .jpeg .png .webp]
+
+        allowed_types.include?(content_type) || allowed_exts.include?(ext)
       end
     end
   end

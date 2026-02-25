@@ -1,6 +1,7 @@
 <% link_class = local_assigns.fetch(:link_class, "product-link") %>
 
-<% image_url = product.image_url %>
+<% proxy_url = image_proxy_url(product.image_key, width: 440, height: 280, fit: "inside", format: "webp") %>
+<% image_url = proxy_url || product.image_url %>
 
 <%= link_to product_path(product), class: link_class, data: { turbo: false } do %>
   <div class="product">

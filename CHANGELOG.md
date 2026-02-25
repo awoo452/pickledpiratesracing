@@ -1,3 +1,30 @@
+## [0.1.103] - 2026-02-25
+
+### Changed
+- Removed inline About hero styling by switching to an image element + CSS overlay.
+- Updated production host allowlist defaults to include pickledpiratesracing.com and the Heroku host.
+
+## [0.1.102] - 2026-02-25
+
+### Added
+- Added production host allowlist support via `APP_HOST` and `APP_HOSTS`.
+- Added upload type validation for admin event and product image uploads.
+- Added event link validation to require http(s) URLs.
+
+### Changed
+- Hardened event image URL fallbacks to avoid unsafe local keys.
+- Documented production host allowlist environment variables.
+
+## [0.1.100] - 2026-02-25
+
+### Added
+- Added `image_processing` gem in preparation for thumbnail generation.
+- Added `image_proxy_url` helper with signed resize URL support and `/media` fallback.
+
+### Changed
+- Updated product and event views to prefer proxy-backed thumbnails when available.
+- Documented optional image proxy environment variables.
+
 ## [0.1.99] - 2026-02-24
 
 ### Changed

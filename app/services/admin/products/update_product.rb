@@ -28,6 +28,14 @@ module Admin
       def call
         updated = false
 
+        if @uploaded.present? && !valid_image_upload?(@uploaded)
+          return Result.new(
+            success?: false,
+            product: @product,
+            alert: "Upload must be a JPG, PNG, or WEBP image."
+          )
+        end
+
         if @params.present?
           unless @product.update(@params)
             return Result.new(
@@ -86,6 +94,16 @@ module Admin
 
       def heroku_product_edit_url
         "https://#{HEROKU_HOST}/admin/products/#{@product.id}/edit"
+      end
+
+      def valid_image_upload?(uploaded)
+        content_type = uploaded.content_type.to_s.downcase
+        ext = File.extname(uploaded.original_filename.to_s).downcase
+
+        allowed_types = %w[image/jpeg image/jpg image/png image/webp]
+        allowed_exts = %w[.jpg .jpeg .png .webp]
+
+        allowed_types.include?(content_type) || allowed_exts.include?(ext)
       end
     end
   end

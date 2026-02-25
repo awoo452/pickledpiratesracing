@@ -103,4 +103,19 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  allowed_hosts = []
+  allowed_hosts << ENV["APP_HOST"] if ENV["APP_HOST"].present?
+  allowed_hosts += ENV.fetch("APP_HOSTS", "").split(",").map(&:strip).reject(&:blank?)
+  allowed_hosts = [
+    "pickledpiratesracing.com",
+    "www.pickledpiratesracing.com"
+  ] if allowed_hosts.empty?
+
+  allowed_hosts << "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com"
+  allowed_hosts.uniq.each { |host| config.hosts << host }
+
+  config.host_authorization = {
+    response_app: ->(_env) { [403, { "Content-Type" => "text/plain" }, ["Unauthorized host. Check APP_HOST(S)."]] }
+  }
 end
