@@ -37,12 +37,16 @@ class S3Service
     return nil unless configured?
 
     signer = Aws::S3::Presigner.new(client: @client)
-    signer.presigned_url(
-      :get_object,
-      bucket: @bucket,
-      key: key,
-      expires_in: expires_in
-    )
+    cache_key = "s3:presign:#{key}:#{expires_in}"
+    cache_ttl = [expires_in.to_i - 60, 60].max
+    Rails.cache.fetch(cache_key, expires_in: cache_ttl) do
+      signer.presigned_url(
+        :get_object,
+        bucket: @bucket,
+        key: key,
+        expires_in: expires_in
+      )
+    end
   end
 
   def list_keys(prefix)
