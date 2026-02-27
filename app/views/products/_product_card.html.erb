@@ -1,15 +1,14 @@
 <% link_class = local_assigns.fetch(:link_class, "product-link") %>
 
 <% proxy_url = image_proxy_url(product.image_key, width: 440, height: 280, fit: "inside", format: "webp") %>
-<% image_url = proxy_url || product.image_url %>
+<% image_url = proxy_url || product.image_url || product.image %>
+<% fallback_image = image_path("comingsoon.png") %>
 
 <%= link_to product_path(product), class: link_class, data: { turbo: false } do %>
   <div class="product">
-    <% if image_url.present? %>
-      <%= image_tag image_url, alt: product.name, loading: "lazy" %>
-    <% elsif product.image.present? %>
-      <%= image_tag product.image, alt: product.name, loading: "lazy" %>
-    <% end %>
+    <%= image_tag(image_url.presence || fallback_image,
+                  alt: product.name.presence || "Image coming soon",
+                  loading: "lazy") %>
 
     <h3 class="product-title"><%= product.name %></h3>
     <p class="product-description"><%= product.description %></p>

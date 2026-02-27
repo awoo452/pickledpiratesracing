@@ -7,11 +7,11 @@
       <% @events.each do |event| %>
         <div class="event-card">
           <% image_url = image_proxy_url(event.image_key, width: 320, height: 200, fit: "cover", format: "webp") || event.image_url %>
-          <% if image_url.present? %>
-            <div class="event-image">
-              <%= image_tag image_url, alt: event.title, loading: "lazy" %>
-            </div>
-          <% end %>
+          <div class="event-image">
+            <%= image_tag(image_url.presence || image_path("comingsoon.png"),
+                          alt: event.title.presence || "Image coming soon",
+                          loading: "lazy") %>
+          </div>
           <h2><%= event.title %></h2>
           <p class="event-date"><%= event.event_date.strftime("%B %d, %Y") %></p>
           <% if event.location.present? %>

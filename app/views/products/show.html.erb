@@ -21,6 +21,10 @@
           loading="lazy"
         >
       <% end %>
+    <% elsif @product.image.present? %>
+      <%= image_tag @product.image, class: "product-main-image", alt: @product.name %>
+    <% else %>
+      <%= image_tag "comingsoon.png", class: "product-main-image", alt: "Image coming soon" %>
     <% end %>
 
     <p class="product-description"><%= @product.description %></p>

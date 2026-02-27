@@ -1,4 +1,11 @@
-## [0.1.99] - 2026-02-27
+
+
+## [0.1.100] - 2026-02-27
+
+### Added
+- Added a `comingsoon.png` fallback for missing product and event images.
+
+## [0.1.99] - 2026-02-26
 
 ### Added
 - Added `image_proxy_url` helper to support signed resize URLs for thumbnails.
