@@ -26,6 +26,8 @@ Pickled Pirates Racing site with a storefront, events, videos, swap meet, and ad
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 - `AWS_BUCKET`
+- `IMAGE_PROXY_BASE_URL` (optional, signed resize URLs for thumbnails)
+- `IMAGE_PROXY_SIGNING_KEY` (optional, signed resize URLs for thumbnails)
 - `CONTACT_EMAIL` (defaults to `pickledpiratescc@gmail.com`)
 - `SES_SMTP_USERNAME` (production mail)
 - `SES_SMTP_PASSWORD` (production mail)

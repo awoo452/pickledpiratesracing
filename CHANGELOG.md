@@ -1,3 +1,12 @@
+## [0.1.99] - 2026-02-27
+
+### Added
+- Added `image_proxy_url` helper to support signed resize URLs for thumbnails.
+- Documented optional image proxy environment variables.
+
+### Changed
+- Updated product and event views to prefer proxy-backed thumbnail URLs when available.
+
 ## [0.1.98] - 2026-02-24
 
 ### Fixed
