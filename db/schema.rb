@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_11_113000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_03_004000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -102,8 +102,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_11_113000) do
     t.datetime "created_at", null: false
     t.text "description"
     t.boolean "featured"
+    t.decimal "handling_fee", precision: 8, scale: 2
     t.string "image"
     t.string "image_key"
+    t.decimal "margin_percent", precision: 5, scale: 2
     t.string "name"
     t.decimal "price"
     t.boolean "price_hidden", default: true, null: false
@@ -137,6 +139,35 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_11_113000) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vendor_products", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "lead_time_days"
+    t.integer "min_order_quantity"
+    t.decimal "msrp", precision: 8, scale: 2
+    t.text "notes"
+    t.datetime "price_updated_at"
+    t.bigint "product_variant_id", null: false
+    t.decimal "unit_cost", precision: 8, scale: 2
+    t.datetime "updated_at", null: false
+    t.bigint "vendor_id", null: false
+    t.string "vendor_sku"
+    t.index ["product_variant_id"], name: "index_vendor_products_on_product_variant_id"
+    t.index ["vendor_id", "product_variant_id"], name: "index_vendor_products_on_vendor_id_and_product_variant_id", unique: true
+    t.index ["vendor_id"], name: "index_vendor_products_on_vendor_id"
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.string "contact_name"
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name", null: false
+    t.text "notes"
+    t.string "phone"
+    t.datetime "updated_at", null: false
+    t.string "website"
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string "category", default: "featured", null: false
     t.datetime "created_at", null: false
@@ -154,4 +185,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_11_113000) do
   add_foreign_key "parts", "users"
   add_foreign_key "product_variants", "products"
   add_foreign_key "rewards", "users"
+  add_foreign_key "vendor_products", "product_variants"
+  add_foreign_key "vendor_products", "vendors"
 end

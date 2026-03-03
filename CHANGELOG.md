@@ -1,3 +1,9 @@
+## [0.1.104] - 2026-03-03
+
+### Changed
+- Synced schema with the latest vendor/pricing migrations.
+- Bumped Brakeman to 8.0.4 to satisfy CI version checks.
+
 ## [0.1.103] - 2026-03-03
 
 ### Changed
