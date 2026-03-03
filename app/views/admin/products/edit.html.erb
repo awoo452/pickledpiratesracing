@@ -50,6 +50,16 @@
         </div>
 
         <div class="admin-field">
+          <%= f.label :margin_percent, "Margin (%)" %>
+          <%= f.number_field :margin_percent, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :handling_fee, "Handling fee" %>
+          <%= f.number_field :handling_fee, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
           <%= f.label :featured %>
           <%= f.select :featured, [["Featured", true], ["Standard", false]], selected: @product.featured? %>
         </div>

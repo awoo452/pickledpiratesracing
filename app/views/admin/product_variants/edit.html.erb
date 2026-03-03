@@ -9,6 +9,22 @@
       <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
     </header>
 
+    <div class="admin-card">
+      <p class="admin-kicker">Margin snapshot</p>
+      <% vendor_cost = @variant.vendor_unit_cost %>
+      <% target_margin = @variant.target_margin_percent %>
+      <% handling_fee = @variant.handling_fee_amount %>
+      <% current_price = @variant.current_price %>
+      <% suggested_price = @variant.suggested_price %>
+      <% actual_margin = @variant.actual_margin_percent %>
+      <p><strong>Vendor unit cost:</strong> <%= vendor_cost.present? ? number_to_currency(vendor_cost) : "—" %></p>
+      <p><strong>Handling fee:</strong> <%= handling_fee.positive? ? number_to_currency(handling_fee) : "—" %></p>
+      <p><strong>Target margin:</strong> <%= target_margin.present? ? "#{target_margin}%" : "—" %></p>
+      <p><strong>Suggested price:</strong> <%= suggested_price.present? ? number_to_currency(suggested_price) : "—" %></p>
+      <p><strong>Current price:</strong> <%= current_price.present? ? number_to_currency(current_price) : "—" %></p>
+      <p><strong>Actual margin:</strong> <%= actual_margin.present? ? "#{actual_margin}%" : "—" %></p>
+    </div>
+
     <%= form_with url: admin_product_variant_path(@variant), model: @variant, method: :patch, local: true, html: { class: "admin-form" } do |f| %>
       <div class="admin-form-grid">
         <div class="admin-field">

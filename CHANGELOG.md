@@ -1,3 +1,8 @@
+## [0.1.101] - 2026-03-02
+
+### Changed / Added
+- Added margin snapshot details to the variant edit screen.
+
 ## [0.1.100] - 2026-03-02
 
 ### Changed
@@ -7,6 +12,7 @@
 
 ### Added
 - Vendor management with vendors and per-variant pricing links in the admin.
+- Product margin and handling fee fields for pricing calculations.
 
 ### Changed
 - Removed the unused active flag from vendor pricing links.

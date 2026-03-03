@@ -8,6 +8,8 @@ class Product < ApplicationRecord
     validates :name, presence: true
     validates :price, presence: true, unless: :price_hidden?
     validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+    validates :margin_percent, numericality: { greater_than_or_equal_to: 0, less_than: 100 }, allow_nil: true
+    validates :handling_fee, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
     validates :slug, presence: true, uniqueness: true
 
     def set_slug

@@ -59,10 +59,10 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
-    params.fetch(:product, {}).permit(:name, :description, :price, :slug, :featured, :price_hidden)
+    params.fetch(:product, {}).permit(:name, :description, :price, :slug, :featured, :price_hidden, :margin_percent, :handling_fee)
   end
 
   def create_product_params
-    params.fetch(:product, {}).permit(:name, :description, :price, :slug, :price_hidden)
+    params.fetch(:product, {}).permit(:name, :description, :price, :slug, :price_hidden, :margin_percent, :handling_fee)
   end
 end
