@@ -1,4 +1,10 @@
-## [0.1.102] - 2026-03-03
+## [0.1.103] - 2026-03-03
+
+### Changed
+- Added pricing guards for missing vendor costs and updated product pricing display to track missing variants.
+- Product show now reflects per-variant pricing and blocks checkout when pricing is missing.
+
+## [0.1.102] - 2026-03-02
 
 ### Changed
 - Product prices are now auto-derived from vendor costs plus margin/handling, and price fields were removed from admin forms.

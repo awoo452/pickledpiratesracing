@@ -13,6 +13,7 @@ class Product < ApplicationRecord
     validates :margin_percent, numericality: { greater_than_or_equal_to: 0, less_than: 100 }, allow_nil: true
     validates :handling_fee, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
     validates :slug, presence: true, uniqueness: true
+    validate :pricing_ready, unless: :price_hidden?
 
     def set_slug
         self.slug = name.parameterize if slug.blank? && name.present?
@@ -61,6 +62,20 @@ class Product < ApplicationRecord
         return if prices.empty?
 
         self.price = prices.min
+    end
+
+    def pricing_ready
+        active_variants = product_variants.select(&:active?)
+        if active_variants.empty?
+          errors.add(:base, "Add at least one active variant before publishing pricing.")
+          return
+        end
+
+        missing = active_variants.select { |variant| variant.suggested_price.nil? }
+        return if missing.empty?
+
+        names = missing.map(&:name).join(", ")
+        errors.add(:base, "Pricing missing for variants: #{names}. Add vendor costs and ensure margin is set.")
     end
 
     def refresh_pricing_from_vendors

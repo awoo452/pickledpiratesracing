@@ -17,7 +17,15 @@ class ProductVariant < ApplicationRecord
   end
 
   def current_price
-    price_override.presence || product&.price
+    effective_price
+  end
+
+  def price_available?
+    price_override.present? || suggested_price.present?
+  end
+
+  def effective_price
+    price_override.presence || suggested_price || product&.price
   end
 
   def handling_fee_amount

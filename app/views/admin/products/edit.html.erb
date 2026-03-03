@@ -33,7 +33,7 @@
         </div>
       <% end %>
 
-      <div class="admin-form-grid">
+    <div class="admin-form-grid">
         <div class="admin-field">
           <%= f.label :name %>
           <%= f.text_field :name, required: true %>
@@ -59,21 +59,28 @@
           <%= f.select :featured, [["Featured", true], ["Standard", false]], selected: @product.featured? %>
         </div>
 
-        <div class="admin-field">
-          <%= f.label :description %>
-          <%= f.text_area :description, rows: 4 %>
-        </div>
+      <div class="admin-field">
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 4 %>
       </div>
+    </div>
 
-      <div class="admin-card">
-        <p class="admin-kicker">Auto pricing</p>
-        <% if @product.price.present? %>
-          <p><strong>Current price:</strong> <%= number_to_currency(@product.price) %></p>
-        <% else %>
-          <p><strong>Current price:</strong> —</p>
-        <% end %>
-        <p>Price is auto-calculated from vendor costs, margin, and handling fee.</p>
-      </div>
+    <div class="admin-card">
+      <p class="admin-kicker">Pricing status</p>
+      <% if @product.price.present? %>
+        <p><strong>Current price:</strong> <%= number_to_currency(@product.price) %></p>
+      <% else %>
+        <p><strong>Current price:</strong> —</p>
+      <% end %>
+      <p>Price is auto-calculated from vendor costs, margin, and handling fee.</p>
+
+      <% missing = @product.product_variants.select(&:active?).select { |variant| variant.suggested_price.nil? } %>
+      <% if missing.any? %>
+        <p><strong>Missing pricing:</strong> <%= missing.map(&:name).join(", ") %></p>
+      <% else %>
+        <p><strong>Status:</strong> All variants have pricing.</p>
+      <% end %>
+    </div>
 
       <div class="admin-field admin-field-inline">
         <%= f.check_box :price_hidden %>

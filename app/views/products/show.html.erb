@@ -8,7 +8,12 @@
 <% end %>
 
 <section class="product-show">
-  <div class="product-show-card">
+  <div class="product-show-card"
+       data-controller="paypal"
+       data-paypal-client-id-value="<%= ENV["PAYPAL_CLIENT_ID"] %>"
+       data-paypal-product-id-value="<%= @product.id %>"
+       data-paypal-variant-select-id-value="variant_id"
+       data-paypal-currency-value="USD">
 
     <h1><%= @product.name %></h1>
 
@@ -26,7 +31,9 @@
 
     <p class="product-description"><%= @product.description %></p>
 
-    <% available_variants = @variants.select { |v| v.stock.present? && v.stock > 0 } %>
+    <% priced_variants = @variants.select(&:price_available?) %>
+    <% available_variants = priced_variants.select { |v| v.stock.present? && v.stock > 0 } %>
+    <% default_price = available_variants.first&.effective_price || priced_variants.first&.effective_price || @product.price %>
 
     <% if @variants.any? %>
       <div class="variant-selector">
@@ -35,13 +42,16 @@
         <select id="variant_id">
           <% @variants.each do |variant| %>
             <% out_of_stock = variant.stock.blank? || variant.stock <= 0 %>
+            <% price_missing = variant.price_available? == false %>
             <option
               value="<%= variant.id %>"
-              data-price="<%= variant.price_override.nil? ? @product.price : variant.price_override %>"
-              <%= "disabled" if out_of_stock %>>
+              data-price="<%= variant.effective_price if variant.price_available? %>"
+              <%= "disabled" if out_of_stock || price_missing %>>
               <%= variant.name %>
               <% if out_of_stock %>
                 (Sold out)
+              <% elsif price_missing %>
+                (Pricing pending)
               <% elsif variant.stock.present? %>
                 (<%= variant.stock %> left)
               <% end %>
@@ -53,23 +63,24 @@
 
     <% if @product.price_hidden? %>
       <p class="product-price">Coming Soon</p>
+    <% elsif @variants.any? && priced_variants.empty? %>
+      <p class="product-price">Pricing pending</p>
     <% elsif @variants.any? && available_variants.empty? %>
       <p class="product-price">Sold Out</p>
     <% elsif @variants.none? %>
       <p class="product-price">No options available</p>
     <% else %>
       <p class="product-price">
-        $<span id="display-price"><%= number_with_precision(@product.price, precision: 2) %></span>
+        <% if default_price.present? %>
+          $<span id="display-price" data-paypal-target="price"><%= number_with_precision(default_price, precision: 2) %></span>
+        <% else %>
+          <span id="display-price" data-paypal-target="price">—</span>
+        <% end %>
       </p>
 
       <div
         class="paypal-container"
-        data-turbo="false"
-        data-controller="paypal"
-        data-paypal-client-id-value="<%= ENV["PAYPAL_CLIENT_ID"] %>"
-        data-paypal-product-id-value="<%= @product.id %>"
-        data-paypal-variant-select-id-value="variant_id"
-        data-paypal-currency-value="USD">
+        data-turbo="false">
         <div id="paypal-button-container" data-paypal-target="buttons"></div>
         <p class="paypal-status" data-paypal-target="status" aria-live="polite"></p>
       </div>

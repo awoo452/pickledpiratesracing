@@ -40,7 +40,7 @@ module Paypal
       end
 
       price = price_for(product, variant)
-      if price <= 0
+      if price.nil? || price <= 0
         return Result.new(success?: false, error: "Invalid price", status: :unprocessable_entity)
       end
 
@@ -51,7 +51,7 @@ module Paypal
 
     def price_for(product, variant)
       if variant.present?
-        variant.price_override || product.price.to_d
+        variant.effective_price&.to_d
       else
         product.price.to_d
       end
