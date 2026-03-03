@@ -1,3 +1,8 @@
+## [0.1.98] - 2026-03-03
+
+### Changed
+- Added image proxy thumbnail delivery for product cards, product gallery, and event images with signed resize URLs and S3 fallback.
+
 ## [0.1.97] - 2026-02-24
 
 ### Changed

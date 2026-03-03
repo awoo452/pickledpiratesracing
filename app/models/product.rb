@@ -21,6 +21,10 @@ class Product < ApplicationRecord
         image_variants.map { |variant| variant[:url] }
     end
 
+    def image_variant_keys
+        build_image_variant_keys
+    end
+
     def image_variants
         keys = image_variant_keys
         return [] if keys.empty?
@@ -31,7 +35,7 @@ class Product < ApplicationRecord
 
     private
 
-    def image_variant_keys
+    def build_image_variant_keys
         return [] if image_key.blank?
 
         prefix = image_key.sub(/main\..*$/, "")

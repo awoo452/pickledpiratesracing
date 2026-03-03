@@ -13,11 +13,14 @@
     <h1><%= @product.name %></h1>
 
     <% if @product.image_key.present? %>
-      <% @product.image_variants.each do |img| %>
-        <img
-          src="<%= img[:url] %>"
-          class="product-main-image"
-        >
+      <% @product.image_variant_keys.each_with_index do |key, index| %>
+        <% proxy_url = image_proxy_url(key, width: 900, height: 900, fit: "inside", format: "webp") %>
+        <% if proxy_url.present? %>
+          <%= image_tag proxy_url,
+            class: "product-main-image",
+            alt: index.zero? ? @product.name : "#{@product.name} alternate",
+            loading: (index.zero? ? "eager" : "lazy") %>
+        <% end %>
       <% end %>
     <% end %>
 
