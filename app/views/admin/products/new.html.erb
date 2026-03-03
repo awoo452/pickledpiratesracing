@@ -22,11 +22,6 @@
         </div>
 
         <div class="admin-field">
-          <%= f.label :price %>
-          <%= f.number_field :price, step: 0.01 %>
-        </div>
-
-        <div class="admin-field">
           <%= f.label :margin_percent, "Margin (%)" %>
           <%= f.number_field :margin_percent, step: 0.01 %>
         </div>
@@ -40,6 +35,11 @@
           <%= f.label :description %>
           <%= f.text_area :description, rows: 4 %>
         </div>
+      </div>
+
+      <div class="admin-card">
+        <p class="admin-kicker">Auto pricing</p>
+        <p>Price will be auto-calculated once vendor costs and variants are added.</p>
       </div>
 
       <div class="admin-field admin-field-inline">

@@ -47,7 +47,6 @@ module Admin
       params.require(:product_variant).permit(
         :product_id,
         :name,
-        :price_override,
         :stock,
         :active
       )

@@ -2,8 +2,10 @@ class Product < ApplicationRecord
     has_many :product_variants, dependent: :destroy
     has_many :vendor_products, through: :product_variants
     has_many :vendors, through: :vendor_products
+    before_validation :assign_price_from_vendors
     before_validation :set_slug, on: :create
     before_destroy :delete_s3_images
+    after_commit :refresh_pricing_from_vendors, on: :update, if: :pricing_inputs_changed?
 
     validates :name, presence: true
     validates :price, presence: true, unless: :price_hidden?
@@ -37,7 +39,43 @@ class Product < ApplicationRecord
         keys.map { |key| { key: key, url: s3.presigned_url(key) } }
     end
 
+    def update_pricing_from_vendors!
+        product_variants.each(&:apply_pricing!)
+        refresh_price_from_variants!
+    end
+
+    def recalculate_pricing!
+        update_pricing_from_vendors!
+    end
+
     private
+
+    def pricing_inputs_changed?
+        saved_change_to_margin_percent? || saved_change_to_handling_fee?
+    end
+
+    def assign_price_from_vendors
+        return if margin_percent.blank?
+
+        prices = product_variants.map(&:suggested_price).compact
+        return if prices.empty?
+
+        self.price = prices.min
+    end
+
+    def refresh_pricing_from_vendors
+        recalculate_pricing!
+    end
+
+    def refresh_price_from_variants!
+        prices = product_variants.map(&:suggested_price).compact
+        return if prices.empty?
+
+        new_price = prices.min
+        return if price.present? && price.to_d == new_price.to_d
+
+        update!(price: new_price)
+    end
 
     def build_image_variant_keys
         return [] if image_key.blank?

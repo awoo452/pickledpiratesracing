@@ -1,3 +1,9 @@
+## [0.1.102] - 2026-03-03
+
+### Changed
+- Product prices are now auto-derived from vendor costs plus margin/handling, and price fields were removed from admin forms.
+- Pricing now recalculates automatically when vendor pricing, variants, or product margin/handling are updated.
+
 ## [0.1.101] - 2026-03-02
 
 ### Changed / Added

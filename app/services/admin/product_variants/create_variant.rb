@@ -14,6 +14,8 @@ module Admin
       def call
         variant = ProductVariant.new(@params)
         if variant.save
+          variant.apply_pricing!
+          variant.product&.recalculate_pricing!
           Result.new(success?: true, variant: variant)
         else
           Result.new(success?: false, variant: variant)

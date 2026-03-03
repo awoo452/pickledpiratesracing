@@ -42,6 +42,14 @@ class ProductVariant < ApplicationRecord
     (base / (1 - rate)).round(2)
   end
 
+  def apply_pricing!
+    price = suggested_price
+    return if price.nil?
+    return if price_override.present? && price_override.to_d == price.to_d
+
+    update!(price_override: price)
+  end
+
   def actual_margin_percent
     cost = vendor_unit_cost
     price = current_price

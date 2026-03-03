@@ -3,6 +3,7 @@ class VendorProduct < ApplicationRecord
   belongs_to :product_variant
 
   before_save :stamp_price_updated_at, if: :price_fields_changed?
+  after_commit :refresh_pricing, on: [ :create, :update, :destroy ]
 
   validates :vendor_id, uniqueness: { scope: :product_variant_id }
   validates :unit_cost, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
@@ -20,5 +21,12 @@ class VendorProduct < ApplicationRecord
 
   def stamp_price_updated_at
     self.price_updated_at = Time.current
+  end
+
+  def refresh_pricing
+    return if product_variant.blank?
+
+    product_variant.apply_pricing!
+    product_variant.product&.recalculate_pricing!
   end
 end

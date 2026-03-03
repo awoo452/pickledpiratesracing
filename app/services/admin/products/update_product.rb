@@ -68,6 +68,7 @@ module Admin
         end
 
         if updated
+          @product.recalculate_pricing!
           Result.new(success?: true, product: @product, notice: "Product updated")
         else
           Result.new(success?: false, product: @product, alert: "No changes selected")
