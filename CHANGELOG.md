@@ -1,3 +1,13 @@
+## [0.1.99] - 2026-03-03
+
+### Added
+- Vendor management with vendors and per-variant pricing links in the admin.
+
+### Changed
+- Removed the unused active flag from vendor pricing links.
+- Added price last-updated tracking for vendor pricing.
+- Grouped vendor pricing index by product with collapsible sections.
+
 ## [0.1.98] - 2026-03-03
 
 ### Changed

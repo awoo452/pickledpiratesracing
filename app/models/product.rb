@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
     has_many :product_variants, dependent: :destroy
+    has_many :vendor_products, through: :product_variants
+    has_many :vendors, through: :vendor_products
     before_validation :set_slug, on: :create
     before_destroy :delete_s3_images
 

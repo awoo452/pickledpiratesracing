@@ -50,6 +50,20 @@
         <p>Capture answers to common questions and how-to notes.</p>
         <span class="admin-action-link">Go to docs →</span>
       <% end %>
+
+      <%= link_to admin_vendors_path, class: "admin-action-card admin-action-card--accent" do %>
+        <span class="admin-action-kicker">Vendors</span>
+        <h2>Manage vendors</h2>
+        <p>Track supplier contacts and activation status.</p>
+        <span class="admin-action-link">Go to vendors →</span>
+      <% end %>
+
+      <%= link_to admin_vendor_products_path, class: "admin-action-card" do %>
+        <span class="admin-action-kicker">Vendor pricing</span>
+        <h2>Vendor product links</h2>
+        <p>Map products to vendor costs and lead times.</p>
+        <span class="admin-action-link">Go to vendor pricing →</span>
+      <% end %>
     </div>
   </div>
 </section>

@@ -1,0 +1,62 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Vendor pricing</p>
+        <h1 class="admin-title">Add vendor product</h1>
+        <p class="admin-subtitle">Map a vendor to a product with cost details.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
+
+    <%= form_with model: @vendor_product, url: admin_vendor_products_path, local: true, html: { class: "admin-form" } do |f| %>
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <%= f.label :vendor_id %>
+          <%= f.select :vendor_id,
+                options_from_collection_for_select(@vendors, :id, :name),
+                prompt: "Select vendor" %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :product_variant_id, "Product variant" %>
+          <%= f.select :product_variant_id,
+                options_from_collection_for_select(@variants, :id, :display_name),
+                prompt: "Select variant" %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :vendor_sku, "Vendor SKU" %>
+          <%= f.text_field :vendor_sku %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :unit_cost, "Unit cost" %>
+          <%= f.number_field :unit_cost, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :msrp, "MSRP" %>
+          <%= f.number_field :msrp, step: 0.01 %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :min_order_quantity, "Min order qty" %>
+          <%= f.number_field :min_order_quantity %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :lead_time_days, "Lead time (days)" %>
+          <%= f.number_field :lead_time_days %>
+        </div>
+
+        <div class="admin-field">
+          <%= f.label :notes %>
+          <%= f.text_area :notes, rows: 3 %>
+        </div>
+      </div>
+
+      <%= f.submit "Add Vendor Product", class: "admin-primary-button" %>
+    <% end %>
+  </div>
+</section>

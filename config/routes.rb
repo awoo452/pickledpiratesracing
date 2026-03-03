@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     resources :orders, only: [ :index, :show ]
     resources :product_variants, only: [ :new, :create, :edit, :update ]
     resources :products, only: [ :index, :new, :create, :edit, :update, :destroy ]
+    resources :vendors, only: [ :index, :new, :create, :edit, :update, :destroy ]
+    resources :vendor_products, only: [ :index, :new, :create, :edit, :update, :destroy ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

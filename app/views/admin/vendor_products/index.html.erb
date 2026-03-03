@@ -1,0 +1,66 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Vendor pricing</p>
+        <h1 class="admin-title">Vendor product links</h1>
+        <p class="admin-subtitle">Track costs, SKUs, and lead times per vendor.</p>
+      </div>
+      <div class="admin-hero-actions">
+        <%= link_to "Add vendor product", new_admin_vendor_product_path, class: "admin-primary-button" %>
+        <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+      </div>
+    </header>
+
+    <% if @vendor_products.any? %>
+      <% grouped = @vendor_products.group_by { |record| record.product_variant&.product } %>
+      <% grouped.sort_by { |product, _| product&.name.to_s.downcase }.each do |product, records| %>
+        <% product_name = product&.name.presence || "Unassigned product" %>
+        <details class="admin-collapse">
+          <summary>
+            <span class="admin-collapse-title"><%= product_name %></span>
+            <span class="admin-chip"><%= records.size %></span>
+          </summary>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Variant</th>
+                <th>Vendor SKU</th>
+                <th>Unit cost</th>
+                <th>MSRP</th>
+                <th>Price updated</th>
+                <th>Min order</th>
+                <th>Lead time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% records.each do |record| %>
+                <tr>
+                  <td><%= record.vendor&.name || "—" %></td>
+                  <td><%= record.product_variant&.name || "—" %></td>
+                  <td><%= record.vendor_sku.presence || "—" %></td>
+                  <td><%= record.unit_cost.present? ? number_to_currency(record.unit_cost) : "—" %></td>
+                  <td><%= record.msrp.present? ? number_to_currency(record.msrp) : "—" %></td>
+                  <td><%= record.price_updated_at.present? ? record.price_updated_at.strftime("%b %d, %Y") : "—" %></td>
+                  <td><%= record.min_order_quantity.presence || "—" %></td>
+                  <td><%= record.lead_time_days.present? ? "#{record.lead_time_days} days" : "—" %></td>
+                  <td>
+                    <%= link_to "Edit", edit_admin_vendor_product_path(record) %> |
+                    <%= button_to "Delete", admin_vendor_product_path(record),
+                                  method: :delete,
+                                  form: { data: { turbo_confirm: "Delete this vendor product?" } },
+                                  class: "admin-link-button" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </details>
+      <% end %>
+    <% else %>
+      <p class="empty-state">No vendor products yet.</p>
+    <% end %>
+  </div>
+</section>

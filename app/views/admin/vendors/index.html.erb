@@ -1,0 +1,50 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Vendors</p>
+        <h1 class="admin-title">Manage vendors</h1>
+        <p class="admin-subtitle">Track supplier contacts and pricing relationships.</p>
+      </div>
+      <div class="admin-hero-actions">
+        <%= link_to "New vendor", new_admin_vendor_path, class: "admin-primary-button" %>
+        <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+      </div>
+    </header>
+
+    <% if @vendors.any? %>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @vendors.each do |vendor| %>
+            <tr>
+              <td><%= vendor.name %></td>
+              <td><%= vendor.contact_name.presence || "—" %></td>
+              <td><%= vendor.email.presence || "—" %></td>
+              <td><%= vendor.phone.presence || "—" %></td>
+              <td><%= vendor.active? ? "Active" : "Inactive" %></td>
+              <td>
+                <%= link_to "Edit", edit_admin_vendor_path(vendor) %> |
+                <%= button_to "Delete", admin_vendor_path(vendor),
+                              method: :delete,
+                              form: { data: { turbo_confirm: "Delete this vendor?" } },
+                              class: "admin-link-button" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="empty-state">No vendors yet.</p>
+    <% end %>
+  </div>
+</section>
