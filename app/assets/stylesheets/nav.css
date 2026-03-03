@@ -18,7 +18,6 @@
 
 .nav-links {
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
   gap: 0;
   max-width: 100%;
@@ -127,6 +126,42 @@
   right: 0;
   top: 100%;
   height: 6px;
+}
+
+@media (min-width: 721px) {
+  .nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    justify-content: space-evenly;
+    gap: 12px;
+    width: min(60%, 720px);
+    margin: 0 auto;
+  }
+
+  .nav-links > * {
+    justify-content: center;
+  }
+
+  .nav-links > * + * {
+    margin-left: 0;
+  }
+
+  .nav img.nav-img {
+    max-height: 144px;
+  }
+
+  .nav-dropdown-menu {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .nav-dropdown::after {
+    display: none;
+  }
 }
 
 .nav-dropdown[open] .nav-dropdown-menu {

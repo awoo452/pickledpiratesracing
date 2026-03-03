@@ -1,9 +1,9 @@
 <nav class="nav">
-  <%= image_tag "logodark-speedshop.png", class: "nav-img" %>
+  <%= link_to root_path, class: "nav-logo" do %>
+    <%= image_tag "logodark-speedshop.png", class: "nav-img", alt: "Pickled Pirates Racing" %>
+  <% end %>
 
   <div class="nav-links">
-    <%= link_to "Home", root_path %>
-
     <details class="nav-dropdown">
       <summary class="nav-dropdown-trigger">Explore</summary>
       <div class="nav-dropdown-menu">

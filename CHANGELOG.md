@@ -1,4 +1,9 @@
-## [0.1.99] - 2026-03-03
+## [0.1.100] - 2026-03-02
+
+### Changed
+- Nav supports my inability to want to use JavaScript
+
+## [0.1.99] - 2026-03-02
 
 ### Added
 - Vendor management with vendors and per-variant pricing links in the admin.
@@ -8,7 +13,7 @@
 - Added price last-updated tracking for vendor pricing.
 - Grouped vendor pricing index by product with collapsible sections.
 
-## [0.1.98] - 2026-03-03
+## [0.1.98] - 2026-03-02
 
 ### Changed
 - Added image proxy thumbnail delivery for product cards, product gallery, and event images with signed resize URLs and S3 fallback.
