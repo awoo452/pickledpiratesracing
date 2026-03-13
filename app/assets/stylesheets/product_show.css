@@ -42,8 +42,26 @@
   font-size: 14px;
 }
 
-.variant-selector .admin-primary-button {
+.variant-selector .product-cart-button {
   margin-top: 6px;
+}
+
+.product-cart-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-contrast);
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.product-cart-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .paypal-container {

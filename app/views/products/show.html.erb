@@ -1,3 +1,5 @@
+<% content_for :disable_turbo, true %>
+
 <% content_for :head do %>
   <meta name="turbo-visit-control" content="reload">
 <% end %>
@@ -44,7 +46,11 @@
         <% end %>
       </p>
 
-      <%= form_with url: items_cart_path, method: :post, local: true, html: { class: "variant-selector" } do %>
+      <%= form_with url: items_cart_path,
+            method: :post,
+            local: true,
+            data: { turbo: false },
+            html: { class: "variant-selector" } do %>
         <label for="variant_id">Choose option</label>
         <select id="variant_id"
                 name="variant_id"
@@ -72,7 +78,7 @@
         </select>
 
         <%= submit_tag "Add to cart",
-              class: "admin-primary-button",
+              class: "product-cart-button",
               data: { variant_selector_target: "submit" } %>
       <% end %>
     <% end %>

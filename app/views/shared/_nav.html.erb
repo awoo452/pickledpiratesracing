@@ -31,7 +31,7 @@
       <div class="nav-dropdown-menu">
         <% if user_signed_in? %>
           <%= link_to "Account", "/account" %>
-          <%= link_to "Cart", cart_path %>
+          <%= link_to "Cart", cart_path, data: { turbo: false } %>
 
           <%= button_to "Logout",
                 destroy_user_session_path,

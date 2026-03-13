@@ -41,7 +41,7 @@
 
   </head>
 
-  <body class="layout">
+  <body class="layout" <%= "data-turbo='false'" if content_for?(:disable_turbo) %>>
     <%= render "shared/nav" %>
     <%= yield %>
     <%= render "shared/footer" %>

@@ -1,4 +1,10 @@
-## [0.1.106] - 2026-03-13
+## [0.1.107] - 2026-03-12
+
+### Changed
+- Disabled Turbo on cart and product show pages to keep checkout-related flows stable.
+- This is temporary but I don't know how else to deal with AI that is this fucking inept when you ask it to disable turbo for the shit where it isn't supported, and I'm pretty tired of putting off learning about turbo.j
+
+## [0.1.106] - 2026-03-12
 
 ### Added
 - Session-based cart with multi-item PayPal checkout and cart UI under the account menu.
@@ -8,7 +14,7 @@
 ### Changed
 - Product pages now use add-to-cart instead of single-item PayPal checkout.
 
-## [0.1.105] - 2026-03-13
+## [0.1.105] - 2026-03-12
 
 ### Changed
 - Heroku admin product edit is uploads-only in production; non-image fields are disabled and ignored server-side.
