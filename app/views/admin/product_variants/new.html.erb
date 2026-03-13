@@ -27,6 +27,16 @@
           <%= f.label :stock %>
   <%= f.number_field :stock %>
         </div>
+
+        <div class="admin-field">
+          <%= f.label :weight_ounces, "Weight (oz)" %>
+          <%= f.number_field :weight_ounces, step: 0.1 %>
+        </div>
+      </div>
+
+      <div class="admin-field admin-field-inline">
+        <%= f.check_box :bulky %>
+        <%= f.label :bulky, "Bulky (+$5)" %>
       </div>
 
       <div class="admin-field admin-field-inline">

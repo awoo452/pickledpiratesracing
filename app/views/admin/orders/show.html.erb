@@ -22,6 +22,13 @@
         <p class="admin-kicker">Total</p>
         <p><strong>Total:</strong> $<%= number_with_precision(@order.total, precision: 2) %></p>
       </div>
+      <div>
+        <p class="admin-kicker">Breakdown</p>
+        <p><strong>Subtotal:</strong> <%= @order.subtotal.present? ? number_to_currency(@order.subtotal) : "—" %></p>
+        <p><strong>Shipping:</strong> <%= @order.shipping_total.present? ? number_to_currency(@order.shipping_total) : "—" %></p>
+        <p><strong>Bulky:</strong> <%= @order.bulky_total.present? ? number_to_currency(@order.bulky_total) : "—" %></p>
+        <p><strong>Tax:</strong> <%= @order.tax_total.present? ? number_to_currency(@order.tax_total) : "—" %></p>
+      </div>
     </div>
 
     <h2>Items</h2>

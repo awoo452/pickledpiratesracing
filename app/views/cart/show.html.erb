@@ -1,0 +1,52 @@
+<% content_for :head do %>
+  <meta name="turbo-visit-control" content="reload">
+  <% if ENV["PAYPAL_CLIENT_ID"].present? %>
+    <script
+      src="https://www.paypal.com/sdk/js?client-id=<%= ENV["PAYPAL_CLIENT_ID"] %>&currency=USD&intent=capture"
+      data-turbo-track="reload"></script>
+  <% end %>
+<% end %>
+
+<section class="account-page">
+  <div class="account-card">
+    <h1>Your Cart</h1>
+
+    <% if @items.empty? %>
+      <p class="profile-summary">Your cart is empty.</p>
+      <%= link_to "Shop products", products_path, class: "account-parts-link", data: { turbo: false } %>
+    <% else %>
+      <div class="account-parts">
+        <%= link_to "Shop more products", products_path, class: "account-parts-link", data: { turbo: false } %>
+        <ul class="account-parts-list">
+          <% @items.each do |item| %>
+            <li class="account-part">
+              <div class="account-part-details">
+                <%= link_to item.variant.display_name,
+                      product_path(item.variant.product, variant_id: item.variant.id),
+                      data: { turbo: false } %>
+                <span>Qty: <%= item.quantity %></span>
+              </div>
+              <%= button_to "Remove",
+                    item_cart_path(item.variant.id),
+                    method: :delete,
+                    class: "account-part-delete" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="account-parts">
+        <h3>Checkout now</h3>
+        <div
+          class="paypal-container"
+          data-turbo="false"
+          data-controller="paypal"
+          data-paypal-client-id-value="<%= ENV["PAYPAL_CLIENT_ID"] %>"
+          data-paypal-currency-value="USD">
+          <div data-paypal-target="buttons"></div>
+          <p class="paypal-status" data-paypal-target="status" aria-live="polite"></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

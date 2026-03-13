@@ -3,10 +3,8 @@ class PaypalController < ApplicationController
   before_action :authenticate_user_json!
 
   def orders
-    result = Paypal::CreateOrder.call(
-      product_id: params[:product_id],
-      variant_id: params[:variant_id]
-    )
+    cart = Cart::Session.new(session: session)
+    result = Paypal::CreateOrder.call(cart: cart)
 
     if result.success?
       render json: { id: result.order_id }
@@ -16,11 +14,11 @@ class PaypalController < ApplicationController
   end
 
   def capture
+    cart = Cart::Session.new(session: session)
     result = Paypal::CaptureOrder.call(
-      product_id: params[:product_id],
-      variant_id: params[:variant_id],
       order_id: params[:id],
-      user: current_user
+      user: current_user,
+      cart: cart
     )
 
     if result.success?

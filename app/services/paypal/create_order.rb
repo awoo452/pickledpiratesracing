@@ -2,23 +2,22 @@ module Paypal
   class CreateOrder
     Result = Struct.new(:success?, :order_id, :error, :status, keyword_init: true)
 
-    def self.call(product_id:, variant_id:)
-      new(product_id: product_id, variant_id: variant_id).call
+    def self.call(cart:)
+      new(cart: cart).call
     end
 
-    def initialize(product_id:, variant_id:)
-      @product_id = product_id
-      @variant_id = variant_id
+    def initialize(cart:)
+      @cart = cart
     end
 
     def call
-      validation = ValidatePurchase.call(product_id: @product_id, variant_id: @variant_id)
+      validation = Cart::Validate.call(cart: @cart)
       return Result.new(success?: false, error: validation.error, status: validation.status) unless validation.success?
 
       client = PaypalClient.new
       order = client.create_order(
-        amount: format("%.2f", validation.price),
-        description: validation.product.name
+        amount: format("%.2f", validation.pricing.total),
+        description: "Pickled Pirates Racing Cart"
       )
 
       Result.new(success?: true, order_id: order["id"])

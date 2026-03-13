@@ -48,7 +48,9 @@ module Admin
         :product_id,
         :name,
         :stock,
-        :active
+        :active,
+        :weight_ounces,
+        :bulky
       )
     end
   end

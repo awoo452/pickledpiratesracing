@@ -3,12 +3,10 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static values = {
     clientId: String,
-    productId: Number,
-    variantSelectId: String,
     currency: { type: String, default: "USD" }
   }
 
-  static targets = ["buttons", "status", "price"]
+  static targets = ["buttons", "status"]
 
   connect() {
     if (this.element.dataset.paypalRendered === "true") return
@@ -17,9 +15,6 @@ export default class extends Controller {
       this.showError("Missing PAYPAL_CLIENT_ID")
       return
     }
-
-    this.bindVariantListener()
-    this.updateDisplayPrice()
 
     this.waitForSdk()
       .then(() => this.renderButtons())
@@ -67,40 +62,8 @@ export default class extends Controller {
       .render(this.buttonsTarget)
   }
 
-  bindVariantListener() {
-    const selectId = this.variantSelectIdValue || "variant_id"
-    const select = document.getElementById(selectId)
-    if (!select) return
-    select.addEventListener("change", () => this.updateDisplayPrice())
-  }
-
-  updateDisplayPrice() {
-    if (!this.hasPriceTarget) return
-    const selectId = this.variantSelectIdValue || "variant_id"
-    const select = document.getElementById(selectId)
-    if (!select) return
-
-    const option = select.options[select.selectedIndex]
-    const price = option?.dataset?.price
-    if (price) {
-      this.priceTarget.textContent = Number.parseFloat(price).toFixed(2)
-      return
-    }
-
-    this.priceTarget.textContent = "—"
-  }
-
   createOrder() {
-    const variantId = this.selectedVariantId()
-    if (!variantId) {
-      this.showError("Select an in-stock priced option")
-      return Promise.reject(new Error("Missing variant"))
-    }
-
-    return this.requestJson("/paypal/orders", {
-      product_id: this.productIdValue,
-      variant_id: variantId
-    }).then((data) => {
+    return this.requestJson("/paypal/orders", {}).then((data) => {
       if (!data.id) {
         throw new Error(data.error || "Could not create order")
       }
@@ -109,33 +72,13 @@ export default class extends Controller {
   }
 
   captureOrder(data) {
-    const variantId = this.selectedVariantId()
-    if (!variantId) {
-      this.showError("Select an in-stock priced option")
-      return Promise.reject(new Error("Missing variant"))
-    }
-
-    return this.requestJson(`/paypal/orders/${data.orderID}/capture`, {
-      product_id: this.productIdValue,
-      variant_id: variantId
-    }).then((payload) => {
+    return this.requestJson(`/paypal/orders/${data.orderID}/capture`, {}).then((payload) => {
       if (payload.status !== "ok") {
         throw new Error(payload.error || "Payment failed")
       }
 
       this.showSuccess("Payment confirmed. Thank you!")
     })
-  }
-
-  selectedVariantId() {
-    const selectId = this.variantSelectIdValue || "variant_id"
-    const select = document.getElementById(selectId)
-    if (!select) return null
-
-    const option = select.options[select.selectedIndex]
-    if (!option || option.disabled) return null
-
-    return option.value
   }
 
   showError(message) {

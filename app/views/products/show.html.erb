@@ -1,20 +1,9 @@
 <% content_for :head do %>
   <meta name="turbo-visit-control" content="reload">
-  <% if ENV["PAYPAL_CLIENT_ID"].present? %>
-    <script
-      src="https://www.paypal.com/sdk/js?client-id=<%= ENV["PAYPAL_CLIENT_ID"] %>&currency=USD&intent=capture"
-      data-turbo-track="reload"></script>
-  <% end %>
 <% end %>
 
 <section class="product-show">
-  <div class="product-show-card"
-       data-controller="paypal"
-       data-paypal-client-id-value="<%= ENV["PAYPAL_CLIENT_ID"] %>"
-       data-paypal-product-id-value="<%= @product.id %>"
-       data-paypal-variant-select-id-value="variant_id"
-       data-paypal-currency-value="USD">
-
+  <div class="product-show-card" data-controller="variant-selector">
     <h1><%= @product.name %></h1>
 
     <% if @product.image_key.present? %>
@@ -33,33 +22,10 @@
 
     <% priced_variants = @variants.select(&:price_available?) %>
     <% available_variants = priced_variants.select { |v| v.stock.present? && v.stock > 0 } %>
-    <% default_price = available_variants.first&.effective_price || priced_variants.first&.effective_price || @product.price %>
-
-    <% if @variants.any? %>
-      <div class="variant-selector">
-        <label for="variant_id">Choose option</label>
-
-        <select id="variant_id">
-          <% @variants.each do |variant| %>
-            <% out_of_stock = variant.stock.blank? || variant.stock <= 0 %>
-            <% price_missing = variant.price_available? == false %>
-            <option
-              value="<%= variant.id %>"
-              data-price="<%= variant.effective_price if variant.price_available? %>"
-              <%= "disabled" if out_of_stock || price_missing %>>
-              <%= variant.name %>
-              <% if out_of_stock %>
-                (Sold out)
-              <% elsif price_missing %>
-                (Pricing pending)
-              <% elsif variant.stock.present? %>
-                (<%= variant.stock %> left)
-              <% end %>
-            </option>
-          <% end %>
-        </select>
-      </div>
-    <% end %>
+    <% selected_variant_id = params[:variant_id].presence %>
+    <% selected_variant = @variants.find { |variant| variant.id.to_s == selected_variant_id } %>
+    <% default_variant = selected_variant || available_variants.first || priced_variants.first %>
+    <% default_price = default_variant&.effective_price || @product.price %>
 
     <% if @product.price_hidden? %>
       <p class="product-price">Coming Soon</p>
@@ -72,18 +38,43 @@
     <% else %>
       <p class="product-price">
         <% if default_price.present? %>
-          $<span id="display-price" data-paypal-target="price"><%= number_with_precision(default_price, precision: 2) %></span>
+          $<span id="display-price" data-variant-selector-target="price"><%= number_with_precision(default_price, precision: 2) %></span>
         <% else %>
-          <span id="display-price" data-paypal-target="price">—</span>
+          <span id="display-price" data-variant-selector-target="price">—</span>
         <% end %>
       </p>
 
-      <div
-        class="paypal-container"
-        data-turbo="false">
-        <div id="paypal-button-container" data-paypal-target="buttons"></div>
-        <p class="paypal-status" data-paypal-target="status" aria-live="polite"></p>
-      </div>
+      <%= form_with url: items_cart_path, method: :post, local: true, html: { class: "variant-selector" } do %>
+        <label for="variant_id">Choose option</label>
+        <select id="variant_id"
+                name="variant_id"
+                data-variant-selector-target="select"
+                data-action="change->variant-selector#update">
+          <option value="" disabled <%= "selected" if selected_variant.nil? %>>Select an option</option>
+          <% @variants.each do |variant| %>
+            <% out_of_stock = variant.stock.blank? || variant.stock <= 0 %>
+            <% price_missing = variant.price_available? == false %>
+            <option
+              value="<%= variant.id %>"
+              data-price="<%= variant.effective_price if variant.price_available? %>"
+              <%= "disabled" if out_of_stock || price_missing %>
+              <%= "selected" if selected_variant&.id == variant.id %>>
+              <%= variant.name %>
+              <% if out_of_stock %>
+                (Sold out)
+              <% elsif price_missing %>
+                (Pricing pending)
+              <% elsif variant.stock.present? %>
+                (<%= variant.stock %> left)
+              <% end %>
+            </option>
+          <% end %>
+        </select>
+
+        <%= submit_tag "Add to cart",
+              class: "admin-primary-button",
+              data: { variant_selector_target: "submit" } %>
+      <% end %>
     <% end %>
 
     <%= link_to "Back to products", products_path,

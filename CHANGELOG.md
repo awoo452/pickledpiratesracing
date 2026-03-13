@@ -1,3 +1,13 @@
+## [0.1.106] - 2026-03-13
+
+### Added
+- Session-based cart with multi-item PayPal checkout and cart UI under the account menu.
+- Shipping, bulky fee, and WA tax calculation with per-variant shipping fields.
+- Tax rate table seeded with a default 9% WA statewide rate.
+
+### Changed
+- Product pages now use add-to-cart instead of single-item PayPal checkout.
+
 ## [0.1.105] - 2026-03-13
 
 ### Changed

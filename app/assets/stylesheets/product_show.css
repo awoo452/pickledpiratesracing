@@ -25,6 +25,10 @@
 
 .variant-selector {
   margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .variant-selector label {
@@ -36,6 +40,10 @@
 .variant-selector select {
   padding: 6px 10px;
   font-size: 14px;
+}
+
+.variant-selector .admin-primary-button {
+  margin-top: 6px;
 }
 
 .paypal-container {

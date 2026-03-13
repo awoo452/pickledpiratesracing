@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get "/account/details/edit", to: "account#edit_details", as: :edit_account_details
   post "/account/rewards/claim", to: "account#claim_reward", as: :claim_account_reward
   patch "/account/details", to: "account#update_details", as: :update_account_details
+  resource :cart, only: [ :show ] do
+    post "items", to: "carts#add_item", as: :items
+    delete "items/:variant_id", to: "carts#remove_item", as: :item
+  end
   resources :events, only: [ :index ]
 
   resources :enhancement_requests, only: [ :new, :create, :index ]
