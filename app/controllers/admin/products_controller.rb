@@ -26,9 +26,16 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def update
+    on_heroku = request.host == Admin::Products::UpdateProduct::HEROKU_HOST
+    update_params = if Rails.env.production? && on_heroku
+      {}
+    else
+      product_params
+    end
+
     result = Admin::Products::UpdateProduct.call(
       product: @product,
-      params: product_params,
+      params: update_params,
       uploaded: params.dig(:product, :image),
       image_type: params[:image_type] || "main",
       request_host: request.host,
@@ -41,6 +48,7 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if result.success?
+      flash[:alert] = result.alert if result.alert.present?
       redirect_to edit_admin_product_path(@product), notice: result.notice
     else
       redirect_to edit_admin_product_path(@product), alert: result.alert

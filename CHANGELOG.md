@@ -1,3 +1,12 @@
+## [0.1.105] - 2026-03-13
+
+### Changed
+- Heroku admin product edit is uploads-only in production; non-image fields are disabled and ignored server-side.
+- Slug updates now move product S3 image prefixes and update `image_key` to match.
+
+### Added
+- S3 prefix move helper for product image migrations.
+
 ## [0.1.104] - 2026-03-03
 
 ### Changed

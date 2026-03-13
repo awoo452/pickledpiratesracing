@@ -27,6 +27,7 @@ module Admin
 
       def call
         updated = false
+        alert = nil
 
         if @params.present?
           unless @product.update(@params)
@@ -36,6 +37,12 @@ module Admin
               alert: @product.errors.full_messages.to_sentence.presence || "Update failed"
             )
           end
+          updated = true
+        end
+
+        if @product.saved_change_to_slug? && @product.image_key.present?
+          migration_alert = migrate_product_images_for_slug_change
+          alert = migration_alert if migration_alert.present?
           updated = true
         end
 
@@ -69,7 +76,7 @@ module Admin
 
         if updated
           @product.recalculate_pricing!
-          Result.new(success?: true, product: @product, notice: "Product updated")
+          Result.new(success?: true, product: @product, notice: "Product updated", alert: alert)
         else
           Result.new(success?: false, product: @product, alert: "No changes selected")
         end
@@ -87,6 +94,35 @@ module Admin
 
       def heroku_product_edit_url
         "https://#{HEROKU_HOST}/admin/products/#{@product.id}/edit"
+      end
+
+      def migrate_product_images_for_slug_change
+        old_slug, new_slug = @product.saved_change_to_slug
+        return if old_slug.blank? || new_slug.blank?
+
+        old_prefix = "products/#{old_slug}/"
+        new_prefix = "products/#{new_slug}/"
+        return if old_prefix == new_prefix
+        return unless @product.image_key.start_with?(old_prefix)
+
+        new_key = @product.image_key.sub(/\A#{Regexp.escape(old_prefix)}/, new_prefix)
+
+        s3 = S3Service.new
+        if s3.configured?
+          begin
+            s3.move_prefix(old_prefix, new_prefix)
+            main_exists = s3.list_keys(new_prefix).any? { |key| key.start_with?("#{new_prefix}main.") }
+            unless main_exists
+              return "Slug updated, but the main image was not found after moving S3 assets. Re-upload the main image."
+            end
+          rescue StandardError => e
+            Rails.logger.error("S3 move failed for product #{@product.id}: #{e.message}")
+            return "Slug updated, but the S3 image move failed. Re-upload the main image."
+          end
+        end
+
+        @product.update!(image_key: new_key)
+        nil
       end
     end
   end

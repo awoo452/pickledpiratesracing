@@ -56,6 +56,38 @@ class S3Service
     resp.contents.map(&:key)
   end
 
+  def move_prefix(old_prefix, new_prefix)
+    return { moved: 0, skipped: [] } unless configured?
+    return { moved: 0, skipped: [] } if old_prefix == new_prefix
+
+    old_keys = list_keys(old_prefix)
+    return { moved: 0, skipped: [] } if old_keys.empty?
+
+    existing = list_keys(new_prefix).to_h { |key| [ key, true ] }
+    moved = 0
+    skipped = []
+
+    old_keys.each do |key|
+      new_key = key.sub(/\A#{Regexp.escape(old_prefix)}/, new_prefix)
+      next if new_key == key
+
+      if existing[new_key]
+        skipped << key
+        next
+      end
+
+      @client.copy_object(
+        bucket: @bucket,
+        copy_source: "#{@bucket}/#{key}",
+        key: new_key
+      )
+      @client.delete_object(bucket: @bucket, key: key)
+      moved += 1
+    end
+
+    { moved: moved, skipped: skipped }
+  end
+
   def delete_prefix(prefix)
     return unless configured?
 

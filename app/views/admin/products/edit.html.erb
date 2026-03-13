@@ -11,6 +11,7 @@
 
     <% heroku_host = "pickledpiratesracing-prod-e5b7e4ec2418.herokuapp.com" %>
     <% on_heroku = request.host == heroku_host %>
+    <% fields_disabled = Rails.env.production? && on_heroku %>
 
     <%= form_with model: @product,
                   url: admin_product_path(@product),
@@ -32,36 +33,42 @@
               rel: "noopener" %>
         </div>
       <% end %>
+      <% if fields_disabled %>
+        <div class="admin-card">
+          <p class="admin-kicker">Uploads only</p>
+          <p>This page is limited to image uploads. Edit product details on the main admin domain.</p>
+        </div>
+      <% end %>
 
     <div class="admin-form-grid">
         <div class="admin-field">
           <%= f.label :name %>
-          <%= f.text_field :name, required: true %>
+          <%= f.text_field :name, required: true, disabled: fields_disabled %>
         </div>
 
         <div class="admin-field">
           <%= f.label :slug %>
-          <%= f.text_field :slug %>
+          <%= f.text_field :slug, disabled: fields_disabled %>
         </div>
 
         <div class="admin-field">
           <%= f.label :margin_percent, "Margin (%)" %>
-          <%= f.number_field :margin_percent, step: 0.01 %>
+          <%= f.number_field :margin_percent, step: 0.01, disabled: fields_disabled %>
         </div>
 
         <div class="admin-field">
           <%= f.label :handling_fee, "Handling fee" %>
-          <%= f.number_field :handling_fee, step: 0.01 %>
+          <%= f.number_field :handling_fee, step: 0.01, disabled: fields_disabled %>
         </div>
 
         <div class="admin-field">
           <%= f.label :featured %>
-          <%= f.select :featured, [["Featured", true], ["Standard", false]], selected: @product.featured? %>
+          <%= f.select :featured, [["Featured", true], ["Standard", false]], selected: @product.featured?, disabled: fields_disabled %>
         </div>
 
       <div class="admin-field">
         <%= f.label :description %>
-        <%= f.text_area :description, rows: 4 %>
+        <%= f.text_area :description, rows: 4, disabled: fields_disabled %>
       </div>
     </div>
 
@@ -83,7 +90,7 @@
     </div>
 
       <div class="admin-field admin-field-inline">
-        <%= f.check_box :price_hidden %>
+        <%= f.check_box :price_hidden, disabled: fields_disabled %>
         <%= f.label :price_hidden, "Hide price (show Coming Soon)" %>
       </div>
 
