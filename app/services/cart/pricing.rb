@@ -22,21 +22,19 @@ module Cart
 
     def call
       subtotal = BigDecimal("0")
-      shippable_count = 0
+      item_count = 0
       bulky_count = 0
 
       @items.each do |item|
         price = item.variant.effective_price.to_d
         subtotal += price * item.quantity
 
-        weight_value = item.variant.weight_ounces
-        weight = weight_value.present? ? weight_value.to_d : BigDecimal("0")
-        shippable_count += item.quantity if weight.positive?
+        item_count += item.quantity
 
         bulky_count += item.quantity if item.variant.bulky?
       end
 
-      shipping = shipping_for(shippable_count)
+      shipping = shipping_for(item_count)
       bulky_fee = BigDecimal("5") * bulky_count
 
       tax_rate = TaxRate.for_state(@tax_state)
@@ -50,7 +48,7 @@ module Cart
         bulky_fee: bulky_fee.round(2),
         tax: tax,
         total: total,
-        shippable_count: shippable_count,
+        shippable_count: item_count,
         bulky_count: bulky_count
       )
     end

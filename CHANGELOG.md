@@ -1,8 +1,13 @@
+## [0.1.108] - 2026-03-13
+
+### Changed
+- Shipping now always starts at the $5 flat rate for any cart item, regardless of weight.
+
 ## [0.1.107] - 2026-03-12
 
 ### Changed
 - Disabled Turbo on cart and product show pages to keep checkout-related flows stable.
-- This is temporary but I don't know how else to deal with AI that is this fucking inept when you ask it to disable turbo for the shit where it isn't supported, and I'm pretty tired of putting off learning about turbo.j
+- This is temporary but I don't know how else to deal with AI that is this fucking inept when you ask it to disable turbo for the shit where it isn't supported, and I'm pretty tired of putting off learning about turbo.
 
 ## [0.1.106] - 2026-03-12
 
