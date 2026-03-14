@@ -1,3 +1,9 @@
+## [0.1.111] - 2026-03-13
+
+### Changed
+- Expanded README with storefront, checkout, uploads, and ledger documentation.
+- Added product configuration guidance to the README.
+
 ## [0.1.110] - 2026-03-13
 
 ### Added
