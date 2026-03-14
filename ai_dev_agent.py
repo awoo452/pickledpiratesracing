@@ -1,10 +1,39 @@
 import subprocess
 import os
+from datetime import datetime
 from openai import OpenAI
 
 client = OpenAI()
 
 CHANGELOG = "CHANGELOG.md"
+BRANCH_BASE = "ai_dev_agent"
+
+
+def branch_exists(name):
+    return subprocess.call(
+        ["git", "show-ref", "--verify", "--quiet", f"refs/heads/{name}"]
+    ) == 0
+
+
+def create_work_branch():
+    if not branch_exists(BRANCH_BASE):
+        branch_name = BRANCH_BASE
+    else:
+        date_suffix = datetime.now().strftime("%Y%m%d")
+        branch_name = f"{BRANCH_BASE}-{date_suffix}"
+        counter = 1
+        while branch_exists(branch_name):
+            branch_name = f"{BRANCH_BASE}-{date_suffix}-{counter}"
+            counter += 1
+
+    subprocess.check_call(["git", "checkout", "-b", branch_name])
+    print("Created branch:", branch_name)
+
+# -----------------------------
+# create work branch
+# -----------------------------
+
+create_work_branch()
 
 # -----------------------------
 # get repository files
@@ -150,18 +179,40 @@ if not os.path.exists(CHANGELOG):
 with open(CHANGELOG,"r") as f:
     lines = f.readlines()
 
-insert_index = None
-
-for i,line in enumerate(lines):
+unreleased_index = None
+for i, line in enumerate(lines):
     if line.strip().lower() == "## unreleased":
-        insert_index = i+1
+        unreleased_index = i
         break
 
-if insert_index is None:
-    lines.append("\n## Unreleased\n")
-    insert_index = len(lines)
+if unreleased_index is None:
+    lines = ["## Unreleased\n", "\n"] + lines
+    unreleased_index = 0
+elif unreleased_index != 0:
+    end_index = unreleased_index + 1
+    while end_index < len(lines):
+        if lines[end_index].startswith("## ") and end_index != unreleased_index:
+            break
+        end_index += 1
+    unreleased_section = lines[unreleased_index:end_index]
+    del lines[unreleased_index:end_index]
+    lines = unreleased_section + lines
+    unreleased_index = 0
 
-lines.insert(insert_index,f"- {entry}\n")
+insert_index = unreleased_index + 1
+if insert_index < len(lines) and lines[insert_index].strip() == "":
+    insert_index += 1
+
+lines.insert(insert_index, f"- {entry}\n")
+
+next_index = insert_index + 1
+scan_index = next_index
+while scan_index < len(lines) and lines[scan_index].strip() == "":
+    scan_index += 1
+
+if scan_index < len(lines) and lines[scan_index].startswith("## "):
+    if next_index >= len(lines) or lines[next_index].strip() != "":
+        lines.insert(next_index, "\n")
 
 with open(CHANGELOG,"w") as f:
     f.writelines(lines)

@@ -1,36 +1,45 @@
-## [0.1.112] - 2026-03-13
+# Changelog
+All notable changes to this project will be documented in this file.
 
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/
+spec/v2.0.0.html).
+
+## [0.1.114] - 2026-03-14
+### Changed
+- ai_dev_agent now keeps the Unreleased section at the top of CHANGELOG.
+- ai_dev_agent now creates a working branch before making updates.
+
+## [0.1.113] - 2026-03-13
+### Changed
+- ai_dev_agent now keeps the Unreleased section at the top of CHANGELOG.
+- ai_dev_agent now creates a working branch before making updates.
+
+## [0.1.112] - 2026-03-13
 - improved and reorganized README with clearer sections, formatting, and setup instructions using ai_dev_agent.py
 
 ## [0.1.111] - 2026-03-13
-
 ### Changed
 - Expanded README with storefront, checkout, uploads, and ledger documentation.
 - Added product configuration guidance to the README.
 
 ## [0.1.110] - 2026-03-13
-
 ### Added
 - Basic admin ledger for expenses and reimbursements, with totals and outstanding balances.
 
 ## [0.1.109] - 2026-03-13
-
 ### Added
 - Cart now shows a pricing breakdown with a note that tax is added at checkout.
 
 ## [0.1.108] - 2026-03-13
-
 ### Changed
 - Shipping now always starts at the $5 flat rate for any cart item, regardless of weight.
 
 ## [0.1.107] - 2026-03-12
-
 ### Changed
 - Disabled Turbo on cart and product show pages to keep checkout-related flows stable.
 - This is temporary but I don't know how else to deal with AI that is this fucking inept when you ask it to disable turbo for the shit where it isn't supported, and I'm pretty tired of putting off learning about turbo.
 
 ## [0.1.106] - 2026-03-12
-
 ### Added
 - Session-based cart with multi-item PayPal checkout and cart UI under the account menu.
 - Shipping, bulky fee, and WA tax calculation with per-variant shipping fields.
@@ -40,7 +49,6 @@
 - Product pages now use add-to-cart instead of single-item PayPal checkout.
 
 ## [0.1.105] - 2026-03-12
-
 ### Changed
 - Heroku admin product edit is uploads-only in production; non-image fields are disabled and ignored server-side.
 - Slug updates now move product S3 image prefixes and update `image_key` to match.
@@ -49,25 +57,21 @@
 - S3 prefix move helper for product image migrations.
 
 ## [0.1.104] - 2026-03-03
-
 ### Changed
 - Synced schema with the latest vendor/pricing migrations.
 - Bumped Brakeman to 8.0.4 to satisfy CI version checks.
 
 ## [0.1.103] - 2026-03-03
-
 ### Changed
 - Added pricing guards for missing vendor costs and updated product pricing display to track missing variants.
 - Product show now reflects per-variant pricing and blocks checkout when pricing is missing.
 
 ## [0.1.102] - 2026-03-02
-
 ### Changed
 - Product prices are now auto-derived from vendor costs plus margin/handling, and price fields were removed from admin forms.
 - Pricing now recalculates automatically when vendor pricing, variants, or product margin/handling are updated.
 
 ## [0.1.101] - 2026-03-02
-
 ### Changed / Added
 - Added margin snapshot details to the variant edit screen.
 
