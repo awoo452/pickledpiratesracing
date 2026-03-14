@@ -1,3 +1,7 @@
+## [0.1.112] - 2026-03-13
+
+- improved and reorganized README with clearer sections, formatting, and setup instructions using ai_dev_agent.py
+
 ## [0.1.111] - 2026-03-13
 
 ### Changed
