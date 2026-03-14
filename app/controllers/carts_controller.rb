@@ -4,6 +4,7 @@ class CartsController < ApplicationController
   def show
     cart = Cart::Session.new(session: session)
     @items = cart.items
+    @pricing = Cart::Pricing.call(items: @items) if @items.present?
   end
 
   def add_item

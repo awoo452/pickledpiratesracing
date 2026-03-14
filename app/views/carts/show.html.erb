@@ -37,6 +37,42 @@
         </ul>
       </div>
 
+      <% if @pricing.present? %>
+        <% pre_tax_total = @pricing.subtotal + @pricing.shipping + @pricing.bulky_fee %>
+        <div class="account-parts">
+          <h3>Order total</h3>
+          <ul class="account-parts-list">
+            <li class="account-part">
+              <div class="account-part-details">
+                <span>Subtotal</span>
+              </div>
+              <span><%= number_to_currency(@pricing.subtotal) %></span>
+            </li>
+            <li class="account-part">
+              <div class="account-part-details">
+                <span>Shipping</span>
+              </div>
+              <span><%= number_to_currency(@pricing.shipping) %></span>
+            </li>
+            <% if @pricing.bulky_fee.positive? %>
+              <li class="account-part">
+                <div class="account-part-details">
+                  <span>Bulky fee</span>
+                </div>
+                <span><%= number_to_currency(@pricing.bulky_fee) %></span>
+              </li>
+            <% end %>
+            <li class="account-part">
+              <div class="account-part-details">
+                <span>Total (before tax)</span>
+              </div>
+              <span><%= number_to_currency(pre_tax_total) %></span>
+            </li>
+          </ul>
+          <p class="profile-summary">Sales tax is calculated and added at checkout.</p>
+        </div>
+      <% end %>
+
       <div class="account-parts">
         <h3>Checkout now</h3>
         <div

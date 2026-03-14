@@ -1,3 +1,8 @@
+## [0.1.109] - 2026-03-13
+
+### Added
+- Cart now shows a pricing breakdown with a note that tax is added at checkout.
+
 ## [0.1.108] - 2026-03-13
 
 ### Changed
