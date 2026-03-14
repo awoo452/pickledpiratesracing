@@ -37,6 +37,13 @@
         <span class="admin-action-link">Go to orders →</span>
       <% end %>
 
+      <%= link_to admin_expenses_path, class: "admin-action-card admin-action-card--accent" do %>
+        <span class="admin-action-kicker">Ledger</span>
+        <h2>Track payables</h2>
+        <p>Log out-of-pocket spend and see who needs reimbursement.</p>
+        <span class="admin-action-link">Go to ledger →</span>
+      <% end %>
+
       <%= link_to admin_events_path, class: "admin-action-card admin-action-card--accent" do %>
         <span class="admin-action-kicker">Events</span>
         <h2>Manage events</h2>

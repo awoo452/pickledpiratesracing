@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_03_004000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_13_000200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_004000) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "expenses", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.string "description", null: false
+    t.text "notes"
+    t.string "owed_to", null: false
+    t.boolean "reimbursed", default: false, null: false
+    t.date "spent_on", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owed_to"], name: "index_expenses_on_owed_to"
+    t.index ["reimbursed"], name: "index_expenses_on_reimbursed"
+    t.index ["spent_on"], name: "index_expenses_on_spent_on"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "order_id", null: false
@@ -64,11 +78,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_004000) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.decimal "bulky_total", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.string "payment_status"
     t.string "paypal_capture_id"
     t.string "paypal_order_id"
+    t.decimal "shipping_total", precision: 10, scale: 2
     t.string "status"
+    t.decimal "subtotal", precision: 10, scale: 2
+    t.decimal "tax_total", precision: 10, scale: 2
     t.decimal "total"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -89,12 +107,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_004000) do
 
   create_table "product_variants", force: :cascade do |t|
     t.boolean "active", default: true
+    t.boolean "bulky", default: false, null: false
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.decimal "price_override", precision: 8, scale: 2
     t.bigint "product_id", null: false
     t.integer "stock", default: 0
     t.datetime "updated_at", null: false
+    t.decimal "weight_ounces", precision: 8, scale: 2
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
 
@@ -121,6 +141,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_004000) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_rewards_on_user_id"
+  end
+
+  create_table "tax_rates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.decimal "rate", precision: 6, scale: 5, default: "0.0", null: false
+    t.string "state", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state"], name: "index_tax_rates_on_state", unique: true
   end
 
   create_table "users", force: :cascade do |t|

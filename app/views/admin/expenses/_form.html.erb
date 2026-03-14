@@ -1,0 +1,35 @@
+<%= form_with model: expense, url: url, local: true, html: { class: "admin-form" } do |f| %>
+  <div class="admin-form-grid">
+    <div class="admin-field">
+      <%= f.label :description %>
+      <%= f.text_field :description, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :owed_to, "Owed to" %>
+      <%= f.text_field :owed_to, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :amount %>
+      <%= f.number_field :amount, step: 0.01, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :spent_on, "Spent on" %>
+      <%= f.date_field :spent_on, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= f.label :notes %>
+      <%= f.text_area :notes, rows: 4 %>
+    </div>
+  </div>
+
+  <div class="admin-field admin-field-inline">
+    <%= f.check_box :reimbursed %>
+    <%= f.label :reimbursed, "Marked reimbursed" %>
+  </div>
+
+  <%= f.submit submit_label, class: "admin-primary-button" %>
+<% end %>

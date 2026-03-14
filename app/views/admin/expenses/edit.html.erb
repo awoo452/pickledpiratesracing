@@ -1,0 +1,14 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Ledger</p>
+        <h1 class="admin-title">Edit expense</h1>
+        <p class="admin-subtitle">Update details or mark reimbursement status.</p>
+      </div>
+      <%= link_to "Back to ledger", admin_expenses_path, class: "admin-secondary-link" %>
+    </header>
+
+    <%= render "form", expense: @expense, url: admin_expense_path(@expense), submit_label: "Update expense" %>
+  </div>
+</section>

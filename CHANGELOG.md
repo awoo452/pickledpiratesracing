@@ -1,3 +1,8 @@
+## [0.1.110] - 2026-03-13
+
+### Added
+- Basic admin ledger for expenses and reimbursements, with totals and outstanding balances.
+
 ## [0.1.109] - 2026-03-13
 
 ### Added
