@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/
 spec/v2.0.0.html).
 
+## [0.1.117] - 2026-03-19
+### Changed
+- Disabled Active Storage variant processing to avoid image_processing warnings.
+- Added a Procfile to declare the Puma web process.
+
 ## [0.1.116] - 2026-03-19
 ### Changed
 - Refreshed Gemfile.lock via bundle update for Ruby 4.0.2.
