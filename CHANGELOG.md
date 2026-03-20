@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/
 spec/v2.0.0.html).
 
+## [0.1.115] - 2026-03-19
+### Changed
+- Pinned Ruby to 4.0.2 across runtime files and Gemfile.lock.
+
 ## [0.1.114] - 2026-03-14
 ### Changed
 - ai_dev_agent now keeps the Unreleased section at the top of CHANGELOG.

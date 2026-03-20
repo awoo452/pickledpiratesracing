@@ -6,7 +6,7 @@ Pickled Pirates Racing site with a storefront, events, videos, swap meet, and ad
 
 ## Stack
 
-- **Ruby** 4.0.1  
+- **Ruby** 4.0.2  
 - **Rails** 8.1.2  
 - **PostgreSQL**
 
