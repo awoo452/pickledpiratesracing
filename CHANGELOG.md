@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.121] - 2026-03-20
+### Added
+- Added controller coverage for carts, legal pages, and PayPal auth guards.
+- Added model coverage for documents, events, expenses, parts, tax rates, vendors, and vendor products.
+- Added a home page system smoke test.
+
 ## [0.1.120] - 2026-03-20
 ### Changed
 - Updated solid_queue to 1.4.0.
