@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/about", to: "about#show"
   get "/terms", to: "legal#terms"
   get "/privacy", to: "legal#privacy"
+  get "/accessibility", to: "legal#accessibility"
   get "/account", to: "account#show"
   get "/account/details/edit", to: "account#edit_details", as: :edit_account_details
   post "/account/rewards/claim", to: "account#claim_reward", as: :claim_account_reward

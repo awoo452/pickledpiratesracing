@@ -14,4 +14,11 @@ class LegalControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Privacy", response.body
   end
+
+  test "renders accessibility" do
+    get accessibility_url
+
+    assert_response :success
+    assert_match "Accessibility", response.body
+  end
 end

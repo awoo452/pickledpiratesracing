@@ -1,0 +1,72 @@
+{
+  "effective_date": "2026-03-21",
+  "terms": {
+    "title": "Terms of Use",
+    "intro": "Pickled Pirates Racing is a private member site for events, products, and the Swap Meet. By using the site, you agree to these terms.",
+    "sections": [
+      {
+        "heading": "Swap Meet",
+        "body": "The Swap Meet is user-posted listings for car parts only. We do not verify listings, broker deals, or provide messaging. All transactions are between buyer and seller. Use at your own risk."
+      },
+      {
+        "heading": "Accounts",
+        "body": "You are responsible for keeping your account secure. We can suspend accounts that violate site rules or spam the platform."
+      },
+      {
+        "heading": "Products & Orders",
+        "body": "Product availability and pricing can change at any time. Orders may be canceled or refunded if inventory is unavailable."
+      },
+      {
+        "heading": "Content",
+        "body": "Do not post illegal, abusive, or unrelated content. We can remove content or disable accounts that violate these rules."
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "We collect the information you provide when creating an account, placing an order, or submitting a form. We use it to operate the site and communicate with you.",
+    "sections": [
+      {
+        "heading": "What we collect",
+        "items": [
+          "Account details (email, name)",
+          "Order records and purchase details",
+          "Messages submitted through site forms"
+        ]
+      },
+      {
+        "heading": "What we do not do",
+        "items": [
+          "Sell your data to third parties",
+          "Provide user contact info outside of what you post publicly (e.g., Swap Meet contact info)"
+        ]
+      },
+      {
+        "heading": "Cookies",
+        "body": "We use cookies and local storage for essential site functionality and embedded media preferences."
+      },
+      {
+        "heading": "Contact",
+        "body": "Questions? Use the contact form on the site."
+      }
+    ]
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "intro": "We want this site to be usable by as many people as possible.",
+    "sections": [
+      {
+        "heading": "Our approach",
+        "body": "We aim to follow common accessibility practices and improve the site over time."
+      },
+      {
+        "heading": "Known limitations",
+        "body": "Some pages or features may not fully meet accessibility needs yet."
+      },
+      {
+        "heading": "Feedback",
+        "body": "If you encounter barriers or have suggestions, contact the site owner so we can improve."
+      }
+    ]
+  }
+}
