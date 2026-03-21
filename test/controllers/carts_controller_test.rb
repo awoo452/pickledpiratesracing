@@ -19,7 +19,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     variant.update_columns(active: true, price_override: 9.99, stock: 1)
     variant.product.update_columns(price_hidden: false, price: 9.99)
 
-    post cart_items_path, params: { variant_id: variant.id }
+    post items_cart_path, params: { variant_id: variant.id }
 
     assert_redirected_to cart_url
   end
@@ -29,8 +29,8 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     variant.update_columns(active: true, price_override: 9.99, stock: 1)
     variant.product.update_columns(price_hidden: false, price: 9.99)
 
-    post cart_items_path, params: { variant_id: variant.id }
-    delete cart_item_path(variant.id)
+    post items_cart_path, params: { variant_id: variant.id }
+    delete item_cart_path(variant.id)
 
     assert_redirected_to cart_url
   end
