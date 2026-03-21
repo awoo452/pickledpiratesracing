@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.119] - 2026-03-20
+### Added
+- Added basic controller coverage for About, Events, Parts, and Enhancement Requests.
+### Changed
+- Marked the primary test user as admin for admin-only controller coverage.
+- Switched system tests to the rack test driver to avoid selenium setup issues.
+
 ## [0.1.118] - 2026-03-20
 ### Changed
 - Updated dependencies: aws-sdk-s3 1.217.0, bootsnap 1.23.0, devise 5.0.3, kamal 2.11.0, minitest 6.0.2, selenium-webdriver 4.41.0, solid_queue 1.3.2, thruster 0.1.19, turbo-rails 2.0.23, web-console 4.3.0.

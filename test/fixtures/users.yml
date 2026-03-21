@@ -3,7 +3,7 @@
 one:
   email: one@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
-  admin: false
+  admin: true
 
 two:
   email: two@example.com
