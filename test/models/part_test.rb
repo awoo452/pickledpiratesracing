@@ -9,6 +9,19 @@ class PartTest < ActiveSupport::TestCase
     assert_includes part.errors[:description], "can't be blank"
     assert_includes part.errors[:contact_info], "can't be blank"
     assert_includes part.errors[:price], "can't be blank"
+  end
+
+  test "requires disclaimer acceptance" do
+    part = Part.new(
+      part: "Seat",
+      description: "Racing seat",
+      contact_info: "seller@example.com",
+      price: 100,
+      era: "classic",
+      disclaimer_ack: "0"
+    )
+
+    assert_not part.valid?
     assert_includes part.errors[:disclaimer_ack], "must be accepted"
   end
 
