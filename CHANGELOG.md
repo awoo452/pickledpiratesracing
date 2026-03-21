@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.120] - 2026-03-20
+### Changed
+- Updated solid_queue to 1.4.0.
+
 ## [0.1.119] - 2026-03-20
 ### Added
 - Added basic controller coverage for About, Events, Parts, and Enhancement Requests.
