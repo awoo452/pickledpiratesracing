@@ -2,38 +2,84 @@
 
 Pickled Pirates Racing site with a storefront, events, videos, swap meet, and admin tools.
 
----
+## Features
 
-## Stack
+- Public pages: Home, About, Products, Videos.
+- Requires sign-in: Events, Swap Meet (Parts), Account, and all admin screens.
+- Admin access: User must have `users.admin = true`.
 
-- **Ruby** 4.0.2  
-- **Rails** 8.1.2  
-- **PostgreSQL**
+### Storefront Workflow
 
----
+- Products require at least one active variant (with stock > 0, `price_hidden = false`) to be purchasable.
+- Pricing auto-calculates from vendor costs, handling fee, and margin.
+- Price fields are not editable in admin; each active variant must have a vendor unit cost.
+- If price is hidden, "Coming Soon" is shown and checkout is disabled.
+
+### Product Configuration
+
+1. Create a vendor first (Admin → Vendors) with contact details.
+2. Create a product, then add variants (size, color, etc.).
+3. Add vendor pricing links for each variant with unit cost (pricing will not publish without these).
+4. Set the product margin (%) and handling fee; prices auto-calculate as `unit_cost + handling` at target margin.
+5. Keep variants active with stock > 0 to display in the storefront.
+
+### Cart & Checkout
+
+- Checkout is cart-based. Product pages add items to the cart. PayPal buttons are on the Cart page.
+- Cart validation blocks checkout if variants are inactive, out of stock, price hidden, or pricing is pending.
+- Shipping: $5 for the first cart item + $4 per additional item.
+- Bulky items: +$5 each.
+- Tax: Uses `tax_rates` (state defaults to WA).
+- Orders store: subtotal, shipping, bulky fee, tax, and total.
+
+### Admin Uploads (Heroku)
+
+- Image uploads for products and events must occur on the Heroku admin host in production.
+- On Heroku: product edit page is uploads-only; edit product details on the main admin domain.
+- Event details can be edited on any host, but image uploads require Heroku.
+
+### S3 Images & Image Proxy
+
+- Product images: `products/<slug>/main.<ext>`, `products/<slug>/alt.<ext>`
+- Event images: `events/<id>/main.<ext>`, `events/<id>/alt.<ext>`
+- If `IMAGE_PROXY_BASE_URL` and `IMAGE_PROXY_SIGNING_KEY` are set, thumbnail URLs use the image proxy; otherwise, S3 presigned URLs are used (AWS credentials required).
+
+### Inventory
+
+- Inventory is tracked per product variant.
+- Update stock and active status from the admin variant edit screen.
+
+### Vendor Management
+
+- Vendors store supplier contact info and are used for pricing links.
+- Vendor pricing links connect vendors to variants, specifying unit cost, MSRP, lead time, and notes.
+
+### Admin Ledger (Expenses)
+
+- Admin → Ledger tracks out-of-pocket spend and who the business owes.
+- Each entry records: description, owed to, amount, spent-on date, reimbursed flag, and notes.
+
+### Docs
+
+- Docs are managed in Admin → Docs.
+
+### Payments & Inventory
+
+- PayPal create/capture calls create `Order` and `OrderItem` records, and decrement variant stock.
+
+### Notes
+
+- In production, admin uploads redirect to the Heroku admin host defined in the admin services.
 
 ## Setup
 
 1. `bundle install`
 2. `bin/rails db:prepare` (or `bin/setup`)
-3. `bin/dev`
 
----
+Optional seed data:
+- `bin/rails db:seed`
 
-## Seed Data (Optional)
-
-- Run: `bin/rails db:seed`
-
----
-
-## Tests
-
-- Unit tests: `bin/rails test`
-- System tests: `bin/rails test:system`
-
----
-
-## Environment Variables
+### Environment Variables
 
 Set the following environment variables as needed:
 
@@ -55,99 +101,15 @@ Set the following environment variables as needed:
 - `PORT`
 - `JOB_CONCURRENCY`
 
----
+## Run
 
-## Public vs. Signed-in Access
+1. `bin/dev`
 
-- **Public pages:** Home, About, Products, Videos.
-- **Requires sign-in:** Events, Swap Meet (Parts), Account, and all admin screens.
-- **Admin access:** User must have `users.admin = true`.
+## Tests
 
----
+1. `bin/rails test`
+2. `bin/rails test:system`
 
-## Storefront Workflow
+## Changelog
 
-- Products require at least one active variant (with stock > 0, `price_hidden = false`) to be purchasable.
-- Pricing auto-calculates from vendor costs, handling fee, and margin.
-- Price fields are not editable in admin; each active variant must have a vendor unit cost.
-- If price is hidden, "Coming Soon" is shown and checkout is disabled.
-
----
-
-## Product Configuration
-
-1. Create a vendor first (Admin → Vendors) with contact details.
-2. Create a product, then add variants (size, color, etc.).
-3. Add vendor pricing links for each variant with unit cost (pricing will not publish without these).
-4. Set the product margin (%) and handling fee; prices auto-calculate as `unit_cost + handling` at target margin.
-5. Keep variants active with stock > 0 to display in the storefront.
-
----
-
-## Cart & Checkout
-
-- Checkout is cart-based. Product pages add items to the cart. PayPal buttons are on the Cart page.
-- Cart validation blocks checkout if:
-  - Variants are inactive
-  - Variants are out of stock
-  - Price is hidden
-  - Pricing is pending
-- **Shipping:** $5 for the first cart item + $4 per additional item.
-- **Bulky items:** +$5 each.
-- **Tax:** Uses `tax_rates` (state defaults to WA).
-- Orders store: subtotal, shipping, bulky fee, tax, and total.
-
----
-
-## Admin Uploads (Heroku)
-
-- Image uploads for products and events must occur on the Heroku admin host in production.
-- On Heroku: product edit page is uploads-only; edit product details on the main admin domain.
-- Event details can be edited on any host, but image uploads require Heroku.
-
----
-
-## S3 Images & Image Proxy
-
-- **Product images:** `products/<slug>/main.<ext>`, `products/<slug>/alt.<ext>`
-- **Event images:** `events/<id>/main.<ext>`, `events/<id>/alt.<ext>`
-- If `IMAGE_PROXY_BASE_URL` and `IMAGE_PROXY_SIGNING_KEY` are set, thumbnail URLs use the image proxy; otherwise, S3 presigned URLs are used (AWS credentials required).
-
----
-
-## Inventory
-
-- Inventory is tracked per **product variant**.
-- Update stock and active status from the admin variant edit screen.
-
----
-
-## Vendor Management
-
-- Vendors store supplier contact info and are used for pricing links.
-- Vendor pricing links connect vendors to variants, specifying unit cost, MSRP, lead time, and notes.
-
----
-
-## Admin Ledger (Expenses)
-
-- **Admin → Ledger:** Tracks out-of-pocket spend and who the business owes.
-- Each entry records: description, owed to, amount, spent-on date, reimbursed flag, and notes.
-
----
-
-## Docs
-
-- Docs are managed in **Admin → Docs**.
-
----
-
-## Payments & Inventory
-
-- PayPal create/capture calls create `Order` and `OrderItem` records, and decrement variant stock.
-
----
-
-## Notes
-
-- In production, admin uploads redirect to the Heroku admin host defined in the admin services.
+See [`CHANGELOG.md`](CHANGELOG.md) for notable changes.
